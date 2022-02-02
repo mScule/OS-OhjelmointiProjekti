@@ -13,22 +13,19 @@ import simu.framework.Trace;
 // ja raportointi koodattava
 public class Palvelupiste {
 
-	private LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
+	protected LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
 	
-	private ContinuousGenerator generator;
-	private Tapahtumalista tapahtumalista;
-	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi; 
+	protected ContinuousGenerator generator;
+	protected Tapahtumalista tapahtumalista;
 	
 	//JonoStartegia strategia; //optio: asiakkaiden järjestys
 	
-	private boolean varattu = false;
+	protected boolean varattu = false;
 
 
-	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi){
+	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista){
 		this.tapahtumalista = tapahtumalista;
-		this.generator = generator;
-		this.skeduloitavanTapahtumanTyyppi = tyyppi;
-				
+		this.generator = generator;				
 	}
 
 	// Jonon 1. asiakas aina palvelussa baarissa ja vastaanotolla. 
@@ -55,10 +52,11 @@ public class Palvelupiste {
 		// Laske ja päivitä myös asiakkaiden ominaisuudet.
 		// Lisää erillinen Peli-yliluokka, jonka erilaiset pelien aliluokat perivät, jos erilaisia pelejä lisätään?
 		// Luo kasinosta poistumistapahtuma asiakkaalle, jos hänen pelimerkit loppuvat.
-		double palveluaika = generator.sample();
-		tapahtumalista.lisaa(new Tapahtuma(skeduloitavanTapahtumanTyyppi,Kello.getInstance().getAika()+palveluaika));
 	}
 
+	public void poistu() {
+		otaJonosta();
+	}
 
 	public boolean onVarattu(){
 		return varattu;

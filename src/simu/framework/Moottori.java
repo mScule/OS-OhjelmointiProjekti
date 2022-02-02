@@ -9,6 +9,7 @@ public abstract class Moottori {
 	private Kello kello;
 	
 	protected Tapahtumalista tapahtumalista;
+	
 	protected Palvelupiste[] palvelupisteet;
 	
 

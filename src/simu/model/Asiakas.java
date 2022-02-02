@@ -47,6 +47,10 @@ public class Asiakas {
 		saapumisaika = Kello.getInstance().getAika();
 		Trace.out(Trace.Level.INFO, "Uusi asiakas nro " + id + " saapui klo " + saapumisaika);
 	}
+	
+	public void setOminaisuus(Ominaisuus ominaisuus, Double arvo) {
+		ominaisuudet.put(ominaisuus, arvo);
+	}
 
 	public double getPoistumisaika() {
 		return poistumisaika;
