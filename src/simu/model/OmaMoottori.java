@@ -36,6 +36,8 @@ public class OmaMoottori extends Moottori{
 		Asiakas a;
 		switch (t.getTyyppi()){
 			
+			// TODO: Määrittele mihin palvelupisteeseen asiakas seuraavaksi siirretään 
+			// asiakkaan ominaisuuksien ja jonkun satunnaisesti generoidun luvun avulla.
 			case ARR1: palvelupisteet[0].lisaaJonoon(new Asiakas());	
 				       saapumisprosessi.generoiSeuraava();	
 				break;

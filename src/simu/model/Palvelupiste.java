@@ -9,7 +9,8 @@ import simu.framework.Tapahtumalista;
 import simu.framework.Trace;
 
 // TODO:
-// Palvelupistekohtaiset toiminnallisuudet, laskutoimitukset (+ tarvittavat muuttujat) ja raportointi koodattava
+// Palvelupistekohtaiset toiminnallisuudet, laskutoimitukset (+ tarvittavat muuttujat), jonjen pituudet 
+// ja raportointi koodattava
 public class Palvelupiste {
 
 	private LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
@@ -30,8 +31,9 @@ public class Palvelupiste {
 				
 	}
 
-
-	public void lisaaJonoon(Asiakas a){   // Jonon 1. asiakas aina palvelussa
+	// Jonon 1. asiakas aina palvelussa baarissa ja vastaanotolla. 
+	// TODO: Jos palvelupiste on pelipöytä, jonon 7 ensimmäistä ovat palvelussa.
+	public void lisaaJonoon(Asiakas a){
 		jono.add(a);
 		
 	}
@@ -46,6 +48,13 @@ public class Palvelupiste {
 		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu asiakkaalle " + jono.peek().getId());
 		
 		varattu = true;
+		// TODO: Jos palvelupiste on blackjack pöytä, laske palveluaika jonon seitsemälle ensimmäiselle asiakkaalle
+		// laskemalla asiakkaiden pelien määrät pelipöydässä.
+		// Muuten laske asiakkaan palveluaika baarissa tai vastaanotossa asiakkaan ominaisuuksien ja jonkun 
+		// satunnaisesti generoidun luvun avulla.
+		// Laske ja päivitä myös asiakkaiden ominaisuudet.
+		// Lisää erillinen Peli-yliluokka, jonka erilaiset pelien aliluokat perivät, jos erilaisia pelejä lisätään?
+		// Luo kasinosta poistumistapahtuma asiakkaalle, jos hänen pelimerkit loppuvat.
 		double palveluaika = generator.sample();
 		tapahtumalista.lisaa(new Tapahtuma(skeduloitavanTapahtumanTyyppi,Kello.getInstance().getAika()+palveluaika));
 	}
