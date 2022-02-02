@@ -20,7 +20,8 @@ public class Peli extends Palvelupiste {
 		double palveluaika = generator.sample();
 		Asiakas a = jono.peek();
 
-		int status = new Random().nextInt(0, TapahtumanTyyppi.values().length);
+		int status = super.getSample();
+		// int status = new Random().nextInt(0, TapahtumanTyyppi.values().length);
 		TapahtumanTyyppi tyyppi = TapahtumanTyyppi.values()[status];
 
 		a.setStatus(tyyppi);

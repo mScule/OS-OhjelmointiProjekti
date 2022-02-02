@@ -3,6 +3,7 @@ package simu.model;
 import java.util.Random;
 
 import eduni.distributions.ContinuousGenerator;
+import eduni.distributions.Uniform;
 import simu.framework.Kello;
 import simu.framework.Tapahtuma;
 import simu.framework.Tapahtumalista;
@@ -20,7 +21,8 @@ public class Baari extends Palvelupiste {
 		double palveluaika = generator.sample();
 		Asiakas a = jono.peek();
 
-		int status = new Random().nextInt(0, TapahtumanTyyppi.values().length);
+		// int status = new Random().nextInt(0, TapahtumanTyyppi.values().length);
+		int status = (int)super.uniform.sample();
 		TapahtumanTyyppi tyyppi = TapahtumanTyyppi.values()[status];
 
 		a.setStatus(tyyppi);

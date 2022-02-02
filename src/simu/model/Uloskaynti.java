@@ -17,7 +17,8 @@ public class Uloskaynti extends Palvelupiste {
 		double palveluaika = generator.sample();
 		Asiakas a = jono.peek();
 		
-		int status = new Random().nextInt(1, TapahtumanTyyppi.values().length);
+		// int status = new Random().nextInt(1, TapahtumanTyyppi.values().length);
+		int status = super.getSample();
 		TapahtumanTyyppi tyyppi = TapahtumanTyyppi.values()[status];
 
 		a.setStatus(tyyppi);

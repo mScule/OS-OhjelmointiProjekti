@@ -3,6 +3,7 @@ package simu.model;
 import java.util.LinkedList;
 
 import eduni.distributions.ContinuousGenerator;
+import eduni.distributions.Uniform;
 import simu.framework.Kello;
 import simu.framework.Tapahtuma;
 import simu.framework.Tapahtumalista;
@@ -17,15 +18,21 @@ public class Palvelupiste {
 	
 	protected ContinuousGenerator generator;
 	protected Tapahtumalista tapahtumalista;
+	protected Uniform uniform = new Uniform(0, TapahtumanTyyppi.values().length);
 	
 	//JonoStartegia strategia; //optio: asiakkaiden järjestys
 	
 	protected boolean varattu = false;
 
+	protected int getSample(){
+		return (int)uniform.sample();
+	}
+
 
 	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista){
 		this.tapahtumalista = tapahtumalista;
-		this.generator = generator;				
+		this.generator = generator;
+		//TODO: Lisää IDt eri palvelupisteille magic numbereiden sijaan skaalausta varten.
 	}
 
 	// Jonon 1. asiakas aina palvelussa baarissa ja vastaanotolla. 
