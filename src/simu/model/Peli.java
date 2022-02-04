@@ -16,11 +16,21 @@ public class Peli extends Palvelupiste {
 	public void aloitaPalvelu() {
 		super.aloitaPalvelu();
 		double palveluaika = generator.sample();
-		Asiakas a = jono.peek();
 
-		TapahtumanTyyppi tyyppi = arvoTapahtuma();
+		// Asiakkaat otetaan sisään
+		int pelaajienMaara;
 
-		a.setStatus(tyyppi);
-		tapahtumalista.lisaa(new Tapahtuma(tyyppi, Kello.getInstance().getAika() + palveluaika, TapahtumanTyyppi.PELI, getId()));
+		if(jono.size() >= 7)
+			pelaajienMaara = 7;
+		else
+			pelaajienMaara = jono.size();
+
+		for(int i = 0; i > pelaajienMaara; i--) {
+			Asiakas a = jono.get(i);
+			System.out.println("Aloitetaan peli asiakkaalle: " + a.getId());
+			TapahtumanTyyppi tyyppi = arvoTapahtuma();
+			tapahtumalista.lisaa(new Tapahtuma(tyyppi, Kello.getInstance().getAika() + palveluaika, TapahtumanTyyppi.PELI, getId()));
+			a.setStatus(tyyppi);
+		}
 	}
 }

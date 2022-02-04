@@ -17,22 +17,22 @@ public class OmaMoottori extends Moottori {
 		palvelupisteet = new HashMap<TapahtumanTyyppi, Palvelupiste[]>();
 
 		palvelupisteet.put(TapahtumanTyyppi.SISAANKAYNTI, new Sisaankaynti[] {
-				new Sisaankaynti(new Normal(10, 6), tapahtumalista)
+			new Sisaankaynti(new Normal(10, 6), tapahtumalista)
 		});
 
 		palvelupisteet.put(TapahtumanTyyppi.ULOSKAYNTI, new Uloskaynti[] {
-				new Uloskaynti(new Normal(10, 6), tapahtumalista)
+			new Uloskaynti(new Normal(10, 6), tapahtumalista)
 		});
 
 		palvelupisteet.put(TapahtumanTyyppi.BAARI, new Baari[] {
-				new Baari(new Normal(10, 10), tapahtumalista)
+			new Baari(new Normal(10, 10), tapahtumalista)
 		});
 
 		palvelupisteet.put(TapahtumanTyyppi.PELI, new Peli[] {
-				new Peli(new Normal(10, 6), tapahtumalista)
+			new Peli(new Normal(30, 1), tapahtumalista)
 		});
 
-		saapumisprosessi = new Saapumisprosessi(new Negexp(15, 5), tapahtumalista, TapahtumanTyyppi.SISAANKAYNTI);
+		saapumisprosessi = new Saapumisprosessi(new Negexp(10, 5), tapahtumalista, TapahtumanTyyppi.SISAANKAYNTI);
 	}
 
 	@Override
@@ -44,24 +44,6 @@ public class OmaMoottori extends Moottori {
 	protected void suoritaTapahtuma(Tapahtuma t) { // B-vaiheen tapahtumat
 
 		Asiakas a;
-
-		// int seuraava = 0;
-		/*
-		 * switch (a.getStatus()) {
-		 * case SISAANKAYNTI:
-		 * seuraava = 0;
-		 * break;
-		 * case ULOSKAYNTI:
-		 * seuraava = 3;
-		 * break;
-		 * case BAARI:
-		 * seuraava = 1;
-		 * break;
-		 * case PELI:
-		 * seuraava = 2;
-		 * break;
-		 * }
-		 */
 
 		// Palvelupisteet haetaan tyypin mukaan
 		TapahtumanTyyppi thisTyyppi = t.getTyypiLahtoSijainti();
@@ -87,42 +69,14 @@ public class OmaMoottori extends Moottori {
 						lyhyinIndex = i;
 					}
 				}
-
 				pisteet[lyhyinIndex].lisaaJonoon(a);
-			}else{
+			} else {
 				System.out.println("Asiakas " + a.getId() + " poistuu kasinolta.");
 			}
 		} else {
 			palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0].lisaaJonoon(new Asiakas());
 			saapumisprosessi.generoiSeuraava();
 		}
-
-		/*
-		 * 
-		 * switch (t.getTyyppi()) {
-		 * 
-		 * // TODO: Määrittele mihin palvelupisteeseen asiakas seuraavaksi siirretään
-		 * // asiakkaan ominaisuuksien ja jonkun satunnaisesti generoidun luvun avulla.
-		 * 
-		 * case SISAANKAYNTI:
-		 * palvelupisteet[t.getLahtoSijainti()].lisaaJonoon(new Asiakas());
-		 * saapumisprosessi.generoiSeuraava();
-		 * break;
-		 * case ULOSKAYNTI:
-		 * a = palvelupisteet[t.getLahtoSijainti()].otaJonosta();
-		 * palvelupisteet[t.getLahtoSijainti()].poistu();
-		 * a.setPoistumisaika(Kello.getInstance().getAika());
-		 * // a.raportti();
-		 * break;
-		 * case BAARI:
-		 * a = palvelupisteet[t.getLahtoSijainti()].otaJonosta();
-		 * palvelupisteet[t.getLahtoSijainti()].lisaaJonoon(a);
-		 * break;
-		 * case PELI:
-		 * a = palvelupisteet[t.getLahtoSijainti()].otaJonosta();
-		 * palvelupisteet[t.getLahtoSijainti()].lisaaJonoon(a);
-		 * }
-		 */
 	}
 
 	@Override
@@ -130,5 +84,4 @@ public class OmaMoottori extends Moottori {
 		System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
 		System.out.println("Tulokset ... puuttuvat vielä");
 	}
-
 }

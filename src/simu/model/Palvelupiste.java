@@ -32,11 +32,9 @@ public class Palvelupiste {
 	}
 
 	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
-
 		this.tapahtumalista = tapahtumalista;
 		this.generator = generator;
-		// TODO: Lisää IDt eri palvelupisteille magic numbereiden sijaan skaalausta
-		// varten.
+
 		id = palveluid;
 		palveluid++;
 	}
@@ -50,12 +48,13 @@ public class Palvelupiste {
 
 	public Asiakas otaJonosta() { // Poistetaan palvelussa ollut
 		varattu = false;
+
 		return jono.poll();
 	}
 
 	public void aloitaPalvelu() { // Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
 
-		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu asiakkaalle " + jono.peek().getId() + " [" + this.getClass().toString() + "]");
+		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu asiakkaalle " + jono.peek().getId() + " [" + this.getClass().toString() + " " + getId() + " ]");
 
 		varattu = true;
 		// TODO: Jos palvelupiste on blackjack pöytä, laske palveluaika jonon
@@ -88,6 +87,5 @@ public class Palvelupiste {
 
 	public void setId(int id) {
 		this.id = id;
-
 	}
 }
