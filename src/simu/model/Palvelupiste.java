@@ -16,7 +16,7 @@ public class Palvelupiste {
 
 	protected ContinuousGenerator generator;
 	protected Tapahtumalista tapahtumalista;
-	protected Uniform uniform = new Uniform(1, TapahtumanTyyppi.values().length);
+	protected Uniform uniform = new Uniform(2, TapahtumanTyyppi.values().length);
 
 	// JonoStartegia strategia; //optio: asiakkaiden järjestys
 	private static int palveluid = 0;

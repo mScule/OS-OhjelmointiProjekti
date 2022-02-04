@@ -19,7 +19,7 @@ public class Tapahtuma implements Comparable<Tapahtuma> {
 	public void setTyyppi(TapahtumanTyyppi tyyppi) {
 		this.tyyppi = tyyppi;
 	}
-	public TapahtumanTyyppi getTyyppi() {
+	public TapahtumanTyyppi getTyyppiPaamaara() {
 		return tyyppi;
 	}
 	public void setAika(double aika) {
@@ -33,7 +33,7 @@ public class Tapahtuma implements Comparable<Tapahtuma> {
 		lahtoSijaintiTyypi = sijainti;
 	}
 	
-	public TapahtumanTyyppi getlahtoSijaintiTyypi() {
+	public TapahtumanTyyppi getTyypiLahtoSijainti() {
 		return lahtoSijaintiTyypi;
 	}
 

@@ -64,30 +64,34 @@ public class OmaMoottori extends Moottori {
 		 */
 
 		// Palvelupisteet haetaan tyypin mukaan
-		TapahtumanTyyppi thisTyyppi = t.getlahtoSijaintiTyypi();
+		TapahtumanTyyppi thisTyyppi = t.getTyypiLahtoSijainti();
+		TapahtumanTyyppi seuraavanTapahtumanTyyppi = t.getTyyppiPaamaara();
 
-		if (t.getTyyppi() != TapahtumanTyyppi.SISAANKAYNTI) {
+		if (seuraavanTapahtumanTyyppi != TapahtumanTyyppi.SISAANKAYNTI) {
 			// Haetaan nykyinen palvelupiste, josta haetaan asiakas
 			Palvelupiste thisPalvelupiste = null;
-			for(Palvelupiste p : palvelupisteet.get(thisTyyppi)) {
-				if(t.getLahtoSijaintiID() == p.getId())
+			for (Palvelupiste p : palvelupisteet.get(thisTyyppi)) {
+				if (t.getLahtoSijaintiID() == p.getId())
 					thisPalvelupiste = p;
 			}
 
 			a = thisPalvelupiste.otaJonosta();
 
-			// Viedään asiakas haluttun tyyppiseen pisteeseen jossa on lyhyin jono.
-			Palvelupiste[] pisteet = palvelupisteet.get(t.getTyyppi());
-			int lyhyinJono = pisteet[0].jono.size(), lyhyinIndex = 0;
-			for(int i = 1; i < pisteet.length; i++) {
-				if(pisteet[i].jono.size() < lyhyinJono) {
-					lyhyinJono = pisteet[i].jono.size();
-					lyhyinIndex = i;
+			// Jos asiakas ei ole poistumassa, viedään asiakas haluttun tyyppiseen pisteeseen jossa on lyhyin jono.
+			if (seuraavanTapahtumanTyyppi != TapahtumanTyyppi.POISTUMINEN) {
+				Palvelupiste[] pisteet = palvelupisteet.get(seuraavanTapahtumanTyyppi);
+				int lyhyinJono = pisteet[0].jono.size(), lyhyinIndex = 0;
+				for (int i = 1; i < pisteet.length; i++) {
+					if (pisteet[i].jono.size() < lyhyinJono) {
+						lyhyinJono = pisteet[i].jono.size();
+						lyhyinIndex = i;
+					}
 				}
+
+				pisteet[lyhyinIndex].lisaaJonoon(a);
+			}else{
+				System.out.println("Asiakas " + a.getId() + " poistuu kasinolta.");
 			}
-
-			pisteet[lyhyinIndex].lisaaJonoon(a);
-
 		} else {
 			palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0].lisaaJonoon(new Asiakas());
 			saapumisprosessi.generoiSeuraava();
