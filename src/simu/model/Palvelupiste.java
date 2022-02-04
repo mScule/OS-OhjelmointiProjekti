@@ -55,7 +55,7 @@ public class Palvelupiste {
 
 	public void aloitaPalvelu() { // Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
 
-		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu asiakkaalle " + jono.peek().getId());
+		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu asiakkaalle " + jono.peek().getId() + " [" + this.getClass().toString() + "]");
 
 		varattu = true;
 		// TODO: Jos palvelupiste on blackjack pöytä, laske palveluaika jonon

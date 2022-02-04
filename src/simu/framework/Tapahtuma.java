@@ -47,8 +47,4 @@ public class Tapahtuma implements Comparable<Tapahtuma> {
 		else if (this.aika > arg.aika) return 1;
 		return 0;
 	}
-	
-	
-	
-
 }

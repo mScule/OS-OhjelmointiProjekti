@@ -17,5 +17,4 @@ public class Saapumisprosessi {
 		Tapahtuma t = new Tapahtuma(tyyppi, Kello.getInstance().getAika()+generaattori.sample(), null, 0);
 		tapahtumalista.lisaa(t);
 	}
-
 }

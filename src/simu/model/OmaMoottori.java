@@ -68,7 +68,12 @@ public class OmaMoottori extends Moottori {
 
 		if (t.getTyyppi() != TapahtumanTyyppi.SISAANKAYNTI) {
 			// Haetaan nykyinen palvelupiste, josta haetaan asiakas
-			Palvelupiste thisPalvelupiste = palvelupisteet.get(thisTyyppi)[t.getLahtoSijaintiID()];
+			Palvelupiste thisPalvelupiste = null;
+			for(Palvelupiste p : palvelupisteet.get(thisTyyppi)) {
+				if(t.getLahtoSijaintiID() == p.getId())
+					thisPalvelupiste = p;
+			}
+
 			a = thisPalvelupiste.otaJonosta();
 
 			// Viedään asiakas haluttun tyyppiseen pisteeseen jossa on lyhyin jono.
