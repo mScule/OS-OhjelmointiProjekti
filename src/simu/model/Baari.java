@@ -1,9 +1,11 @@
 package simu.model;
 
 import eduni.distributions.ContinuousGenerator;
+import eduni.distributions.Normal;
 import simu.framework.Kello;
 import simu.framework.Tapahtuma;
 import simu.framework.Tapahtumalista;
+import simu.model.Asiakas.Ominaisuus;
 
 public class Baari extends Palvelupiste {
 
@@ -18,6 +20,7 @@ public class Baari extends Palvelupiste {
 		double palveluaika = generator.sample();
 		Asiakas a = jono.peek();
 
+		a.setOminaisuus(Ominaisuus.PAIHTYMYS, a.getOminaisuudet(Ominaisuus.PAIHTYMYS) + new Normal(0.5, 0.5).sample());
 		
 		// Arvotaan tapahtumantyyppi (Muu kuin sisäänkäynti)
 		TapahtumanTyyppi tyyppi = arvoTapahtuma();

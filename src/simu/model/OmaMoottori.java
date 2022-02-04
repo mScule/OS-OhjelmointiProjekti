@@ -12,6 +12,8 @@ public class OmaMoottori extends Moottori {
 	public static TapahtumanTyyppi seuraava;
 	private Saapumisprosessi saapumisprosessi;
 
+	private int saapuneidenAsiakkaidenMaara = 0,  poistuneidenAsiakkaidenMaara = 0;
+
 	public OmaMoottori() {
 
 		palvelupisteet = new HashMap<TapahtumanTyyppi, Palvelupiste[]>();
@@ -72,9 +74,14 @@ public class OmaMoottori extends Moottori {
 				pisteet[lyhyinIndex].lisaaJonoon(a);
 			} else {
 				System.out.println("Asiakas " + a.getId() + " poistuu kasinolta.");
+				System.out.println(a);
+				poistuneidenAsiakkaidenMaara++;
 			}
 		} else {
-			palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0].lisaaJonoon(new Asiakas());
+			Asiakas uusiA = new Asiakas();
+			System.out.println(uusiA);
+			palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0].lisaaJonoon(uusiA);
+			saapuneidenAsiakkaidenMaara++;
 			saapumisprosessi.generoiSeuraava();
 		}
 	}
@@ -82,6 +89,8 @@ public class OmaMoottori extends Moottori {
 	@Override
 	protected void tulokset() {
 		System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
-		System.out.println("Tulokset ... puuttuvat vielä");
+		System.out.println("Tulokset:");
+		System.out.printf("Saapuneiden asiakkaiden määrä: %d\n", saapuneidenAsiakkaidenMaara);
+		System.out.printf("Poistuneiden asiakkaiden määrä: %d\n", poistuneidenAsiakkaidenMaara);
 	}
 }

@@ -40,10 +40,8 @@ public class Palvelupiste {
 	}
 
 	// Jonon 1. asiakas aina palvelussa baarissa ja vastaanotolla.
-	// TODO: Jos palvelupiste on pelipöytä, jonon 7 ensimmäistä ovat palvelussa.
 	public void lisaaJonoon(Asiakas a) {
 		jono.add(a);
-
 	}
 
 	public Asiakas otaJonosta() { // Poistetaan palvelussa ollut
@@ -57,16 +55,13 @@ public class Palvelupiste {
 		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu asiakkaalle " + jono.peek().getId() + " [" + this.getClass().toString() + " " + getId() + " ]");
 
 		varattu = true;
-		// TODO: Jos palvelupiste on blackjack pöytä, laske palveluaika jonon
-		// seitsemälle ensimmäiselle asiakkaalle
-		// laskemalla asiakkaiden pelien määrät pelipöydässä.
-		// Muuten laske asiakkaan palveluaika baarissa tai vastaanotossa asiakkaan
-		// ominaisuuksien ja jonkun
-		// satunnaisesti generoidun luvun avulla.
-		// Laske ja päivitä myös asiakkaiden ominaisuudet.
-		// Lisää erillinen Peli-yliluokka, jonka erilaiset pelien aliluokat perivät, jos
-		// erilaisia pelejä lisätään?
-		// Luo kasinosta poistumistapahtuma asiakkaalle, jos hänen pelimerkit loppuvat.
+		// TODO: Jos palvelupiste on blackjack pöytä, laske palveluaika jonon seitsemälle ensimmäiselle asiakkaalle laskemalla asiakkaiden pelien määrät pelipöydässä.
+
+		// TODO: Muuten laske asiakkaan palveluaika baarissa tai vastaanotossa asiakkaan ominaisuuksien ja jonkun satunnaisesti generoidun luvun avulla.
+
+		// TODO: Laske ja päivitä myös asiakkaiden ominaisuudet.
+
+		// TODO: Luo kasinosta poistumistapahtuma asiakkaalle, jos hänen pelimerkit loppuvat.
 	}
 
 	public void poistu() {

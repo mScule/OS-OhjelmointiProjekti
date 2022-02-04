@@ -1,6 +1,7 @@
 package simu.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import simu.framework.Kello;
 import simu.framework.Trace;
@@ -82,4 +83,15 @@ public class Asiakas {
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän asti " + keskiarvo);
 	}
 
+	@Override
+	public String toString() {
+		String output = "";
+		output += "ASIAKAS [" + getId() + "]\n";
+		output += "Päihtymys: " + ominaisuudet.get(Ominaisuus.PAIHTYMYS) + "\n";
+		output += "Varakkuus: " + ominaisuudet.get(Ominaisuus.VARAKKUUS) + "\n";
+		output += "Uhkarohkeus: " + ominaisuudet.get(Ominaisuus.UHKAROHKEUS) + "\n";
+		output += "Mieliala: " + ominaisuudet.get(Ominaisuus.MIELIALA) + "\n";
+
+		return output;
+	}
 }
