@@ -1,5 +1,4 @@
 package simu.model;
-import java.util.Random;
 import eduni.distributions.ContinuousGenerator;
 import simu.framework.Kello;
 import simu.framework.Tapahtuma;
@@ -18,11 +17,10 @@ public class Sisaankaynti extends Palvelupiste {
 		Asiakas a = jono.peek();
 		
 		// int status = new Random().nextInt(1, TapahtumanTyyppi.values().length);
-		int status = super.getSample();
-		TapahtumanTyyppi tyyppi = TapahtumanTyyppi.values()[status];
+		TapahtumanTyyppi tyyppi = arvoTapahtuma();
 
 		a.setStatus(tyyppi);
 		
-		tapahtumalista.lisaa(new Tapahtuma(tyyppi,Kello.getInstance().getAika()+palveluaika, 0));
+		tapahtumalista.lisaa(new Tapahtuma(tyyppi,Kello.getInstance().getAika()+palveluaika, TapahtumanTyyppi.SISAANKAYNTI, getId()));
 	}
 }

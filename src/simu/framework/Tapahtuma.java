@@ -4,14 +4,16 @@ import simu.model.TapahtumanTyyppi;
 
 public class Tapahtuma implements Comparable<Tapahtuma> {
 	
-	private int lahtoSijainti;
-	private TapahtumanTyyppi tyyppi;
+	private TapahtumanTyyppi tyyppi, lahtoSijaintiTyypi;
+	private int lahtoSijaintiID;
+
 	private double aika;
 	
-	public Tapahtuma(TapahtumanTyyppi tyyppi, double aika, int lahtoSijainti){
+	public Tapahtuma(TapahtumanTyyppi tyyppi, double aika, TapahtumanTyyppi lahtoSijaintiTyypi, int lahtoSijaintiID){
 		this.tyyppi = tyyppi;
 		this.aika = aika;
-		this.lahtoSijainti = lahtoSijainti;
+		this.lahtoSijaintiTyypi = lahtoSijaintiTyypi;
+		this.lahtoSijaintiID = lahtoSijaintiID;
 	}
 	
 	public void setTyyppi(TapahtumanTyyppi tyyppi) {
@@ -27,12 +29,16 @@ public class Tapahtuma implements Comparable<Tapahtuma> {
 		return aika;
 	}
 	
-	public void setLahtoSijainti(int sijainti) {
-		lahtoSijainti = sijainti;
+	public void setlahtoSijaintiTyypi(TapahtumanTyyppi sijainti) {
+		lahtoSijaintiTyypi = sijainti;
 	}
 	
-	public int getLahtoSijainti() {
-		return lahtoSijainti;
+	public TapahtumanTyyppi getlahtoSijaintiTyypi() {
+		return lahtoSijaintiTyypi;
+	}
+
+	public int getLahtoSijaintiID() {
+		return lahtoSijaintiID;
 	}
 
 	@Override

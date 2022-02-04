@@ -4,8 +4,6 @@ import java.util.LinkedList;
 
 import eduni.distributions.ContinuousGenerator;
 import eduni.distributions.Uniform;
-import simu.framework.Kello;
-import simu.framework.Tapahtuma;
 import simu.framework.Tapahtumalista;
 import simu.framework.Trace;
 
@@ -18,15 +16,19 @@ public class Palvelupiste {
 
 	protected ContinuousGenerator generator;
 	protected Tapahtumalista tapahtumalista;
-	protected Uniform uniform = new Uniform(0, TapahtumanTyyppi.values().length);
+	protected Uniform uniform = new Uniform(1, TapahtumanTyyppi.values().length);
 
 	// JonoStartegia strategia; //optio: asiakkaiden järjestys
 	private static int palveluid = 0;
 	private int id;
 	protected boolean varattu = false;
 
-	protected int getSample() {
+	private int getSample() {
 		return (int) uniform.sample();
+	}
+
+	protected TapahtumanTyyppi arvoTapahtuma() {
+		return TapahtumanTyyppi.values()[getSample()];
 	}
 
 	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
@@ -88,5 +90,4 @@ public class Palvelupiste {
 		this.id = id;
 
 	}
-
 }

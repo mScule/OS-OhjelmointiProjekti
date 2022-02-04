@@ -14,7 +14,7 @@ public class Saapumisprosessi {
 	}
 
 	public void generoiSeuraava(){
-		Tapahtuma t = new Tapahtuma(tyyppi, Kello.getInstance().getAika()+generaattori.sample(), 0);
+		Tapahtuma t = new Tapahtuma(tyyppi, Kello.getInstance().getAika()+generaattori.sample(), null, 0);
 		tapahtumalista.lisaa(t);
 	}
 

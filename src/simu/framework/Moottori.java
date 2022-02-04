@@ -1,6 +1,9 @@
 package simu.framework;
-
 import simu.model.Palvelupiste;
+import simu.model.TapahtumanTyyppi;
+
+import java.util.Map;
+
 
 public abstract class Moottori {
 	
@@ -10,7 +13,9 @@ public abstract class Moottori {
 	
 	protected Tapahtumalista tapahtumalista;
 	
-	protected Palvelupiste[] palvelupisteet;
+	//protected Palvelupiste[] palvelupisteet;
+
+	protected Map<TapahtumanTyyppi, Palvelupiste[]> palvelupisteet;
 	
 
 	public Moottori(){
@@ -54,14 +59,15 @@ public abstract class Moottori {
 	}
 
 	private void yritaCTapahtumat(){
-		for (Palvelupiste p: palvelupisteet){
-			if (!p.onVarattu() && p.onJonossa()){
-				p.aloitaPalvelu();
+		for (Map.Entry<TapahtumanTyyppi, Palvelupiste[]> pisteet : palvelupisteet.entrySet()){
+			for(Palvelupiste p : pisteet.getValue()) {
+				if (!p.onVarattu() && p.onJonossa()){
+					p.aloitaPalvelu();
+				}
 			}
 		}
 	}
 
-	
 	private double nykyaika(){
 		return tapahtumalista.getSeuraavanAika();
 	}
@@ -69,8 +75,6 @@ public abstract class Moottori {
 	private boolean simuloidaan(){
 		return kello.getAika() < simulointiaika;
 	}
-	
-			
 
 	protected abstract void alustukset(); // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
 	
