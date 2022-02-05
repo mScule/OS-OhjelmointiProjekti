@@ -5,7 +5,8 @@ import java.util.Map;
 
 import simu.framework.Kello;
 import simu.framework.Trace;
-import eduni.distributions.Normal;
+import eduni.distributions.LogNormal;
+import eduni.distributions.Uniform;
 
 // TODO:
 // Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
@@ -16,7 +17,7 @@ public class Asiakas {
 	private static int i = 1;
 	private static long sum = 0;
 	private HashMap<Ominaisuus, Double> ominaisuudet = new HashMap<Ominaisuus, Double>();
-	private Normal normalJakauma = new Normal(0.5, 0.5, System.currentTimeMillis());
+	private Uniform uniform;
 	private TapahtumanTyyppi status;
 	private boolean palveltavana = false;
 
@@ -46,11 +47,13 @@ public class Asiakas {
 	};
 
 	public Asiakas() {
+		uniform = new Uniform(0.0000001, 1, System.currentTimeMillis());
 		id = i++;
 
 		for (int i = 0; i < Ominaisuus.values().length; i++) {
 			Ominaisuus ominaisuus = Ominaisuus.values()[i];
-			double randomLuku = normalJakauma.sample();
+			double randomLuku = uniform.sample();
+			// System.out.println("randomLuku: " + randomLuku);
 			ominaisuudet.put(ominaisuus, randomLuku);
 		}
 
