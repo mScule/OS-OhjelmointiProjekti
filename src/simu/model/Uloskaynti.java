@@ -13,6 +13,7 @@ public class Uloskaynti extends Palvelupiste {
 
 	@Override
 	public void aloitaPalvelu() {
+		varattu = true;
 		super.aloitaPalvelu();
 		double palveluaika = generator.sample();
 		Asiakas a = jono.peek();
@@ -22,6 +23,6 @@ public class Uloskaynti extends Palvelupiste {
 
 		a.setStatus(tyyppi);
 		tapahtumalista.lisaa(new Tapahtuma(tyyppi, Kello.getInstance().getAika() + palveluaika,
-				TapahtumanTyyppi.ULOSKAYNTI, getId()));
+				TapahtumanTyyppi.ULOSKAYNTI, getId(), a.getId()));
 	}
 }

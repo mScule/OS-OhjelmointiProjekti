@@ -12,26 +12,26 @@ public class OmaMoottori extends Moottori {
 	public static TapahtumanTyyppi seuraava;
 	private Saapumisprosessi saapumisprosessi;
 
-	private int saapuneidenAsiakkaidenMaara = 0,  poistuneidenAsiakkaidenMaara = 0;
+	private int saapuneidenAsiakkaidenMaara = 0, poistuneidenAsiakkaidenMaara = 0;
 
 	public OmaMoottori() {
 
 		palvelupisteet = new HashMap<TapahtumanTyyppi, Palvelupiste[]>();
 
 		palvelupisteet.put(TapahtumanTyyppi.SISAANKAYNTI, new Sisaankaynti[] {
-			new Sisaankaynti(new Normal(10, 6), tapahtumalista)
+				new Sisaankaynti(new Normal(10, 6), tapahtumalista)
 		});
 
 		palvelupisteet.put(TapahtumanTyyppi.ULOSKAYNTI, new Uloskaynti[] {
-			new Uloskaynti(new Normal(10, 6), tapahtumalista)
+				new Uloskaynti(new Normal(10, 6), tapahtumalista)
 		});
 
 		palvelupisteet.put(TapahtumanTyyppi.BAARI, new Baari[] {
-			new Baari(new Normal(10, 10), tapahtumalista)
+				new Baari(new Normal(10, 10), tapahtumalista)
 		});
 
 		palvelupisteet.put(TapahtumanTyyppi.PELI, new Peli[] {
-			new Peli(new Normal(30, 1), tapahtumalista)
+				new Peli(new Normal(40, 1), tapahtumalista)
 		});
 
 		saapumisprosessi = new Saapumisprosessi(new Negexp(10, 5), tapahtumalista, TapahtumanTyyppi.SISAANKAYNTI);
@@ -59,9 +59,19 @@ public class OmaMoottori extends Moottori {
 					thisPalvelupiste = p;
 			}
 
-			a = thisPalvelupiste.otaJonosta();
+			// Jos tapahtuma on palvelupisteestä siirtyminen toiseen paikkaan, poista
+			// asiakas pelipisteen jonosta tapahtumaan liittyvän asiakkaan ID:n mukaan.
+			// Muissa tapauksissa poista jonon ensimmäinen asiakas.
+			if (thisTyyppi == TapahtumanTyyppi.PELI) {
+				a = thisPalvelupiste.otaJonostaIDnMukaan(t.getPalveltavanAsiakkaanID());
+			} else {
+				a = thisPalvelupiste.otaJonosta();
+			}
 
-			// Jos asiakas ei ole poistumassa, viedään asiakas haluttun tyyppiseen pisteeseen jossa on lyhyin jono.
+			// Jos asiakas ei ole poistumassa, viedään asiakas haluttun tyyppiseen
+			// pisteeseen jossa on lyhyin jono.
+			// Jos asiakas poistuu, ei lisätä asiakasta enää uudelleen mihinkään jonoon ja
+			// kasvatetaan kirjanpidossa poistuneiden asiakkaiden lukumäärää.
 			if (seuraavanTapahtumanTyyppi != TapahtumanTyyppi.POISTUMINEN) {
 				Palvelupiste[] pisteet = palvelupisteet.get(seuraavanTapahtumanTyyppi);
 				int lyhyinJono = pisteet[0].jono.size(), lyhyinIndex = 0;

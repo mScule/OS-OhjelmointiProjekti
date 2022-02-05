@@ -50,18 +50,34 @@ public class Palvelupiste {
 		return jono.poll();
 	}
 
+	public Asiakas otaJonostaIDnMukaan(int poistettavanAsiakkaanID) { // Etsitään asiakas tietyllä ID:llä ja poistetaan
+																		// se jonosta.
+		for (int i = 0; i < jono.size(); i++) {
+			if (poistettavanAsiakkaanID == jono.get(i).getId())
+				return jono.remove(i);
+		}
+		System.err.println("Asiakasta " + poistettavanAsiakkaanID + "ei löytynyt jonosta.");
+		return null;
+	}
+
 	public void aloitaPalvelu() { // Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
 
-		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu asiakkaalle " + jono.peek().getId() + " [" + this.getClass().toString() + " " + getId() + " ]");
+		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + jono.peek().getId() + " ["
+				+ this.getClass().toString() + " " + getId() + " ]");
+		System.out.println(jono.peek());
 
-		varattu = true;
-		// TODO: Jos palvelupiste on blackjack pöytä, laske palveluaika jonon seitsemälle ensimmäiselle asiakkaalle laskemalla asiakkaiden pelien määrät pelipöydässä.
+		// varattu = true;
+		// TODO: Jos palvelupiste on blackjack pöytä, laske palveluaika jonon
+		// seitsemälle ensimmäiselle asiakkaalle laskemalla asiakkaiden pelien määrät
+		// pelipöydässä.
 
-		// TODO: Muuten laske asiakkaan palveluaika baarissa tai vastaanotossa asiakkaan ominaisuuksien ja jonkun satunnaisesti generoidun luvun avulla.
+		// TODO: Muuten laske asiakkaan palveluaika baarissa tai vastaanotossa asiakkaan
+		// ominaisuuksien ja jonkun satunnaisesti generoidun luvun avulla.
 
 		// TODO: Laske ja päivitä myös asiakkaiden ominaisuudet.
 
-		// TODO: Luo kasinosta poistumistapahtuma asiakkaalle, jos hänen pelimerkit loppuvat.
+		// TODO: Luo kasinosta poistumistapahtuma asiakkaalle, jos hänen pelimerkit
+		// loppuvat.
 	}
 
 	public void poistu() {

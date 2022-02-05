@@ -18,6 +18,15 @@ public class Asiakas {
 	private HashMap<Ominaisuus, Double> ominaisuudet = new HashMap<Ominaisuus, Double>();
 	private Normal normalJakauma = new Normal(0.5, 0.5, System.currentTimeMillis());
 	private TapahtumanTyyppi status;
+	private boolean palveltavana = false;
+
+	public boolean isPalveltavana() {
+		return palveltavana;
+	}
+
+	public void setPalveltavana(boolean palveltavana) {
+		this.palveltavana = palveltavana;
+	}
 
 	public TapahtumanTyyppi getStatus() {
 		return status;

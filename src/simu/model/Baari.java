@@ -16,17 +16,18 @@ public class Baari extends Palvelupiste {
 
 	@Override
 	public void aloitaPalvelu() {
+		varattu = true;
 		super.aloitaPalvelu();
 		double palveluaika = generator.sample();
 		Asiakas a = jono.peek();
 
-		a.setOminaisuus(Ominaisuus.PAIHTYMYS, a.getOminaisuudet(Ominaisuus.PAIHTYMYS) + new Normal(0.5, 0.5).sample());
+		// a.setOminaisuus(Ominaisuus.PAIHTYMYS, a.getOminaisuudet(Ominaisuus.PAIHTYMYS) + new Normal(0.5, 0.5).sample());
 		
 		// Arvotaan tapahtumantyyppi (Muu kuin sisäänkäynti)
 		TapahtumanTyyppi tyyppi = arvoTapahtuma();
 
 		a.setStatus(tyyppi);
-		tapahtumalista.lisaa(new Tapahtuma(tyyppi, Kello.getInstance().getAika() + palveluaika, TapahtumanTyyppi.BAARI, getId()));
+		tapahtumalista.lisaa(new Tapahtuma(tyyppi, Kello.getInstance().getAika() + palveluaika, TapahtumanTyyppi.BAARI, getId(), a.getId()));
 	}
 
 }
