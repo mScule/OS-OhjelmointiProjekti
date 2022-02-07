@@ -58,7 +58,7 @@ public class Palvelupiste {
 		return palvellutAsiakkaat;
 	}
 
-	// Jonon 1. asiakas aina palvelussa baarissa ja vastaanotolla.
+	// Jonon 1. asiakas aina palvelussa baarissa tai vastaanotolla.
 	public void lisaaJonoon(Asiakas a) {
 		jono.add(a);
 	}
@@ -70,8 +70,8 @@ public class Palvelupiste {
 		return jono.poll();
 	}
 
-	public Asiakas otaJonostaIDnMukaan(int poistettavanAsiakkaanID) { // Etsitään asiakas tietyllä ID:llä ja poistetaan
-																		// se jonosta.
+	// Etsitään asiakas tietyllä ID:llä ja poistetaan se jonosta.
+	public Asiakas otaJonostaIDnMukaan(int poistettavanAsiakkaanID) {
 		for (int i = 0; i < jono.size(); i++) {
 			if (poistettavanAsiakkaanID == jono.get(i).getId())
 				return jono.remove(i);
@@ -86,17 +86,12 @@ public class Palvelupiste {
 				+ this.getClass().toString() + " " + getId() + " ]");
 		System.out.println(jono.peek());
 
-		// varattu = true;
-		// TODO: Jos palvelupiste on blackjack pöytä, laske palveluaika jonon
-		// seitsemälle ensimmäiselle asiakkaalle laskemalla asiakkaiden pelien määrät
-		// pelipöydässä.
+		// TODO: Käytä asiakkaan palveluajan laskemiseen jonkun satunnaisesti
+		// generoidun luvun lisäksi asiakkaan ominaisuuksia.
 
-		// TODO: Muuten laske asiakkaan palveluaika baarissa tai vastaanotossa asiakkaan
-		// ominaisuuksien ja jonkun satunnaisesti generoidun luvun avulla.
+		// TODO: Laske ja päivitä asiakkaiden ominaisuudet.
 
-		// TODO: Laske ja päivitä myös asiakkaiden ominaisuudet.
-
-		// TODO: Luo kasinosta poistumistapahtuma asiakkaalle, jos hänen pelimerkit
+		// TODO: Luo asiakkaalle kasinosta poistumistapahtuma, jos hänen pelimerkit
 		// loppuvat.
 	}
 

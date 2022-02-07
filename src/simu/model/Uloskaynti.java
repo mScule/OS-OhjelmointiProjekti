@@ -20,7 +20,6 @@ public class Uloskaynti extends Palvelupiste {
 
 		Asiakas a = jono.peek();
 
-		// int status = new Random().nextInt(1, TapahtumanTyyppi.values().length);
 		TapahtumanTyyppi tyyppi = TapahtumanTyyppi.POISTUMINEN;
 
 		a.setStatus(tyyppi);

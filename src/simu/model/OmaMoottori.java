@@ -14,6 +14,7 @@ public class OmaMoottori extends Moottori {
 	private Kello kello = Kello.getInstance();
 
 	public static TapahtumanTyyppi seuraava;
+	
 	private Saapumisprosessi saapumisprosessi;
 
 	private int saapuneidenAsiakkaidenMaara = 0, poistuneidenAsiakkaidenMaara = 0;

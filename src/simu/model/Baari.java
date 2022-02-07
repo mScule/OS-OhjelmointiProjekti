@@ -11,7 +11,6 @@ public class Baari extends Palvelupiste {
 
 	public Baari(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
 		super(generator, tapahtumalista);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -10,7 +10,8 @@ public class Tapahtuma implements Comparable<Tapahtuma> {
 
 	private double aika;
 
-	public Tapahtuma(TapahtumanTyyppi tyyppi, double aika, TapahtumanTyyppi lahtoSijaintiTyypi, int lahtoSijaintiID, int palveltavanAsiakkaanID){
+	public Tapahtuma(TapahtumanTyyppi tyyppi, double aika, TapahtumanTyyppi lahtoSijaintiTyypi, int lahtoSijaintiID,
+			int palveltavanAsiakkaanID) {
 		this.tyyppi = tyyppi;
 		this.aika = aika;
 		this.lahtoSijaintiTyypi = lahtoSijaintiTyypi;

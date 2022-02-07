@@ -4,23 +4,23 @@ public class Kello {
 
 	private double aika;
 	private static Kello instanssi;
-	
-	private Kello(){
+
+	private Kello() {
 		aika = 0;
 	}
-	
-	public static Kello getInstance(){
-		if (instanssi == null){
-			instanssi = new Kello();	
+
+	public static Kello getInstance() {
+		if (instanssi == null) {
+			instanssi = new Kello();
 		}
 		return instanssi;
 	}
-	
-	public void setAika(double aika){
+
+	public void setAika(double aika) {
 		this.aika = aika;
 	}
 
-	public double getAika(){
+	public double getAika() {
 		return aika;
 	}
 }

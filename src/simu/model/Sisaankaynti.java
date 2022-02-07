@@ -1,4 +1,5 @@
 package simu.model;
+
 import eduni.distributions.ContinuousGenerator;
 import simu.framework.Kello;
 import simu.framework.Tapahtuma;
@@ -9,7 +10,7 @@ public class Sisaankaynti extends Palvelupiste {
 	public Sisaankaynti(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
 		super(generator, tapahtumalista);
 	}
-	
+
 	@Override
 	public void aloitaPalvelu() {
 		varattu = true;
@@ -19,12 +20,12 @@ public class Sisaankaynti extends Palvelupiste {
 		lisaaPalveluAikaa(palveluaika);
 
 		Asiakas a = jono.peek();
-		
-		// int status = new Random().nextInt(1, TapahtumanTyyppi.values().length);
+
 		TapahtumanTyyppi tyyppi = arvoTapahtuma();
 
 		a.setStatus(tyyppi);
-		
-		tapahtumalista.lisaa(new Tapahtuma(tyyppi,Kello.getInstance().getAika()+palveluaika, TapahtumanTyyppi.SISAANKAYNTI, getId(), a.getId()));
+
+		tapahtumalista.lisaa(new Tapahtuma(tyyppi, Kello.getInstance().getAika() + palveluaika,
+				TapahtumanTyyppi.SISAANKAYNTI, getId(), a.getId()));
 	}
 }

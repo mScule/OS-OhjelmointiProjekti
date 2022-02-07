@@ -1,85 +1,80 @@
 package simu.framework;
+
 import simu.model.Palvelupiste;
 import simu.model.TapahtumanTyyppi;
 
 import java.util.Map;
 
-
 public abstract class Moottori {
-	
+
 	private double simulointiaika = 0;
-	
+
 	private Kello kello;
-	
+
 	protected Tapahtumalista tapahtumalista;
-	
-	//protected Palvelupiste[] palvelupisteet;
 
 	protected Map<TapahtumanTyyppi, Palvelupiste[]> palvelupisteet;
-	
 
-	public Moottori(){
+	public Moottori() {
 
 		kello = Kello.getInstance(); // Otetaan kello muuttujaan yksinkertaistamaan koodia
-		
+
 		tapahtumalista = new Tapahtumalista();
-		
-		// Palvelupisteet luodaan simu.model-pakkauksessa Moottorin aliluokassa 
-		
-		
+
+		// Palvelupisteet luodaan simu.model-pakkauksessa Moottorin aliluokassa
+
 	}
 
 	public void setSimulointiaika(double aika) {
 		simulointiaika = aika;
 	}
-	
-	
-	public void aja(){
+
+	public void aja() {
 		alustukset(); // luodaan mm. ensimmäinen tapahtuma
-		while (simuloidaan()){
-			
+		while (simuloidaan()) {
+
 			Trace.out(Trace.Level.INFO, "\nA-vaihe: kello on " + nykyaika());
 			kello.setAika(nykyaika());
-			
-			Trace.out(Trace.Level.INFO, "\nB-vaihe:" );
+
+			Trace.out(Trace.Level.INFO, "\nB-vaihe:");
 			suoritaBTapahtumat();
-			
-			Trace.out(Trace.Level.INFO, "\nC-vaihe:" );
+
+			Trace.out(Trace.Level.INFO, "\nC-vaihe:");
 			yritaCTapahtumat();
 
 		}
 		tulokset();
-		
+
 	}
-	
-	private void suoritaBTapahtumat(){
-		while (tapahtumalista.getSeuraavanAika() == kello.getAika()){
+
+	private void suoritaBTapahtumat() {
+		while (tapahtumalista.getSeuraavanAika() == kello.getAika()) {
 			suoritaTapahtuma(tapahtumalista.poista());
 		}
 	}
 
-	private void yritaCTapahtumat(){
-		for (Map.Entry<TapahtumanTyyppi, Palvelupiste[]> pisteet : palvelupisteet.entrySet()){
-			for(Palvelupiste p : pisteet.getValue()) {
-				if (!p.onVarattu() && p.onJonossa()){
+	private void yritaCTapahtumat() {
+		for (Map.Entry<TapahtumanTyyppi, Palvelupiste[]> pisteet : palvelupisteet.entrySet()) {
+			for (Palvelupiste p : pisteet.getValue()) {
+				if (!p.onVarattu() && p.onJonossa()) {
 					p.aloitaPalvelu();
 				}
 			}
 		}
 	}
 
-	private double nykyaika(){
+	private double nykyaika() {
 		return tapahtumalista.getSeuraavanAika();
 	}
-	
-	private boolean simuloidaan(){
+
+	private boolean simuloidaan() {
 		return kello.getAika() < simulointiaika;
 	}
 
 	protected abstract void alustukset(); // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
-	
-	protected abstract void suoritaTapahtuma(Tapahtuma t);  // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
-	
+
+	protected abstract void suoritaTapahtuma(Tapahtuma t); // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
+
 	protected abstract void tulokset(); // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
-	
+
 }

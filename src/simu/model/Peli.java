@@ -15,7 +15,6 @@ public class Peli extends Palvelupiste {
 
 	public Peli(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
 		super(generator, tapahtumalista);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -27,15 +26,13 @@ public class Peli extends Palvelupiste {
 				+ this.getClass().toString() + " " + getId() + " ]");
 
 		// Asiakkaat otetaan sisään
-		// Laske Monta pelaajaa pöydässä on kokonaisuudessaan:
+		// Laske monta pelaajaa pöytään otetaan:
 		laskePoytaanOtettavatPelaajat();
 
 		Trace.out(Trace.Level.INFO, "pelin jono: " + jono.size() + "\npelin pelaajat: " + pelaajatPoydassa);
 
 		for (int i = 0; i < pelaajatPoytaan; i++) {
-			// if (!jono.get(i).isPalveltavana()) {
 			TapahtumanTyyppi tyyppi = arvoTapahtuma();
-			// jono.get(i).setPalveltavana(true);
 			jono.get(i).setStatus(tyyppi);
 			Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + jono.get(i).getId() + " ["
 					+ this.getClass().toString() + " " + getId() + " ]");
@@ -44,7 +41,6 @@ public class Peli extends Palvelupiste {
 			tapahtumalista.lisaa(
 					new Tapahtuma(tyyppi, Kello.getInstance().getAika() + palveluaika, TapahtumanTyyppi.PELI,
 							getId(), jono.get(i).getId()));
-			// }
 		}
 
 		// Lisätään blackjack pöytään pelaajia jonosta.
@@ -79,15 +75,12 @@ public class Peli extends Palvelupiste {
 	@Override
 	public Asiakas otaJonostaIDnMukaan(int poistettavanAsiakkaanID) {
 
-		// laskePelaajatPoydassa();
-
 		for (int i = 0; i < pelipisteet.length; i++) {
 			if (pelipisteet[i] != null) {
 				if (poistettavanAsiakkaanID == pelipisteet[i].getId()) {
 					Asiakas a = pelipisteet[i];
 					pelipisteet[i] = null;
 					lisaaPalveltuAsiakas();
-					// jono.get(i).setPalveltavana(false);
 					varattu = false;
 					return a;
 				}
