@@ -1,11 +1,7 @@
 package simu.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import simu.framework.Kello;
 import simu.framework.Trace;
-import eduni.distributions.LogNormal;
 import eduni.distributions.Uniform;
 
 // TODO:
@@ -16,18 +12,9 @@ public class Asiakas {
 	private int id;
 	private static int i = 1;
 	private static long sum = 0;
-	private HashMap<Ominaisuus, Double> ominaisuudet = new HashMap<Ominaisuus, Double>();
+	private double[] ominaisuudet = new double[Ominaisuus.values().length];
 	private Uniform uniform;
 	private TapahtumanTyyppi status;
-	private boolean palveltavana = false;
-
-	public boolean isPalveltavana() {
-		return palveltavana;
-	}
-
-	public void setPalveltavana(boolean palveltavana) {
-		this.palveltavana = palveltavana;
-	}
 
 	public TapahtumanTyyppi getStatus() {
 		return status;
@@ -37,11 +24,10 @@ public class Asiakas {
 		this.status = status;
 	}
 
-	public Double getOminaisuudet(Ominaisuus ominaisuus) {
-		return ominaisuudet.get(ominaisuus);
+	public double getOminaisuudet(Ominaisuus ominaisuus) {
+		return ominaisuudet[ominaisuus.ordinal()];
 	}
 
-	// TODO: Lisää asiakkaan ominaisuudet.
 	public enum Ominaisuus {
 		MIELIALA, VARAKKUUS, UHKAROHKEUS, PAIHTYMYS
 	};
@@ -50,19 +36,16 @@ public class Asiakas {
 		uniform = new Uniform(0.0000001, 1, System.currentTimeMillis());
 		id = i++;
 
-		for (int i = 0; i < Ominaisuus.values().length; i++) {
-			Ominaisuus ominaisuus = Ominaisuus.values()[i];
-			double randomLuku = uniform.sample();
-			// System.out.println("randomLuku: " + randomLuku);
-			ominaisuudet.put(ominaisuus, randomLuku);
+		for (int i = 0; i < ominaisuudet.length; i++) {
+			ominaisuudet[i] = uniform.sample();
 		}
 
 		saapumisaika = Kello.getInstance().getAika();
 		Trace.out(Trace.Level.INFO, "Uusi asiakas nro " + id + " saapui klo " + saapumisaika);
 	}
-	
+
 	public void setOminaisuus(Ominaisuus ominaisuus, Double arvo) {
-		ominaisuudet.put(ominaisuus, arvo);
+		ominaisuudet[ominaisuus.ordinal()] = arvo;
 	}
 
 	public double getPoistumisaika() {
@@ -99,10 +82,10 @@ public class Asiakas {
 	public String toString() {
 		String output = "";
 		output += "ASIAKAS [" + getId() + "]\n";
-		output += "Päihtymys: " + ominaisuudet.get(Ominaisuus.PAIHTYMYS) + "\n";
-		output += "Varakkuus: " + ominaisuudet.get(Ominaisuus.VARAKKUUS) + "\n";
-		output += "Uhkarohkeus: " + ominaisuudet.get(Ominaisuus.UHKAROHKEUS) + "\n";
-		output += "Mieliala: " + ominaisuudet.get(Ominaisuus.MIELIALA) + "\n";
+		output += "Päihtymys: " + ominaisuudet[Ominaisuus.PAIHTYMYS.ordinal()] + "\n";
+		output += "Varakkuus: " + ominaisuudet[Ominaisuus.VARAKKUUS.ordinal()] + "\n";
+		output += "Uhkarohkeus: " + ominaisuudet[Ominaisuus.UHKAROHKEUS.ordinal()] + "\n";
+		output += "Mieliala: " + ominaisuudet[Ominaisuus.MIELIALA.ordinal()] + "\n";
 
 		return output;
 	}
