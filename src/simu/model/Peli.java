@@ -21,6 +21,8 @@ public class Peli extends Palvelupiste {
 	@Override
 	public void aloitaPalvelu() {
 		double palveluaika = generator.sample();
+		lisaaPalveluAikaa(palveluaika);
+
 		Trace.out(Trace.Level.INFO, "Aloitetaan pelipalvelu:" + " ["
 				+ this.getClass().toString() + " " + getId() + " ]");
 
@@ -84,6 +86,7 @@ public class Peli extends Palvelupiste {
 				if (poistettavanAsiakkaanID == pelipisteet[i].getId()) {
 					Asiakas a = pelipisteet[i];
 					pelipisteet[i] = null;
+					lisaaPalveltuAsiakas();
 					// jono.get(i).setPalveltavana(false);
 					varattu = false;
 					return a;

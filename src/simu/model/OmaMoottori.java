@@ -6,13 +6,19 @@ import simu.framework.Kello;
 import simu.framework.Moottori;
 import simu.framework.Saapumisprosessi;
 import simu.framework.Tapahtuma;
+import simu.framework.Trace;
+
 import java.util.HashMap;
 
 public class OmaMoottori extends Moottori {
+	private Kello kello = Kello.getInstance();
+
 	public static TapahtumanTyyppi seuraava;
 	private Saapumisprosessi saapumisprosessi;
 
 	private int saapuneidenAsiakkaidenMaara = 0, poistuneidenAsiakkaidenMaara = 0;
+
+	private double poistumisajatSummattuna = 0.0;
 
 	public OmaMoottori() {
 
@@ -31,7 +37,7 @@ public class OmaMoottori extends Moottori {
 		});
 
 		palvelupisteet.put(TapahtumanTyyppi.PELI, new Peli[] {
-				new Peli(new Normal(40, 1), tapahtumalista)
+				new Peli(new Normal(10, 6), tapahtumalista)
 		});
 
 		saapumisprosessi = new Saapumisprosessi(new Negexp(10, 5), tapahtumalista, TapahtumanTyyppi.SISAANKAYNTI);
@@ -86,6 +92,7 @@ public class OmaMoottori extends Moottori {
 				System.out.println("Asiakas " + a.getId() + " poistuu kasinolta.");
 				System.out.println(a);
 				poistuneidenAsiakkaidenMaara++;
+				poistumisajatSummattuna += a.getPoistumisaika();
 			}
 		} else {
 			Asiakas uusiA = new Asiakas();
@@ -98,9 +105,54 @@ public class OmaMoottori extends Moottori {
 
 	@Override
 	protected void tulokset() {
-		System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
-		System.out.println("Tulokset:");
-		System.out.printf("Saapuneiden asiakkaiden määrä: %d\n", saapuneidenAsiakkaidenMaara);
-		System.out.printf("Poistuneiden asiakkaiden määrä: %d\n", poistuneidenAsiakkaidenMaara);
+		Trace.out(Trace.Level.INFO, 
+			"\nTulokset:\n\n" + 
+			"Simulointi päättyi kello " + Kello.getInstance().getAika() + "\n" +
+			"Saapuneiden asiakkaiden määrä: " +  saapuneidenAsiakkaidenMaara + "\n" +
+			"Poistuneiden asiakkaiden määrä: " + poistuneidenAsiakkaidenMaara + "\n" +
+			"Keskimääräinen läpimenoaika: " + poistumisajatSummattuna / poistuneidenAsiakkaidenMaara
+		);
+
+		Palvelupiste sisaankaynti = palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0];
+		Palvelupiste uloskaynti   = palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI)[0];
+		Palvelupiste baari        = palvelupisteet.get(TapahtumanTyyppi.BAARI)[0];
+		Palvelupiste peli         = palvelupisteet.get(TapahtumanTyyppi.PELI)[0];
+
+		double kokonaisoleskeluaika =
+			sisaankaynti.getPalveluaika() + 
+			uloskaynti.getPalveluaika() + 
+			baari.getPalveluaika() + 
+			peli.getPalveluaika();
+
+		Trace.out(Trace.Level.INFO,
+			"Kokonaisoleskeluaika: " + kokonaisoleskeluaika + "\n" +
+			"Keskimääräinen jononpituus: " + kokonaisoleskeluaika / Kello.getInstance().getAika()
+		);
+
+		Trace.out(Trace.Level.INFO,
+			"Palveluajat:\n"   +
+			"\tSisäänkäynti: " + sisaankaynti.getPalveluaika() + "\n" +
+			"\tUloskäynti: "   + uloskaynti.getPalveluaika()   + "\n" +
+			"\tBaari: "        + baari.getPalveluaika()        + "\n" +
+			"\tPeli: "         + peli.getPalveluaika()         + "\n" +
+
+			"Käyttöaste:\n"    +
+			"\tSisäänkäynti: " + sisaankaynti.getPalveluaika() / kello.getAika() + "\n" +
+			"\tUloskäynti: "   + uloskaynti.getPalveluaika() / kello.getAika()   + "\n" +
+			"\tBaari: "        + baari.getPalveluaika() / kello.getAika()        + "\n" +
+			"\tPeli: "         + peli.getPalveluaika() / kello.getAika()         + "\n" +
+
+			"Suoritusteho:\n"  +
+			"\tSisäänkäynti: " + sisaankaynti.getPalvellutAsiakkaat() / kello.getAika() + "\n" +
+			"\tUloskäynti: "   + uloskaynti.getPalvellutAsiakkaat() / kello.getAika()   + "\n" +
+			"\tBaari: "        + baari.getPalvellutAsiakkaat() / kello.getAika()        + "\n" +
+			"\tPeli: "         + peli.getPalvellutAsiakkaat() / kello.getAika()         + "\n" +
+
+			"Keskimääräinen palveluaika:\n" +
+			"\tSisäänkäynti: " + sisaankaynti.getPalveluaika() / sisaankaynti.getPalvellutAsiakkaat()  + "\n" +
+			"\tUloskäynti: "   + uloskaynti.getPalveluaika() / uloskaynti.getPalvellutAsiakkaat()      + "\n" +
+			"\tBaari: "        + baari.getPalveluaika() / baari.getPalvellutAsiakkaat()                + "\n" +
+			"\tPeli: "         + peli.getPalveluaika() / peli.getPalvellutAsiakkaat()
+		);
 	}
 }

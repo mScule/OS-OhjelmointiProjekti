@@ -7,6 +7,8 @@ import eduni.distributions.Uniform;
 // TODO:
 // Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
 public class Asiakas {
+
+	private Kello kello = Kello.getInstance();
 	private double saapumisaika;
 	private double poistumisaika;
 	private int id;
@@ -49,11 +51,7 @@ public class Asiakas {
 	}
 
 	public double getPoistumisaika() {
-		return poistumisaika;
-	}
-
-	public void setPoistumisaika(double poistumisaika) {
-		this.poistumisaika = poistumisaika;
+		return kello.getAika() - getSaapumisaika();
 	}
 
 	public double getSaapumisaika() {
@@ -82,6 +80,7 @@ public class Asiakas {
 	public String toString() {
 		String output = "";
 		output += "ASIAKAS [" + getId() + "]\n";
+		output += "Läpimenoaika: " + getPoistumisaika() + "\n";
 		output += "Päihtymys: " + ominaisuudet[Ominaisuus.PAIHTYMYS.ordinal()] + "\n";
 		output += "Varakkuus: " + ominaisuudet[Ominaisuus.VARAKKUUS.ordinal()] + "\n";
 		output += "Uhkarohkeus: " + ominaisuudet[Ominaisuus.UHKAROHKEUS.ordinal()] + "\n";

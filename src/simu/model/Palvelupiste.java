@@ -23,13 +23,8 @@ public class Palvelupiste {
 	private int id;
 	protected boolean varattu = false;
 
-	private int getSample() {
-		return (int) uniform.sample();
-	}
-
-	protected TapahtumanTyyppi arvoTapahtuma() {
-		return TapahtumanTyyppi.values()[getSample()];
-	}
+	private double palveluaika = 0;
+	private int palvellutAsiakkaat = 0;
 
 	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
 		this.tapahtumalista = tapahtumalista;
@@ -39,12 +34,37 @@ public class Palvelupiste {
 		palveluid++;
 	}
 
+	private int getSample() {
+		return (int) uniform.sample();
+	}
+
+	protected TapahtumanTyyppi arvoTapahtuma() {
+		return TapahtumanTyyppi.values()[getSample()];
+	}
+
+	protected void lisaaPalveluAikaa(double aika) {
+		palveluaika += aika;
+	}
+
+	public double getPalveluaika() {
+		return palveluaika;
+	}
+
+	protected void lisaaPalveltuAsiakas() {
+		palvellutAsiakkaat++;
+	}
+
+	public int getPalvellutAsiakkaat() {
+		return palvellutAsiakkaat;
+	}
+
 	// Jonon 1. asiakas aina palvelussa baarissa ja vastaanotolla.
 	public void lisaaJonoon(Asiakas a) {
 		jono.add(a);
 	}
 
 	public Asiakas otaJonosta() { // Poistetaan palvelussa ollut
+		lisaaPalveltuAsiakas();
 		varattu = false;
 
 		return jono.poll();

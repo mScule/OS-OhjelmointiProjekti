@@ -16,6 +16,8 @@ public class Uloskaynti extends Palvelupiste {
 		varattu = true;
 		super.aloitaPalvelu();
 		double palveluaika = generator.sample();
+		lisaaPalveluAikaa(palveluaika);
+
 		Asiakas a = jono.peek();
 
 		// int status = new Random().nextInt(1, TapahtumanTyyppi.values().length);

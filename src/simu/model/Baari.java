@@ -19,6 +19,7 @@ public class Baari extends Palvelupiste {
 		varattu = true;
 		super.aloitaPalvelu();
 		double palveluaika = generator.sample();
+		lisaaPalveluAikaa(palveluaika);
 		Asiakas a = jono.peek();
 
 		a.setOminaisuus(Ominaisuus.PAIHTYMYS, a.getOminaisuudet(Ominaisuus.PAIHTYMYS)
