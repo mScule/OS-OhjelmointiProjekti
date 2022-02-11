@@ -5,7 +5,7 @@ import simu.model.TapahtumanTyyppi;
 
 import java.util.Map;
 
-public abstract class Moottori {
+public abstract class Moottori extends Thread implements IMoottori{
 
 	private double simulointiaika = 0;
 
