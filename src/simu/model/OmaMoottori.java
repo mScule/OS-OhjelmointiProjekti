@@ -1,5 +1,6 @@
 package simu.model;
 
+import controller.IKontrolleriMtoV;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import simu.framework.Kello;
@@ -21,7 +22,7 @@ public class OmaMoottori extends Moottori {
 
 	private double poistumisajatSummattuna = 0.0;
 
-	public OmaMoottori() {
+	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
 
 		palvelupisteet = new HashMap<TapahtumanTyyppi, Palvelupiste[]>();
 
@@ -155,5 +156,17 @@ public class OmaMoottori extends Moottori {
 			"\tBaari: "        + baari.getPalveluaika() / baari.getPalvellutAsiakkaat()                + "\n" +
 			"\tPeli: "         + peli.getPalveluaika() / peli.getPalvellutAsiakkaat()
 		);
+	}
+
+	@Override
+	public void setViive(long aika) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public long getViive() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
