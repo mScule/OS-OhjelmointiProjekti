@@ -14,7 +14,6 @@ public class Kontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV{   // UUS
 		this.ui = ui;
 	}
 
-	
 	// Moottorin ohjausta:
 		
 	@Override
@@ -29,15 +28,13 @@ public class Kontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV{   // UUS
 	
 	@Override
 	public void hidasta() { // hidastetaan moottorisäiettä
-		moottori.setViive((long)(moottori.getViive()*1.10));
+		moottori.setViive((long)(moottori.getViive() * 1.10));
 	}
 
 	@Override
 	public void nopeuta() { // nopeutetaan moottorisäiettä
-		moottori.setViive((long)(moottori.getViive()*0.9));
+		moottori.setViive((long)(moottori.getViive() * 0.9));
 	}
-	
-	
 	
 	// Simulointitulosten välittämistä käyttöliittymään.
 	// Koska FX-ui:n päivitykset tulevat moottorisäikeestä, ne pitää ohjata JavaFX-säikeeseen:
@@ -47,7 +44,6 @@ public class Kontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV{   // UUS
 		Platform.runLater(()->ui.setLoppuaika(aika)); 
 	}
 
-	
 	@Override
 	public void visualisoiAsiakas() {
 		Platform.runLater(new Runnable(){
@@ -56,7 +52,4 @@ public class Kontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV{   // UUS
 			}
 		});
 	}
-
-
-
 }

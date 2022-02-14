@@ -1,6 +1,5 @@
 package view;
 
-
 import java.text.DecimalFormat;
 import controller.*;
 import javafx.application.Application;
@@ -18,8 +17,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
-
-
 
 public class SimulaattorinGUI extends Application implements ISimulaattorinUI{
 
@@ -40,13 +37,12 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI{
 
 	private IVisualisointi naytto;
 
-
 	@Override
 	public void init(){
 		
 		Trace.setTraceLevel(Level.INFO);
 		
-		kontrolleri = new Kontrolleri(this);
+		kontrolleri = new KasinoKontrolleri(this);
 	}
 
 	@Override
@@ -60,8 +56,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI{
 			        Platform.exit();
 			        System.exit(0);
 			    }
-			});
-						
+			});		
 			
 			primaryStage.setTitle("Simulaattori");
 
@@ -110,15 +105,15 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI{
 	        grid.setVgap(10);
 	        grid.setHgap(5);
 
-	        grid.add(aikaLabel, 0, 0);   // sarake, rivi
-	        grid.add(aika, 1, 0);          // sarake, rivi
-	        grid.add(viiveLabel, 0, 1);      // sarake, rivi
-	        grid.add(viive, 1, 1);           // sarake, rivi
-	        grid.add(tulosLabel, 0, 2);      // sarake, rivi
-	        grid.add(tulos, 1, 2);           // sarake, rivi
-	        grid.add(kaynnistaButton,0, 3);  // sarake, rivi
-	        grid.add(nopeutaButton, 0, 4);   // sarake, rivi
-	        grid.add(hidastaButton, 1, 4);   // sarake, rivi
+	        grid.add(aikaLabel,       0, 0); // sarake, rivi
+	        grid.add(aika,            1, 0); // sarake, rivi
+	        grid.add(viiveLabel,      0, 1); // sarake, rivi
+	        grid.add(viive,           1, 1); // sarake, rivi
+	        grid.add(tulosLabel,      0, 2); // sarake, rivi
+	        grid.add(tulos,           1, 2); // sarake, rivi
+	        grid.add(kaynnistaButton, 0, 3); // sarake, rivi
+	        grid.add(nopeutaButton,   0, 4); // sarake, rivi
+	        grid.add(hidastaButton,   1, 4); // sarake, rivi
 	        
 	        naytto = new Visualisointi2(400,200);
 
@@ -129,13 +124,10 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI{
 	        primaryStage.setScene(scene);
 	        primaryStage.show();
 
-
-
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-
 
 	//Käyttöliittymän rajapintametodit (kutsutaan kontrollerista)
 
@@ -155,18 +147,14 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI{
 		 this.tulos.setText(formatter.format(aika));
 	}
 
-
 	@Override
 	public IVisualisointi getVisualisointi() {
 		 return naytto;
 	}
 	
-	
 	// JavaFX-sovelluksen (käyttöliittymän) käynnistäminen
 
 	public static void main(String[] args) {
 		launch(args);
-	}
-
-	
+	}	
 }

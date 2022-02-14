@@ -8,13 +8,12 @@ import simu.framework.Moottori;
 import simu.framework.Saapumisprosessi;
 import simu.framework.Tapahtuma;
 import simu.framework.Trace;
+import simu.framework.Trace.Level;
 
 import java.util.HashMap;
 
-public class OmaMoottori extends Moottori {
+public class OmaMoottori extends Moottori implements IOmaMoottori {
 	private Kello kello = Kello.getInstance();
-
-	public static TapahtumanTyyppi seuraava;
 	
 	private Saapumisprosessi saapumisprosessi;
 
@@ -22,7 +21,10 @@ public class OmaMoottori extends Moottori {
 
 	private double poistumisajatSummattuna = 0.0;
 
+	public static TapahtumanTyyppi seuraava;
+
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
+		super(kontrolleri);
 
 		palvelupisteet = new HashMap<TapahtumanTyyppi, Palvelupiste[]>();
 
@@ -97,6 +99,9 @@ public class OmaMoottori extends Moottori {
 				poistumisajatSummattuna += a.getPoistumisaika();
 			}
 		} else {
+			// TODO: TEMP visualisointi
+			kontrolleri.visualisoiAsiakas();
+			
 			Asiakas uusiA = new Asiakas();
 			System.out.println(uusiA);
 			palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0].lisaaJonoon(uusiA);
@@ -109,7 +114,7 @@ public class OmaMoottori extends Moottori {
 	protected void tulokset() {
 		Trace.out(Trace.Level.INFO, 
 			"\nTulokset:\n\n" + 
-			"Simulointi päättyi kello " + Kello.getInstance().getAika() + "\n" +
+			"Simulointi päättyi kello " + kello.getAika() + "\n" +
 			"Saapuneiden asiakkaiden määrä: " +  saapuneidenAsiakkaidenMaara + "\n" +
 			"Poistuneiden asiakkaiden määrä: " + poistuneidenAsiakkaidenMaara + "\n" +
 			"Keskimääräinen läpimenoaika: " + poistumisajatSummattuna / poistuneidenAsiakkaidenMaara
@@ -158,15 +163,64 @@ public class OmaMoottori extends Moottori {
 		);
 	}
 
+	// IOmaMoottori
+	
 	@Override
-	public void setViive(long aika) {
-		// TODO Auto-generated method stub
+	public double[] getTulokset() {
+		double[] tulokset = new double[IOmaMoottori.TULOSTEN_MAARA];
 		
+		// Aika
+		tulokset[IOmaMoottori.TULOS_AIKA] = kello.getAika();
+		
+		// Saapuneiden asiakkaiden määrä
+		tulokset[IOmaMoottori.TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA]  = saapuneidenAsiakkaidenMaara;
+		
+		// Poistuneiden asiakkaiden määrä
+		tulokset[IOmaMoottori.TULOS_POISTUNEIDEN_ASIAKKAIDEN_MAARA] = poistuneidenAsiakkaidenMaara;
+		
+		// Keskimääräinen läpimenoaika
+		double keskimaarainenLapimenoaika = 0.0;
+		if(poistuneidenAsiakkaidenMaara != 0)
+			keskimaarainenLapimenoaika = poistumisajatSummattuna / poistuneidenAsiakkaidenMaara;
+		
+		tulokset[IOmaMoottori.TULOS_KESKIMAARAINEN_LAPIMENOAIKA] = keskimaarainenLapimenoaika;
+		
+		// Kokonaisoleskeluaika
+		double kokonaisoleskeluaika = 0.0;
+		
+		for(Palvelupiste[] pisteet : palvelupisteet.values()) {
+			for(Palvelupiste p : pisteet) {
+				kokonaisoleskeluaika += p.getPalveluaika();
+			}
+		}
+		
+		tulokset[IOmaMoottori.TULOS_KOKONAISOLESKELUAIKA] = kokonaisoleskeluaika;
+		
+		// Keskimääräinen jononpituus
+		double keskimaarainenjononpituus = kokonaisoleskeluaika / kello.getAika();
+		tulokset[IOmaMoottori.TULOS_KESKIMAARAINEN_JONONPITUUS] = keskimaarainenjononpituus;
+		
+		// Raha
+		// TODO: Raha tulos
+		tulokset[IOmaMoottori.TULOS_RAHA] = 0.0;
+		
+		return null;
 	}
-
+	
 	@Override
-	public long getViive() {
-		// TODO Auto-generated method stub
-		return 0;
+	public Palvelupiste[] getPalvelupisteet(int palvelu) {
+		switch(palvelu) {
+		case IOmaMoottori.PALVELUTYYPPI_SISAANKAYNTI:
+			return palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI).clone();
+		case IOmaMoottori.PALVELUTYYPPI_ULOSKAYNTI:
+			return palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI).clone();
+		case IOmaMoottori.PALVELUTYYPPI_BAARI:
+			return palvelupisteet.get(TapahtumanTyyppi.BAARI).clone();
+		case IOmaMoottori.PALVELUTYYPPI_PELI:
+			return palvelupisteet.get(TapahtumanTyyppi.PELI).clone();
+		default:
+			Trace.out(Level.ERR, "getPalvelupisteet() - Tuntematon palvelutyyppi.");
+			return null;
+		}
 	}
 }

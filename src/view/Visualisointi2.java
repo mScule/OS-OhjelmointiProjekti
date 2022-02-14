@@ -17,7 +17,6 @@ public class Visualisointi2 extends Canvas implements IVisualisointi{
 		tyhjennaNaytto();
 	}
 	
-
 	public void tyhjennaNaytto() {
 		gc.setFill(Color.YELLOW);
 		gc.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -33,7 +32,5 @@ public class Visualisointi2 extends Canvas implements IVisualisointi{
 		gc.setFont(new Font(20));
 		gc.fillText("Asiakas " + asiakasLkm, 100, 100);
 		
-	}
-	
-
+	}	
 }
