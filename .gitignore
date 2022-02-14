@@ -2,6 +2,7 @@
 .metadata
 local.properties
 .settings/
+.svn/
 # Eclipse Core
 .project
 
