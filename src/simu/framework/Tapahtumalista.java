@@ -25,5 +25,4 @@ public class Tapahtumalista {
 	public double getSeuraavanAika() {
 		return lista.peek().getAika();
 	}
-
 }
