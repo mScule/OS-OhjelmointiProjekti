@@ -1,13 +1,14 @@
 package controller;
 
 import javafx.application.Platform;
-import simu.framework.IMoottori;
+import simu.model.IOmaMoottori;
 import simu.model.OmaMoottori;
+import simu.model.Palvelupiste;
 import view.ISimulaattorinUI;
 
 public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 
-	private IMoottori moottori;
+	private IOmaMoottori moottori;
 	private ISimulaattorinUI ui;
 	
 	public KasinoKontrolleri(ISimulaattorinUI ui) {
@@ -28,6 +29,11 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 				ui.getVisualisointi().uusiAsiakas();
 			}
 		});
+	}
+	
+	@Override
+	public void paivitaUI() {
+		ui.paivita();
 	}
 
 	// IKontrolleriVtoM:
@@ -50,5 +56,15 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	@Override
 	public void hidasta() {
 		moottori.setViive((long)(moottori.getViive() * 1.1));
+	}
+
+	@Override
+	public double[] haeTulokset() {
+		return moottori.getTulokset();
+	}
+
+	@Override
+	public Palvelupiste[] haePalvelupisteet(int palvelu) {
+		return moottori.getPalvelupisteet(palvelu);
 	}
 }

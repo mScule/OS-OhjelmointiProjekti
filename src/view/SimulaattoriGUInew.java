@@ -106,5 +106,9 @@ public class SimulaattoriGUInew extends Application implements ISimulaattorinUI{
 		return null;
 	}
 
-
+	@Override
+	public void paivita() {
+		// TODO Kutsu IKasinoVisualisoinnin paivita metodia täällä
+		
+	}
 }

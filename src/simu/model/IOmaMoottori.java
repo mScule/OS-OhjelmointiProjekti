@@ -1,6 +1,8 @@
 package simu.model;
 
-public interface IOmaMoottori {
+import simu.framework.IMoottori;
+
+public interface IOmaMoottori extends IMoottori {
 
 	public static final int
 		TULOS_AIKA                           = 0,

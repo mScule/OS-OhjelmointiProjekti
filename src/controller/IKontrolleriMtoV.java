@@ -6,5 +6,6 @@ public interface IKontrolleriMtoV {
 		
 		public void naytaLoppuaika(double aika);
 		public void visualisoiAsiakas();
-
+		
+		public void paivitaUI();
 }

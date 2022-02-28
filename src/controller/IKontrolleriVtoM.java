@@ -1,5 +1,7 @@
 package controller;
 
+import simu.model.Palvelupiste;
+
 public interface IKontrolleriVtoM {
 	
 		// Rajapinta, joka tarjotaan  käyttöliittymälle:
@@ -8,5 +10,6 @@ public interface IKontrolleriVtoM {
 		public void nopeuta();
 		public void hidasta();
 		
-		
+		public double[] haeTulokset();
+		public Palvelupiste[] haePalvelupisteet(int palvelu);
 }
