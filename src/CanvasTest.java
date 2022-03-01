@@ -1,10 +1,12 @@
 import javafx.scene.Scene;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import view.KasinoVisualisointi;
 
+// KasinoVisualisointi DEMO
 public class CanvasTest extends Application {
 	
 	private Stage stage;
@@ -31,6 +33,10 @@ public class CanvasTest extends Application {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+		
+		Platform.runLater(() -> visualisointi.setBaariJononPituus(10));
+		Platform.runLater(() -> visualisointi.setBaariPalveltavienMaara(2));
+		Platform.runLater(() -> visualisointi.setBaariJononPituus(8));
 	}
 	
 	public static void main(String[] args) {

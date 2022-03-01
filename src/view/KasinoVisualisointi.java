@@ -15,7 +15,7 @@ import simu.model.IOmaMoottori;
 
 import view.animated.Liikkuja;
 
-public class KasinoVisualisointi extends Thread implements IKasinoVisualisointi {
+public class KasinoVisualisointi extends Thread {
 	
 	private Canvas kanvas;
 	
@@ -36,9 +36,12 @@ public class KasinoVisualisointi extends Thread implements IKasinoVisualisointi 
 		kuvaPalvelussa,
 		kuvaAsiakas;
 	
-	//private KasinoKontrolleri kontrolleri;
 	private int
-		testiLuku = 0;
+		baariJono        = 0, baariPalveltavat        = 0,
+		blackjackJono    = 0, blackjackPalveltavat    = 0,
+		sisaankayntiJono = 0, sisaankayntiPalveltavat = 0,
+		uloskayntiJono   = 0, uloskayntiPalveltavat   = 0;
+		
 	
 	public KasinoVisualisointi() throws FileNotFoundException {
 		kuvaTausta            = new Image(new FileInputStream("images\\background.png"     ));
@@ -54,8 +57,6 @@ public class KasinoVisualisointi extends Thread implements IKasinoVisualisointi 
 		kuvaAsiakas           = new Image(new FileInputStream("images\\customer.png"       ));
 		
 		liikkujat = new ArrayList<Liikkuja>();
-		
-		//this.kontrolleri = kontrolleri;
 		
 		kanvas = new Canvas(512 + 256 + 128, 512 + 256);
 		gc = kanvas.getGraphicsContext2D();
@@ -95,7 +96,7 @@ public class KasinoVisualisointi extends Thread implements IKasinoVisualisointi 
 		liikkujat.add(new Liikkuja(kuvaAsiakas, gc, aloitusX, aloitusY, lopetusX, lopetusY, 32));
 	}
 	
-	public void paivita() { // WIP (eikai)
+	public void paivita() {
 		
 		// Tausta
 		for(int x = 0; x < 7; x++)
@@ -131,21 +132,21 @@ public class KasinoVisualisointi extends Thread implements IKasinoVisualisointi 
 		
 		// Baari
 		piirraPalvelu(kuvaBar, 1,1);
-		piirraInfo(1,1, testiLuku,testiLuku);
+		piirraInfo(1,1, baariJono, baariPalveltavat);
 
 		// Blackjack
 		piirraPalvelu(kuvaBlackjack, 5,1);
-		piirraInfo(5,1, testiLuku,testiLuku);
+		piirraInfo(5,1, blackjackJono, blackjackPalveltavat);
 		
 		// Sisäänkäynti
 		piirraPalvelu(kuvaSisaankaynti, 2,4);
 		piirraPalvelu(kuvaHakkiSisaankaynti, 1,4);
-		piirraInfo(2,4, testiLuku,testiLuku);
+		piirraInfo(2,4, sisaankayntiJono, sisaankayntiPalveltavat);
 		
 		// Uloskäynti
 		piirraPalvelu(kuvaUloskaynti, 4,4);
 		piirraPalvelu(kuvaHakkiUloskaynti, 5,4);
-		piirraInfo(4,4, testiLuku,testiLuku);
+		piirraInfo(4,4, uloskayntiJono, uloskayntiPalveltavat);
 		
 		// Asiakkaiden liikkeet
 		for(Liikkuja l : liikkujat)
@@ -173,5 +174,37 @@ public class KasinoVisualisointi extends Thread implements IKasinoVisualisointi 
 				paivita();
 			}
 		}
+	}
+
+	public void setBaariJononPituus(int pituus) {
+		baariJono = pituus;
+	}
+
+	public void setBaariPalveltavienMaara(int maara) {
+		baariPalveltavat = maara;
+	}
+
+	public void setBlackjackJononPituus(int pituus) {
+		blackjackJono = pituus;
+	}
+
+	public void setBlackjackPalveltavienMaara(int maara) {
+		blackjackPalveltavat = maara;
+	}
+
+	public void setSisaankayntiJononPituus(int pituus) {
+		sisaankayntiJono = pituus;
+	}
+
+	public void setSisaankayntiPalveltavienMaara(int maara) {
+		sisaankayntiPalveltavat = maara;
+	}
+
+	public void setUloskayntiJononPituus(int pituus) {
+		uloskayntiJono = pituus;
+	}
+
+	public void setUloskayntiPalveltavienMaara(int maara) {
+		uloskayntiPalveltavat = maara;
 	}
 }
