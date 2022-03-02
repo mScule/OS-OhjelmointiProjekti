@@ -41,7 +41,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		});
 
 		palvelupisteet.put(TapahtumanTyyppi.PELI, new Peli[] {
-				new Peli(new Normal(10, 6), tapahtumalista)
+				new Peli(new Normal(50, 6), tapahtumalista)
 		});
 
 		saapumisprosessi = new Saapumisprosessi(new Negexp(10, 5), tapahtumalista, TapahtumanTyyppi.SISAANKAYNTI);
@@ -124,12 +124,12 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		Palvelupiste sisaankaynti = palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0];
 		Palvelupiste uloskaynti = palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI)[0];
 		Palvelupiste baari = palvelupisteet.get(TapahtumanTyyppi.BAARI)[0];
-		Palvelupiste peli = palvelupisteet.get(TapahtumanTyyppi.PELI)[0];
+		Peli peli = (Peli) palvelupisteet.get(TapahtumanTyyppi.PELI)[0];
 
 		double kokonaisoleskeluaika = sisaankaynti.getPalveluaika() +
 				uloskaynti.getPalveluaika() +
 				baari.getPalveluaika() +
-				peli.getPalveluaika();
+				peli.getJononpituus();
 
 		Trace.out(Trace.Level.INFO,
 				"Kokonaisoleskeluaika: " + kokonaisoleskeluaika + "\n" +
