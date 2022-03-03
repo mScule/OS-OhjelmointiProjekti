@@ -17,7 +17,11 @@ public interface IOmaMoottori extends IMoottori {
 		TULOS_KESKIM_VARAKKUUS               = 9,
 		TULOS_KESKIM_UHKAROHKEUS             = 10,
 		TULOS_KESKIM_PAIHTYNEISYYS           = 11,
-		TULOSTEN_MAARA                       = 12;
+		TULOS_KOKONAIS_MIELENTILA            = 12,
+		TULOS_KOKONAIS_VARAKKUUS             = 13,
+		TULOS_KOKONAIS_UHKAROHKEUS           = 14,
+		TULOS_KOKONAIS_PAIHTYNEISYYS         = 15,
+		TULOSTEN_MAARA                       = 16;
 	
 	public double[] getTulokset();
 	

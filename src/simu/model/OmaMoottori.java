@@ -27,17 +27,12 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 	private LinkedList<Asiakas> asiakkaatKasinolla = new LinkedList<Asiakas>();
 
-	private double keskimMieliala = 0;
-	private double keskimVarakkuus = 0;
-	private double keskimUhkarohkeus = 0;
-	private double keskimPaihtymys = 0;
-
-	private double kokonaisMieliala = 0;
-	private double kokonaisVarakkuus = 0;
-	private double kokonaisUhkarohkeus = 0;
-	private double kokonaisPaihtymys = 0;
-
 	private double[] tulokset = new double[IOmaMoottori.TULOSTEN_MAARA];
+
+	private double poistuneidenAsiakKokMielentila;
+	private double poistuneidenAsiakKokVarakkuus;
+	private double poistuneidenAsiakKokUhkarohkeus;
+	private double poistuneidenAsiakKokPaihtyneisyys;
 
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
 		super(kontrolleri);
@@ -109,8 +104,22 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				}
 				pisteet[lyhyinIndex].lisaaJonoon(a);
 			} else {
+				// Asiakas poistuu kasinolta
 				System.out.println("Asiakas " + a.getId() + " poistuu kasinolta.");
 				System.out.println(a);
+
+				// Poista asiakas kasinolla oleskelevien asiakkaiden listasta.
+				for (int i = 0; i < asiakkaatKasinolla.size(); i++) {
+					if (asiakkaatKasinolla.get(i).getId() == a.getId()) {
+						asiakkaatKasinolla.remove(i);
+					}
+				}
+				
+				poistuneidenAsiakKokMielentila += a.getOminaisuudet(Ominaisuus.MIELIALA);
+				poistuneidenAsiakKokVarakkuus += a.getOminaisuudet(Ominaisuus.VARAKKUUS);
+				poistuneidenAsiakKokUhkarohkeus += a.getOminaisuudet(Ominaisuus.UHKAROHKEUS);
+				poistuneidenAsiakKokPaihtyneisyys += a.getOminaisuudet(Ominaisuus.PAIHTYMYS);
+
 				poistuneidenAsiakkaidenMaara++;
 				poistumisajatSummattuna += a.getPoistumisaika();
 			}
@@ -239,25 +248,44 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		tulokset[IOmaMoottori.TULOS_VOITTO] = Kasino.getKasinonVoitto();
 
 		// Asiakkaiden keskimääräiset ominaisuudet
+
+		// double keskimMieliala = 0;
+		// double keskimVarakkuus = 0;
+		// double keskimUhkarohkeus = 0;
+		// double keskimPaihtymys = 0;
+
+		double kokonaisMieliala = 0;
+		double kokonaisVarakkuus = 0;
+		double kokonaisUhkarohkeus = 0;
+		double kokonaisPaihtymys = 0;
+
 		if (asiakkaatKasinolla != null && asiakkaatKasinolla.size() != 0) {
 			for (Asiakas asiakas : asiakkaatKasinolla) {
 				kokonaisMieliala += asiakas.getOminaisuudet(Ominaisuus.MIELIALA);
 				kokonaisVarakkuus += asiakas.getOminaisuudet(Ominaisuus.VARAKKUUS);
 				kokonaisUhkarohkeus += asiakas.getOminaisuudet(Ominaisuus.UHKAROHKEUS);
 				kokonaisPaihtymys += asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS);
-
-				keskimMieliala = kokonaisMieliala / saapuneidenAsiakkaidenMaara;
-				keskimVarakkuus = kokonaisVarakkuus / saapuneidenAsiakkaidenMaara;
-				keskimUhkarohkeus = kokonaisUhkarohkeus / saapuneidenAsiakkaidenMaara;
-				keskimPaihtymys = kokonaisPaihtymys / saapuneidenAsiakkaidenMaara;
 			}
-			asiakkaatKasinolla.clear();
 		}
 
-		tulokset[IOmaMoottori.TULOS_KESKIM_MIELENTILA] = keskimMieliala;
-		tulokset[IOmaMoottori.TULOS_KESKIM_VARAKKUUS] = keskimVarakkuus;
-		tulokset[IOmaMoottori.TULOS_KESKIM_UHKAROHKEUS] = keskimUhkarohkeus;
-		tulokset[IOmaMoottori.TULOS_KESKIM_PAIHTYNEISYYS] = keskimPaihtymys;
+		// tulokset[IOmaMoottori.TULOS_KOKONAIS_MIELENTILA] += kokonaisMieliala;
+		// tulokset[IOmaMoottori.TULOS_KOKONAIS_VARAKKUUS] += kokonaisVarakkuus;
+		// tulokset[IOmaMoottori.TULOS_KOKONAIS_UHKAROHKEUS] += kokonaisUhkarohkeus;
+		// tulokset[IOmaMoottori.TULOS_KOKONAIS_PAIHTYNEISYYS] += kokonaisPaihtymys;
+
+		// keskimMieliala = kokonaisMieliala / asiakkaatKasinolla.size();
+		// keskimVarakkuus = kokonaisVarakkuus / asiakkaatKasinolla.size();
+		// keskimUhkarohkeus = kokonaisUhkarohkeus / asiakkaatKasinolla.size();
+		// keskimPaihtymys = kokonaisPaihtymys / asiakkaatKasinolla.size();
+
+		tulokset[IOmaMoottori.TULOS_KESKIM_MIELENTILA] = (kokonaisMieliala + poistuneidenAsiakKokMielentila)
+				/ saapuneidenAsiakkaidenMaara;
+		tulokset[IOmaMoottori.TULOS_KESKIM_VARAKKUUS] = (kokonaisVarakkuus + poistuneidenAsiakKokVarakkuus)
+				/ saapuneidenAsiakkaidenMaara;
+		tulokset[IOmaMoottori.TULOS_KESKIM_UHKAROHKEUS] = (kokonaisUhkarohkeus + poistuneidenAsiakKokUhkarohkeus)
+				/ saapuneidenAsiakkaidenMaara;
+		tulokset[IOmaMoottori.TULOS_KESKIM_PAIHTYNEISYYS] = (kokonaisPaihtymys + poistuneidenAsiakKokPaihtyneisyys)
+				/ saapuneidenAsiakkaidenMaara;
 
 		return tulokset;
 	}
