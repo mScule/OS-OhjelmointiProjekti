@@ -51,6 +51,8 @@ public class Peli extends Palvelupiste {
 
 			if (Kasino.getKasinonRahat() <= 0) {
 				// TODO: lopeta simulointi.
+				Kasino.setVararikko(true);
+				break;
 			}
 
 			if (asiakkaanVarakkuus <= 0 || asiakkaanMieliala <= 0) {
@@ -125,53 +127,56 @@ public class Peli extends Palvelupiste {
 			}
 		}
 
-		// double palveluaika = generator.sample();
-		lisaaPalveluAikaa(palveluaika);
+		if (!Kasino.isVararikko()) {
 
-		Trace.out(Trace.Level.INFO, "Aloitetaan pelipalvelu:" + " ["
-				+ this.getClass().toString() + " " + getId() + " ]");
+			// double palveluaika = generator.sample();
+			lisaaPalveluAikaa(palveluaika);
 
-		// Asiakas otetaan sisään
-		TapahtumanTyyppi tyyppi;
-		if (!poistuu) {
-			tyyppi = arvoTapahtuma();
-		} else {
-			tyyppi = TapahtumanTyyppi.ULOSKAYNTI;
-		}
-		asiakas.setStatus(tyyppi);
-		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + asiakas.getId() + " ["
-				+ this.getClass().toString() + " " + getId() + " ]");
-		System.out.println(asiakas);
-		double poistumisaika = Kello.getInstance().getAika() + palveluaika;
+			Trace.out(Trace.Level.INFO, "Aloitetaan pelipalvelu:" + " ["
+					+ this.getClass().toString() + " " + getId() + " ]");
 
-		tapahtumalista.lisaa(
-				new Tapahtuma(tyyppi, poistumisaika, TapahtumanTyyppi.PELI,
-						getId(), asiakas.getId()));
-		poistumisajatLista.add(poistumisaika);
+			// Asiakas otetaan sisään
+			TapahtumanTyyppi tyyppi;
+			if (!poistuu) {
+				tyyppi = arvoTapahtuma();
+			} else {
+				tyyppi = TapahtumanTyyppi.ULOSKAYNTI;
+			}
+			asiakas.setStatus(tyyppi);
+			Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + asiakas.getId() + " ["
+					+ this.getClass().toString() + " " + getId() + " ]");
+			System.out.println(asiakas);
+			double poistumisaika = Kello.getInstance().getAika() + palveluaika;
 
-		// Lisätään blackjack pöytään pelaajia jonosta.
-		// Jos joku pöydän pelipiste jää tyhjäksi pöytä ei ole varattu vielä kokonaan.
-		// Lasketaan samalla myös monta pelaajaa pöydässä on jo pelaamassa.
-		pelaajatPoydassa = 0;
-		varattu = true;
-		for (int i = 0; i < pelipisteet.length; i++) {
-			if (pelipisteet[i] == null) {
-				if (jono.size() != 0) {
-					pelipisteet[i] = jono.poll();
+			tapahtumalista.lisaa(
+					new Tapahtuma(tyyppi, poistumisaika, TapahtumanTyyppi.PELI,
+							getId(), asiakas.getId()));
+			poistumisajatLista.add(poistumisaika);
+
+			// Lisätään blackjack pöytään pelaajia jonosta.
+			// Jos joku pöydän pelipiste jää tyhjäksi pöytä ei ole varattu vielä kokonaan.
+			// Lasketaan samalla myös monta pelaajaa pöydässä on jo pelaamassa.
+			pelaajatPoydassa = 0;
+			varattu = true;
+			for (int i = 0; i < pelipisteet.length; i++) {
+				if (pelipisteet[i] == null) {
+					if (jono.size() != 0) {
+						pelipisteet[i] = jono.poll();
+						pelaajatPoydassa++;
+					}
+				} else {
 					pelaajatPoydassa++;
 				}
-			} else {
-				pelaajatPoydassa++;
+				if (pelipisteet[i] == null)
+					varattu = false;
 			}
-			if (pelipisteet[i] == null)
-				varattu = false;
-		}
 
-		Trace.out(Trace.Level.INFO, "pelin jono: " + jono.size() + "\npelin pelaajat: " + pelaajatPoydassa);
+			Trace.out(Trace.Level.INFO, "pelin jono: " + jono.size() + "\npelin pelaajat: " + pelaajatPoydassa);
 
-		if (varattu) {
-			jononpituus += (poistumisajatLista.peek() - Kello.getInstance().getAika());
-			System.out.println("jononpituus peli: " + jononpituus);
+			if (varattu) {
+				jononpituus += (poistumisajatLista.peek() - Kello.getInstance().getAika());
+				System.out.println("jononpituus peli: " + jononpituus);
+			}
 		}
 	}
 

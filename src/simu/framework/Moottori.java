@@ -1,5 +1,6 @@
 package simu.framework;
 
+import simu.model.Kasino;
 import simu.model.Palvelupiste;
 import simu.model.TapahtumanTyyppi;
 
@@ -51,6 +52,10 @@ public abstract class Moottori extends Thread implements IMoottori {
 	}
 
 	private boolean simuloidaan() {
+		if(Kasino.isVararikko()){
+			System.out.println("Kasino meni vararikkoon!!!");
+			return false;
+		}
 		return kello.getAika() < simulointiaika;
 	}
 	

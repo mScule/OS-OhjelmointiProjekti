@@ -15,8 +15,17 @@ public final class Kasino {
     private static Normal asiakasOminNormal = new Normal(0, 0.5, 1337);
     // Pelien jakauma.
     private static Uniform pelitUniform = new Uniform(0, 1, 1337);
+    private static boolean vararikko = false;
 
     private Kasino() {
+    }
+
+    public static boolean isVararikko() {
+        return vararikko;
+    }
+
+    public static void setVararikko(boolean vararikko) {
+        Kasino.vararikko = vararikko;
     }
 
     public static Normal getAsiakasOminNormal() {

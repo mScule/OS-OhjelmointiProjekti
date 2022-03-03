@@ -49,7 +49,6 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 	@Override
 	protected void alustukset() {
-		// Kasino.gainMoney(Kasino.kasinonLahtoRahat);
 		saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
 	}
 
