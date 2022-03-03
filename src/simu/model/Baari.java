@@ -22,7 +22,7 @@ public class Baari extends Palvelupiste {
 		Asiakas a = jono.peek();
 
 		a.setOminaisuus(Ominaisuus.PAIHTYMYS, a.getOminaisuudet(Ominaisuus.PAIHTYMYS)
-				+ new Uniform(0.0000001, 1, System.currentTimeMillis()).sample());
+				+ new Uniform(0, 0.2, 1337).sample());
 
 		// Arvotaan tapahtumantyyppi (Muu kuin sisäänkäynti)
 		TapahtumanTyyppi tyyppi = arvoTapahtuma();

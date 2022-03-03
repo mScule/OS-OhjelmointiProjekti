@@ -16,6 +16,7 @@ public class Palvelupiste {
 
 	protected ContinuousGenerator generator;
 	protected Tapahtumalista tapahtumalista;
+	// Arvo joku muu tapahtuma, kuin SISÄÄNKÄYNTI tai POISTUMINEN.
 	protected Uniform uniform = new Uniform(2, TapahtumanTyyppi.values().length);
 
 	// JonoStartegia strategia; //optio: asiakkaiden järjestys
