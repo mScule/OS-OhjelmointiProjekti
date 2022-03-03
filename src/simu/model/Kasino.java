@@ -48,7 +48,7 @@ public final class Kasino {
         kasinonRahat += rahamaara;
     }
 
-    public static double getKasinonTuotto() {
+    public static double getKasinonVoitto() {
         return kasinonRahat - kasinonLahtoRahat;
     }
 

@@ -12,7 +12,8 @@ public interface IOmaMoottori extends IMoottori {
 		TULOS_KOKONAISOLESKELUAIKA           = 4,
 		TULOS_KESKIMAARAINEN_JONONPITUUS     = 5,
 		TULOS_RAHA                           = 6,
-		TULOSTEN_MAARA                       = 7;
+		TULOS_VOITTO                         = 7,
+		TULOSTEN_MAARA                       = 8;
 	
 	public double[] getTulokset();
 	

@@ -197,6 +197,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				kokonaisoleskeluaika += p.getPalveluaika();
 			}
 		}
+		
+		tulokset[IOmaMoottori.TULOS_KOKONAISOLESKELUAIKA] = kokonaisoleskeluaika;
 
 		double kokonaisjononpituus = 0.0;
 
@@ -209,15 +211,15 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			}
 		}
 
-		tulokset[IOmaMoottori.TULOS_KOKONAISOLESKELUAIKA] = kokonaisoleskeluaika;
-
 		// Keskimääräinen jononpituus
 		double keskimaarainenjononpituus = kokonaisjononpituus / kello.getAika();
 		tulokset[IOmaMoottori.TULOS_KESKIMAARAINEN_JONONPITUUS] = keskimaarainenjononpituus;
 
 		// Raha
-		// TODO: Raha tulos
 		tulokset[IOmaMoottori.TULOS_RAHA] = Kasino.getKasinonRahat();
+
+		// Voitto
+		tulokset[IOmaMoottori.TULOS_VOITTO] = Kasino.getKasinonVoitto();
 
 		return tulokset;
 	}
