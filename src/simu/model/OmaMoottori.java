@@ -129,11 +129,16 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		double kokonaisoleskeluaika = sisaankaynti.getPalveluaika() +
 				uloskaynti.getPalveluaika() +
 				baari.getPalveluaika() +
+				peli.getPalveluaika();
+
+		double kokonaisjononpituus = sisaankaynti.getPalveluaika() +
+				uloskaynti.getPalveluaika() +
+				baari.getPalveluaika() +
 				peli.getJononpituus();
 
 		Trace.out(Trace.Level.INFO,
 				"Kokonaisoleskeluaika: " + kokonaisoleskeluaika + "\n" +
-						"Keskimääräinen jononpituus: " + kokonaisoleskeluaika / Kello.getInstance().getAika());
+						"Keskimääräinen jononpituus: " + kokonaisjononpituus / Kello.getInstance().getAika());
 
 		Trace.out(Trace.Level.INFO,
 				"Palveluajat:\n" +
@@ -193,17 +198,28 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			}
 		}
 
+		double kokonaisjononpituus = 0.0;
+
+		for (Palvelupiste[] pisteet : palvelupisteet.values()) {
+			for (Palvelupiste p : pisteet) {
+				if (p instanceof Peli) {
+					kokonaisjononpituus += ((Peli)p).getJononpituus();
+				} else
+					kokonaisjononpituus += p.getPalveluaika();
+			}
+		}
+
 		tulokset[IOmaMoottori.TULOS_KOKONAISOLESKELUAIKA] = kokonaisoleskeluaika;
 
 		// Keskimääräinen jononpituus
-		double keskimaarainenjononpituus = kokonaisoleskeluaika / kello.getAika();
+		double keskimaarainenjononpituus = kokonaisjononpituus / kello.getAika();
 		tulokset[IOmaMoottori.TULOS_KESKIMAARAINEN_JONONPITUUS] = keskimaarainenjononpituus;
 
 		// Raha
 		// TODO: Raha tulos
-		tulokset[IOmaMoottori.TULOS_RAHA] = 0.0;
+		tulokset[IOmaMoottori.TULOS_RAHA] = Kasino.getKasinonRahat();
 
-		return null;
+		return tulokset;
 	}
 
 	@Override
