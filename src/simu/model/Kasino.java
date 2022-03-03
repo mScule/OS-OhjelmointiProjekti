@@ -1,29 +1,45 @@
 package simu.model;
 
+import eduni.distributions.Normal;
+import eduni.distributions.Uniform;
+
 public final class Kasino {
-    private final static int kasinonLahtoRahat = 1000000;
-    private static int kasinonRahat;
-    private static int kasinonTuotto;
-    private static double asiakkaidenKeskimMieliala;
-    private static double asiakkaidenKeskimPaihtyneisyys;
-    private static double asiakkaidenKeskimVarakkuus;
+    public final static int kasinonLahtoRahat = 1000000;
+    // Mitä rahamäärää asiakkaan varakkuus kun "double = 1" merkitsee:
+    public final static int asiakkaanVarakkuus1Double = 50000;
+    private static double kasinonRahat = kasinonLahtoRahat;
+    private static double asiakkaidenKeskimMieliala = 0;
+    private static double asiakkaidenKeskimPaihtyneisyys = 0;
+    private static double asiakkaidenKeskimVarakkuus = 0;
+    // Asiakkaiden ominaisuuksien jakauma.
+    private static Normal asiakasOminNormal = new Normal(0, 0.5, 1337);
+    // Pelien jakauma.
+    private static Uniform pelitUniform = new Uniform(0, 1, 1337);
 
     private Kasino() {
     }
 
-    public static int getKasinonRahat() {
+    public static Normal getAsiakasOminNormal() {
+        return asiakasOminNormal;
+    }
+
+    public static Uniform getPelitUniform() {
+        return pelitUniform;
+    }
+
+    public static double getKasinonRahat() {
         return kasinonRahat;
     }
 
-    public static void loseMoney(int rahamaara) {
+    public static void loseMoney(double rahamaara) {
         kasinonRahat -= rahamaara;
     }
 
-    public static void gainMoney(int rahamaara) {
+    public static void gainMoney(double rahamaara) {
         kasinonRahat += rahamaara;
     }
 
-    public static int getKasinonTuotto() {
+    public static double getKasinonTuotto() {
         return kasinonRahat - kasinonLahtoRahat;
     }
 

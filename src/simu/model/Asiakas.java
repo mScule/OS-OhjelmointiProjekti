@@ -36,7 +36,7 @@ public class Asiakas {
 	};
 
 	public Asiakas() {
-		normal = new Normal(0, 0.5, System.currentTimeMillis());
+		normal = Kasino.getAsiakasOminNormal();
 		id = i++;
 
 		for (int i = 0; i < ominaisuudet.length; i++) {
@@ -92,6 +92,7 @@ public class Asiakas {
 		output += "Varakkuus: " + ominaisuudet[Ominaisuus.VARAKKUUS.ordinal()] + "\n";
 		output += "Uhkarohkeus: " + ominaisuudet[Ominaisuus.UHKAROHKEUS.ordinal()] + "\n";
 		output += "Mieliala: " + ominaisuudet[Ominaisuus.MIELIALA.ordinal()] + "\n";
+		output += "Rahat: " + (ominaisuudet[Ominaisuus.VARAKKUUS.ordinal()] * Kasino.asiakkaanVarakkuus1Double) + "\n";
 
 		return output;
 	}
