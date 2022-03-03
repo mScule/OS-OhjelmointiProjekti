@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -22,6 +23,19 @@ public class SimulaattoriGUInew extends Application implements ISimulaattorinUI{
 	@FXML private Button aloitusBtn;
 	@FXML private Button pysäytysBtn;
 	@FXML private Button uusikäynistysBtn;
+	@FXML private Label aikaID;
+	@FXML private Label paivaID;
+	@FXML private Label rahatID;
+	@FXML private Label voitotID;
+	@FXML private Label saapuneetID;
+	@FXML private Label palvellutID;
+	@FXML private Label avgJonoID;
+	@FXML private Label kokonaisoleskeluID;
+	@FXML private Label avgOnnellisuusID;
+	@FXML private Label avgPaihtymysID;
+	@FXML private Label avgVarallisuusID;
+	@FXML private Label avgLapimenoID;
+	
 	
 	private IKontrolleriVtoM kontrolleri;
 	private IVisualisointi view = null;
