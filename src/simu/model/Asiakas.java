@@ -2,6 +2,7 @@ package simu.model;
 
 import simu.framework.Kello;
 import simu.framework.Trace;
+import eduni.distributions.Normal;
 import eduni.distributions.Uniform;
 
 // TODO:
@@ -15,7 +16,7 @@ public class Asiakas {
 	private static int i = 1;
 	private static long sum = 0;
 	private double[] ominaisuudet = new double[Ominaisuus.values().length];
-	private Uniform uniform;
+	private Normal normal;
 	private TapahtumanTyyppi status;
 
 	public TapahtumanTyyppi getStatus() {
@@ -35,11 +36,17 @@ public class Asiakas {
 	};
 
 	public Asiakas() {
-		uniform = new Uniform(0.0000001, 1, System.currentTimeMillis());
+		normal = new Normal(0, 0.5, System.currentTimeMillis());
 		id = i++;
 
 		for (int i = 0; i < ominaisuudet.length; i++) {
-			ominaisuudet[i] = uniform.sample();
+			Double sample = -1d;
+			// Limit a customer's starting trait to be between 0 and 1.
+			while (sample < 0 || sample >= 1) {
+				sample = 0.5 + normal.sample();
+			}
+			ominaisuudet[i] = sample;
+
 		}
 
 		saapumisaika = Kello.getInstance().getAika();
