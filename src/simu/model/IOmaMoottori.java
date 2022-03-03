@@ -13,7 +13,11 @@ public interface IOmaMoottori extends IMoottori {
 		TULOS_KESKIMAARAINEN_JONONPITUUS     = 5,
 		TULOS_RAHA                           = 6,
 		TULOS_VOITTO                         = 7,
-		TULOSTEN_MAARA                       = 8;
+		TULOS_KESKIM_MIELENTILA              = 8,
+		TULOS_KESKIM_VARAKKUUS               = 9,
+		TULOS_KESKIM_UHKAROHKEUS             = 10,
+		TULOS_KESKIM_PAIHTYNEISYYS           = 11,
+		TULOSTEN_MAARA                       = 12;
 	
 	public double[] getTulokset();
 	

@@ -9,8 +9,10 @@ import simu.framework.Saapumisprosessi;
 import simu.framework.Tapahtuma;
 import simu.framework.Trace;
 import simu.framework.Trace.Level;
+import simu.model.Asiakas.Ominaisuus;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class OmaMoottori extends Moottori implements IOmaMoottori {
 	private Kello kello = Kello.getInstance();
@@ -22,6 +24,20 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	private double poistumisajatSummattuna = 0.0;
 
 	public static TapahtumanTyyppi seuraava;
+
+	private LinkedList<Asiakas> asiakkaatKasinolla = new LinkedList<Asiakas>();
+
+	private double keskimMieliala = 0;
+	private double keskimVarakkuus = 0;
+	private double keskimUhkarohkeus = 0;
+	private double keskimPaihtymys = 0;
+
+	private double kokonaisMieliala = 0;
+	private double kokonaisVarakkuus = 0;
+	private double kokonaisUhkarohkeus = 0;
+	private double kokonaisPaihtymys = 0;
+
+	private double[] tulokset = new double[IOmaMoottori.TULOSTEN_MAARA];
 
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
 		super(kontrolleri);
@@ -99,6 +115,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				poistumisajatSummattuna += a.getPoistumisaika();
 			}
 		} else {
+			// Tee seuraavat asiat kun asiakas saapuu kasinolle.
 			// TODO: TEMP visualisointi
 			if (kontrolleri != null) {
 				kontrolleri.visualisoiAsiakas();
@@ -106,6 +123,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 			Asiakas uusiA = new Asiakas();
 			System.out.println(uusiA);
+			asiakkaatKasinolla.add(uusiA);
 			palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0].lisaaJonoon(uusiA);
 			saapuneidenAsiakkaidenMaara++;
 			saapumisprosessi.generoiSeuraava();
@@ -171,7 +189,6 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 	@Override
 	public double[] getTulokset() {
-		double[] tulokset = new double[IOmaMoottori.TULOSTEN_MAARA];
 
 		// Aika
 		tulokset[IOmaMoottori.TULOS_AIKA] = kello.getAika();
@@ -197,7 +214,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				kokonaisoleskeluaika += p.getPalveluaika();
 			}
 		}
-		
+
 		tulokset[IOmaMoottori.TULOS_KOKONAISOLESKELUAIKA] = kokonaisoleskeluaika;
 
 		double kokonaisjononpituus = 0.0;
@@ -205,7 +222,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		for (Palvelupiste[] pisteet : palvelupisteet.values()) {
 			for (Palvelupiste p : pisteet) {
 				if (p instanceof Peli) {
-					kokonaisjononpituus += ((Peli)p).getJononpituus();
+					kokonaisjononpituus += ((Peli) p).getJononpituus();
 				} else
 					kokonaisjononpituus += p.getPalveluaika();
 			}
@@ -220,6 +237,27 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 		// Voitto
 		tulokset[IOmaMoottori.TULOS_VOITTO] = Kasino.getKasinonVoitto();
+
+		// Asiakkaiden keskimääräiset ominaisuudet
+		if (asiakkaatKasinolla != null && asiakkaatKasinolla.size() != 0) {
+			for (Asiakas asiakas : asiakkaatKasinolla) {
+				kokonaisMieliala += asiakas.getOminaisuudet(Ominaisuus.MIELIALA);
+				kokonaisVarakkuus += asiakas.getOminaisuudet(Ominaisuus.VARAKKUUS);
+				kokonaisUhkarohkeus += asiakas.getOminaisuudet(Ominaisuus.UHKAROHKEUS);
+				kokonaisPaihtymys += asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS);
+
+				keskimMieliala = kokonaisMieliala / saapuneidenAsiakkaidenMaara;
+				keskimVarakkuus = kokonaisVarakkuus / saapuneidenAsiakkaidenMaara;
+				keskimUhkarohkeus = kokonaisUhkarohkeus / saapuneidenAsiakkaidenMaara;
+				keskimPaihtymys = kokonaisPaihtymys / saapuneidenAsiakkaidenMaara;
+			}
+			asiakkaatKasinolla.clear();
+		}
+
+		tulokset[IOmaMoottori.TULOS_KESKIM_MIELENTILA] = keskimMieliala;
+		tulokset[IOmaMoottori.TULOS_KESKIM_VARAKKUUS] = keskimVarakkuus;
+		tulokset[IOmaMoottori.TULOS_KESKIM_UHKAROHKEUS] = keskimUhkarohkeus;
+		tulokset[IOmaMoottori.TULOS_KESKIM_PAIHTYNEISYYS] = keskimPaihtymys;
 
 		return tulokset;
 	}
