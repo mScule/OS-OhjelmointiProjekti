@@ -28,13 +28,45 @@ public class Peli extends Palvelupiste {
 
 	public Peli(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
 		super(generator, tapahtumalista);
+		uniform = Kasino.getPelitUniform();
+	}
+
+	public int getMinBet() {
+		return minBet;
+	}
+
+	public void setMinBet(int minBet) {
+		this.minBet = minBet;
+	}
+
+	public int getMaxBet() {
+		return maxBet;
+	}
+
+	public void setMaxBet(int maxBet) {
+		this.maxBet = maxBet;
+	}
+
+	public double getPelinVoittoprosentti() {
+		return pelinVoittoprosentti;
+	}
+
+	public void setPelinVoittoprosentti(double pelinVoittoprosentti) {
+		this.pelinVoittoprosentti = pelinVoittoprosentti;
+	}
+
+	public double getPelinTasapeliprosentti() {
+		return pelinTasapeliprosentti;
+	}
+
+	public void setPelinTasapeliprosentti(double pelinTasapeliprosentti) {
+		this.pelinTasapeliprosentti = pelinTasapeliprosentti;
 	}
 
 	@Override
 	public void aloitaPalvelu() {
 		System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 		double varakkuusYksiDouble = Kasino.asiakkaanVarakkuus1Double;
-		uniform = Kasino.getPelitUniform();
 
 		Asiakas asiakas = jono.get(0);
 
