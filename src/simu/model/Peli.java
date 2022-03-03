@@ -10,7 +10,6 @@ import simu.framework.Trace;
 
 public class Peli extends Palvelupiste {
 
-	private int pelaajatPoytaan;
 	private int pelaajatPoydassa;
 	private int pelipaikkojenMaara = 7;
 	private Asiakas[] pelipisteet = new Asiakas[pelipaikkojenMaara];
@@ -31,23 +30,18 @@ public class Peli extends Palvelupiste {
 		Trace.out(Trace.Level.INFO, "Aloitetaan pelipalvelu:" + " ["
 				+ this.getClass().toString() + " " + getId() + " ]");
 
-		// Asiakkaat otetaan sisään
-		// Laske monta pelaajaa pöytään otetaan:
-		laskePoytaanOtettavatPelaajat();
+		// Asiakas otetaan sisään
+		TapahtumanTyyppi tyyppi = arvoTapahtuma();
+		jono.get(0).setStatus(tyyppi);
+		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + jono.get(0).getId() + " ["
+				+ this.getClass().toString() + " " + getId() + " ]");
+		System.out.println(jono.get(0));
+		double poistumisaika = Kello.getInstance().getAika() + palveluaika;
 
-		for (int i = 0; i < pelaajatPoytaan; i++) {
-			TapahtumanTyyppi tyyppi = arvoTapahtuma();
-			jono.get(i).setStatus(tyyppi);
-			Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + jono.get(i).getId() + " ["
-					+ this.getClass().toString() + " " + getId() + " ]");
-			System.out.println(jono.get(i));
-			double poistumisaika = Kello.getInstance().getAika() + palveluaika;
-
-			tapahtumalista.lisaa(
-					new Tapahtuma(tyyppi, poistumisaika, TapahtumanTyyppi.PELI,
-							getId(), jono.get(i).getId()));
-			poistumisajatLista.add(poistumisaika);
-		}
+		tapahtumalista.lisaa(
+				new Tapahtuma(tyyppi, poistumisaika, TapahtumanTyyppi.PELI,
+						getId(), jono.get(0).getId()));
+		poistumisajatLista.add(poistumisaika);
 
 		// Lisätään blackjack pöytään pelaajia jonosta.
 		// Jos joku pöydän pelipiste jää tyhjäksi pöytä ei ole varattu vielä kokonaan.
@@ -73,15 +67,6 @@ public class Peli extends Palvelupiste {
 			jononpituus += (poistumisajatLista.peek() - Kello.getInstance().getAika());
 			System.out.println("jononpituus peli: " + jononpituus);
 		}
-	}
-
-	private void laskePoytaanOtettavatPelaajat() {
-		if (jono.size() >= pelipaikkojenMaara)
-			pelaajatPoytaan = pelipaikkojenMaara - pelaajatPoydassa;
-		else if (jono.size() > (pelipaikkojenMaara - pelaajatPoydassa))
-			pelaajatPoytaan = pelipaikkojenMaara - pelaajatPoydassa;
-		else
-			pelaajatPoytaan = jono.size();
 	}
 
 	// Poistetaan palvelussa ollut asiakas asiakkaan ID:n mukaan
