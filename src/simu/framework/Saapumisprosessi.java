@@ -22,18 +22,29 @@ public class Saapumisprosessi {
 	}
 
 	public void setKeskimSaapumisvaliaika(double keskimSaapumisaika) {
-		double valiaikaMultiplier = 1;
+		// Pienempi, mitä parempi voittoprosentti asiakkailla on blackjackissä 
+		double valiaikaMultiplierWinPer = 1;
 
 		for (int i = 0; i < 6; i++) {
-			// System.out.println("valiaikaMultiplier: " + valiaikaMultiplier);
+			// System.out.println("valiaikaMultiplier: " + valiaikaMultiplierWinPer);
 			// System.out.println(
 			// 		"(0.42 / Kasino.getBlackjackVoittoprosentti(): " + (0.42 / Kasino.getBlackjackVoittoprosentti()));
-			valiaikaMultiplier = valiaikaMultiplier * (0.4222 / Kasino.getBlackjackVoittoprosentti());
+			valiaikaMultiplierWinPer = valiaikaMultiplierWinPer * (0.4222 / Kasino.getBlackjackVoittoprosentti());
+		}
+
+		double valiaikaMultiplierMinBet = 1;
+
+		for (int i = 0; i < 1; i++) {
+			System.out.println("valiaikaMultiplierMinBet: " + valiaikaMultiplierMinBet);
+			System.out.println(
+					"(100 / Kasino.getMinBet()): " + (100 / Kasino.getMinBet()));
+			valiaikaMultiplierMinBet = valiaikaMultiplierMinBet * ((double)Kasino.getMinBet() / 100);
 		}
 
 		// System.out.println("valiaikaMultiplier: " + valiaikaMultiplier);
 
-		keskimSaapumisaika = keskimSaapumisaika * valiaikaMultiplier;
+		keskimSaapumisaika *= valiaikaMultiplierWinPer * valiaikaMultiplierMinBet;
+		// System.out.println("keskimSaapumisaika: " + keskimSaapumisaika);
 		Negexp uusiGeneraattori = new Negexp(keskimSaapumisaika, Kasino.getSeed());
 		generaattori = uusiGeneraattori;
 	}
