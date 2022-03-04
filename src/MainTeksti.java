@@ -9,7 +9,7 @@ public class MainTeksti { // Tekstipohjainen
 
 		Trace.setTraceLevel(Level.INFO);
 		Moottori m = new OmaMoottori(null);
-		m.setYllapitoRahamaara(3000);
+		m.setYllapitoRahamaara(1000);
 		m.setMainostusRahamaara(1000);
 		m.lisaaPalvelupisteita(TapahtumanTyyppi.BAARI, 1);
 		m.lisaaPalvelupisteita(TapahtumanTyyppi.PELI, 4);
