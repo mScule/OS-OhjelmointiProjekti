@@ -1,5 +1,7 @@
 package simu.model;
 
+import java.util.LinkedList;
+
 import simu.framework.IMoottori;
 
 public interface IOmaMoottori extends IMoottori {
@@ -32,5 +34,5 @@ public interface IOmaMoottori extends IMoottori {
 		PALVELUTYYPPI_PELI         = 3,
 		PALVELUJEN_MAARA           = 4;
 	
-	public Palvelupiste[] getPalvelupisteet(int palvelu);
+	public LinkedList<Palvelupiste> getPalvelupisteet(int palvelu);
 }

@@ -30,7 +30,7 @@ public final class Kasino {
     public final static double sisaankaynninHinta = 1000;
     public final static double uloskaynninHinta = 1000;
     private static boolean vararikko = false;
-    public final static double investmentInefficiencyRatio = 10;
+    public final static double investmentInefficiencyRatio = 100;
 
     private static double keskimPalveluaika = 10;
     private static double keskimSaapumisvaliaika = 10;

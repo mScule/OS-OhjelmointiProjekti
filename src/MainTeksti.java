@@ -9,13 +9,13 @@ public class MainTeksti { // Tekstipohjainen
 
 		Trace.setTraceLevel(Level.INFO);
 		Moottori m = new OmaMoottori(null);
-		m.setYllapitoRahamaara(0);
+		m.setYllapitoRahamaara(3000);
 		m.setMainostusRahamaara(1000);
 		m.lisaaPalvelupisteita(TapahtumanTyyppi.BAARI, 1);
-		m.lisaaPalvelupisteita(TapahtumanTyyppi.PELI, 5);
+		m.lisaaPalvelupisteita(TapahtumanTyyppi.PELI, 4);
 		m.lisaaPalvelupisteita(TapahtumanTyyppi.ULOSKAYNTI, 1);
 		m.lisaaPalvelupisteita(TapahtumanTyyppi.SISAANKAYNTI, 1);
-		m.setSimulointiaika(200);
+		m.setSimulointiaika(1000);
 		m.run();
 	}
 }

@@ -6,6 +6,7 @@ import simu.model.TapahtumanTyyppi;
 
 import controller.IKontrolleriMtoV;
 
+import java.util.LinkedList;
 import java.util.Map;
 
 public abstract class Moottori extends Thread implements IMoottori {
@@ -16,7 +17,7 @@ public abstract class Moottori extends Thread implements IMoottori {
 	private Kello kello;
 
 	protected Tapahtumalista tapahtumalista;
-	protected Map<TapahtumanTyyppi, Palvelupiste[]> palvelupisteet;
+	protected Map<TapahtumanTyyppi, LinkedList<Palvelupiste>> palvelupisteet;
 	
 	protected IKontrolleriMtoV kontrolleri;
 
@@ -38,7 +39,7 @@ public abstract class Moottori extends Thread implements IMoottori {
 	}
 
 	private void yritaCTapahtumat() {
-		for (Map.Entry<TapahtumanTyyppi, Palvelupiste[]> pisteet : palvelupisteet.entrySet()) {
+		for (Map.Entry<TapahtumanTyyppi, LinkedList<Palvelupiste>> pisteet : palvelupisteet.entrySet()) {
 			for (Palvelupiste p : pisteet.getValue()) {
 				if (!p.onVarattu() && p.onJonossa()) {
 					p.aloitaPalvelu();
