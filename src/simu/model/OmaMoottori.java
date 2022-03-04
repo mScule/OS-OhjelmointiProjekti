@@ -42,19 +42,19 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		palvelupisteet = new HashMap<TapahtumanTyyppi, Palvelupiste[]>();
 
 		palvelupisteet.put(TapahtumanTyyppi.SISAANKAYNTI, new Sisaankaynti[] {
-				new Sisaankaynti(new Normal(10, 6), tapahtumalista)
+				new Sisaankaynti(Kasino.defaultPalveluajatNegexp, tapahtumalista)
 		});
 
 		palvelupisteet.put(TapahtumanTyyppi.ULOSKAYNTI, new Uloskaynti[] {
-				new Uloskaynti(new Normal(10, 6), tapahtumalista)
+				new Uloskaynti(Kasino.defaultPalveluajatNegexp, tapahtumalista)
 		});
 
 		palvelupisteet.put(TapahtumanTyyppi.BAARI, new Baari[] {
-				new Baari(new Normal(10, 10), tapahtumalista)
+				new Baari(Kasino.defaultPalveluajatNegexp, tapahtumalista)
 		});
 
 		palvelupisteet.put(TapahtumanTyyppi.PELI, new Peli[] {
-				new Peli(new Normal(50, 6), tapahtumalista)
+				new Peli(Kasino.defaultPalveluajatNegexp, tapahtumalista)
 		});
 
 		saapumisprosessi = new Saapumisprosessi(new Negexp(10, 5), tapahtumalista, TapahtumanTyyppi.SISAANKAYNTI);

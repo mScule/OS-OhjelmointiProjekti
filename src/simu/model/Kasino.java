@@ -1,5 +1,6 @@
 package simu.model;
 
+import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import eduni.distributions.Uniform;
 
@@ -13,14 +14,24 @@ public final class Kasino {
     private static double asiakkaidenKeskimVarakkuus = 0;
     private static double yllapitohinta = 0;
     private final static double minimiYllapitohinta = 100;
-
+    private static long seed = 1337;
     // Asiakkaiden ominaisuuksien jakauma.
-    private static Normal asiakasOminNormal = new Normal(0, 0.5, 1337);
+    private static Normal asiakasOminNormal = new Normal(0, 0.5, seed);
     // Pelien jakauma.
-    private static Uniform pelitUniform = new Uniform(0, 1, 1337);
+    private static Uniform pelitUniform = new Uniform(0, 1, seed);
+    // Sisäänkäynnin, uloskäynnin ja baarin palveluaikajakauma.
+    public final static Negexp defaultPalveluajatNegexp = new Negexp(10, seed);
     private static boolean vararikko = false;
 
     private Kasino() {
+    }
+
+    public static long getSeed() {
+        return seed;
+    }
+
+    public static void setSeed(long seed) {
+        Kasino.seed = seed;
     }
 
     public static double getMinimiyllapitohinta() {
@@ -94,7 +105,6 @@ public final class Kasino {
         // asiakkaan päihtyneisyys muuttuu.
     }
 
-    // TODO: käytä rahaa kasinon ylläpitämiseen?
     // TODO: käytä rahaa kasinon laajentamiseen?
     // TODO: käytä rahaa kasinon mainostamiseen?
 }

@@ -3,6 +3,7 @@ package simu.model;
 import java.util.LinkedList;
 
 import eduni.distributions.ContinuousGenerator;
+import eduni.distributions.Negexp;
 import eduni.distributions.Uniform;
 import simu.framework.Tapahtumalista;
 import simu.framework.Trace;
@@ -14,7 +15,7 @@ public class Palvelupiste implements IPalvelupiste {
 
 	protected LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
 
-	protected ContinuousGenerator generator;
+	protected Negexp negexpGenerator;
 	protected Tapahtumalista tapahtumalista;
 	// Arvo joku muu tapahtuma, kuin SISÄÄNKÄYNTI tai POISTUMINEN.
 	protected Uniform uniform = new Uniform(2, TapahtumanTyyppi.values().length);
@@ -29,12 +30,17 @@ public class Palvelupiste implements IPalvelupiste {
 
 	private double[] tulokset = new double[IPalvelupiste.TULOSTEN_MAARA];
 
-	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
+	public Palvelupiste(Negexp negexpGenerator, Tapahtumalista tapahtumalista) {
 		this.tapahtumalista = tapahtumalista;
-		this.generator = generator;
+		this.negexpGenerator = negexpGenerator;
 
 		id = palveluid;
 		palveluid++;
+	}
+
+	public void setKeskimPalveluaika(double uusiKeskimPalveluaika){
+		Negexp newGenerator = new Negexp(uusiKeskimPalveluaika, Kasino.getSeed());
+		negexpGenerator = newGenerator;
 	}
 
 	private int getSample() {
@@ -93,9 +99,6 @@ public class Palvelupiste implements IPalvelupiste {
 		// generoidun luvun lisäksi asiakkaan ominaisuuksia.
 
 		// TODO: Laske ja päivitä asiakkaiden ominaisuudet.
-
-		// TODO: Luo asiakkaalle kasinosta poistumistapahtuma, jos hänen pelimerkit
-		// loppuvat.
 	}
 
 	public void poistu() {
