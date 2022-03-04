@@ -76,13 +76,18 @@ public class Peli extends Palvelupiste {
 		boolean poistuu = false;
 
 		while (jatkaa) {
+
+			// Alenna asiakkaan päihtyneisyyttä, kun hän pelaa
+			if ((asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS) - 0.005) > 0)
+				asiakas.setOminaisuus(Ominaisuus.PAIHTYMYS, (asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS) - 0.01));
+
 			double asiakkaanMieliala = asiakas.getOminaisuudet(Ominaisuus.MIELIALA);
 			double asiakkaanVarakkuus = asiakas.getOminaisuudet(Ominaisuus.VARAKKUUS);
 			double asiakkaanUhkarohkeus = asiakas.getOminaisuudet(Ominaisuus.UHKAROHKEUS);
 			double asiakkaanPaihtymys = asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS);
 
 			if (Kasino.getKasinonRahat() <= 0) {
-				// TODO: lopeta simulointi.
+				// Lopeta simulointi.
 				Kasino.setVararikko(true);
 				break;
 			}
@@ -113,7 +118,8 @@ public class Peli extends Palvelupiste {
 				asiakas.setOminaisuus(Ominaisuus.VARAKKUUS, (asiakkaanVarakkuus + bet));
 				if ((asiakas.getAsiakkaanVoitto()) > 0) {
 
-					// System.out.println("voitto statsit: " + asiakkaanMieliala + bet + asiakas.getAsiakkaanVoitto());
+					// System.out.println("voitto statsit: " + asiakkaanMieliala + bet +
+					// asiakas.getAsiakkaanVoitto());
 
 					asiakas.setOminaisuus(Ominaisuus.MIELIALA,
 							(asiakkaanMieliala + bet + asiakas.getAsiakkaanVoitto()));
@@ -123,7 +129,7 @@ public class Peli extends Palvelupiste {
 				Kasino.loseMoney((bet * varakkuusYksiDouble));
 
 				System.out.println("VOITTO: " + "BET: " + (bet *
-				varakkuusYksiDouble) + "\n" + asiakas + "\n");
+						varakkuusYksiDouble) + "\n" + asiakas + "\n");
 				System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 			} else if (pelinTulos > pelinVoittoprosentti
 					&& pelinTulos <= (pelinVoittoprosentti + pelinTasapeliprosentti)) {

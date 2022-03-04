@@ -53,11 +53,11 @@ public class Asiakas implements IAsiakas {
 		Trace.out(Trace.Level.INFO, "Uusi asiakas nro " + id + " saapui klo " + saapumisaika);
 	}
 
-	public double getAsiakkaanLahtoVarallisuus(){
+	public double getAsiakkaanLahtoVarallisuus() {
 		return asiakkaanLahtoVarat;
 	}
 
-	public double getAsiakkaanVoitto(){
+	public double getAsiakkaanVoitto() {
 		return getOminaisuudet(Ominaisuus.VARAKKUUS) - asiakkaanLahtoVarat;
 	}
 
