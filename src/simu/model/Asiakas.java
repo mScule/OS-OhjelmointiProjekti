@@ -3,11 +3,9 @@ package simu.model;
 import simu.framework.Kello;
 import simu.framework.Trace;
 import eduni.distributions.Normal;
-import eduni.distributions.Uniform;
 
-// TODO:
 // Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
-public class Asiakas {
+public class Asiakas implements IAsiakas {
 
 	private Kello kello = Kello.getInstance();
 	private double saapumisaika;
@@ -18,6 +16,7 @@ public class Asiakas {
 	private double[] ominaisuudet = new double[Ominaisuus.values().length];
 	private Normal normal;
 	private TapahtumanTyyppi status;
+	private double[] tulokset = new double[IAsiakas.TULOSTEN_MAARA];
 
 	public TapahtumanTyyppi getStatus() {
 		return status;
@@ -95,5 +94,29 @@ public class Asiakas {
 		output += "Rahat: " + (ominaisuudet[Ominaisuus.VARAKKUUS.ordinal()] * Kasino.asiakkaanVarakkuus1Double) + "\n";
 
 		return output;
+	}
+
+	@Override
+	public double[] getTulokset() {
+		double asiakkaanVarakkuus = ominaisuudet[(Ominaisuus.VARAKKUUS).ordinal()];
+
+		// ID
+		tulokset[IAsiakas.ID] = getId();
+		// SAAPUMISAIKA
+		tulokset[IAsiakas.SAAPUMISAIKA] = getSaapumisaika();
+		// STATUS
+		tulokset[IAsiakas.STATUS] = getStatus().ordinal();
+		// MIELENTILA
+		tulokset[IAsiakas.MIELENTILA] = ominaisuudet[(Ominaisuus.MIELIALA).ordinal()];
+		// VARAKKUUS
+		tulokset[IAsiakas.VARAKKUUS] = asiakkaanVarakkuus;
+		// UHKAROHKEUS
+		tulokset[IAsiakas.UHKAROHKEUS] = ominaisuudet[(Ominaisuus.UHKAROHKEUS).ordinal()];
+		// PAIHTYMYS
+		tulokset[IAsiakas.PAIHTYMYS] = ominaisuudet[(Ominaisuus.PAIHTYMYS).ordinal()];
+		// RAHAT
+		tulokset[IAsiakas.RAHAT] = asiakkaanVarakkuus * Kasino.asiakkaanVarakkuus1Double;
+
+		return tulokset;
 	}
 }

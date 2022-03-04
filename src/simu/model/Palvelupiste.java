@@ -10,7 +10,7 @@ import simu.framework.Trace;
 // TODO:
 // Palvelupistekohtaiset toiminnallisuudet, laskutoimitukset (+ tarvittavat muuttujat), jonjen pituudet 
 // ja raportointi koodattava
-public class Palvelupiste {
+public class Palvelupiste implements IPalvelupiste {
 
 	protected LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
 
@@ -26,6 +26,8 @@ public class Palvelupiste {
 
 	private double palveluaika = 0;
 	private int palvellutAsiakkaat = 0;
+
+	private double[] tulokset = new double[IPalvelupiste.TULOSTEN_MAARA];
 
 	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
 		this.tapahtumalista = tapahtumalista;
@@ -114,5 +116,30 @@ public class Palvelupiste {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public double[] getTulokset() {
+		double onVarattu;
+
+		if (onVarattu()) {
+			onVarattu = 1;
+		} else {
+			onVarattu = 0;
+		}
+
+		// ID
+		tulokset[IPalvelupiste.ID] = getId();
+
+		// Varattu
+		tulokset[IPalvelupiste.VARATTU] = onVarattu;
+
+		// Saapuneiden asiakkaiden määrä
+		tulokset[IPalvelupiste.PALVELUAIKA] = getPalveluaika();
+
+		// Poistuneiden asiakkaiden määrä
+		tulokset[IPalvelupiste.PALVELLUT_ASIAKKAAT] = getPalvellutAsiakkaat();
+
+		return tulokset;
 	}
 }
