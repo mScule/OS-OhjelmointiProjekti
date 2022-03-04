@@ -115,4 +115,6 @@ public abstract class Moottori extends Thread implements IMoottori {
 	protected abstract void tulokset(); // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
 
 	public abstract void setYllapitoRahamaara(double rahamaara);
+
+	public abstract void setMainostusRahamaara(double rahamaara);
 }

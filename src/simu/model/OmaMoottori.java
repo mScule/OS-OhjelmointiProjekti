@@ -58,13 +58,15 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				new Peli(Kasino.defaultPalveluajatNegexp, tapahtumalista)
 		});
 
-		saapumisprosessi = new Saapumisprosessi(new Negexp(10, 5), tapahtumalista, TapahtumanTyyppi.SISAANKAYNTI);
+		saapumisprosessi = new Saapumisprosessi(Kasino.defaultSaapumisajatNegexp, tapahtumalista,
+				TapahtumanTyyppi.SISAANKAYNTI);
 	}
 
-	public void setYllapitoRahamaara(double rahamaara){
+	public void setYllapitoRahamaara(double rahamaara) {
 		Kasino.setYllapitohinta(rahamaara);
 
-		double keskimPalveluaika = Kasino.defaultPalveluaika/((rahamaara/1000) + 1);
+		double keskimPalveluaika = Kasino.defaultKeskimPalveluaika
+				/ ((rahamaara / Kasino.investmentInefficiencyRatio) + 1);
 		System.out.println("keskimPalveluaika: " + keskimPalveluaika);
 
 		for (Map.Entry<TapahtumanTyyppi, Palvelupiste[]> pisteet : palvelupisteet.entrySet()) {
@@ -72,6 +74,16 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				p.setKeskimPalveluaika(keskimPalveluaika);
 			}
 		}
+	}
+
+	public void setMainostusRahamaara(double rahamaara) {
+		Kasino.setMainoskulut(rahamaara);
+
+		double keskimSaapumisvaliaika = Kasino.defaultKeskimSaapumisaika
+				/ ((rahamaara / Kasino.investmentInefficiencyRatio) + 1);
+		System.out.println("keskimSaapumisvaliaika: " + keskimSaapumisvaliaika);
+
+		saapumisprosessi.setKeskimSaapumisvaliaika(keskimSaapumisvaliaika);
 	}
 
 	@Override
@@ -85,7 +97,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		Asiakas a;
 		// Kasino menettää ylläpidon hinnan verran rahaa joka 50 aikayksikössä
 		double kulut = ((t.getAika() - ajanjaksoltaKulutMaksettu) / 50)
-		* (Kasino.getYllapitohinta() + Kasino.getMinimiyllapitohinta());
+				* (Kasino.getKokoYllapitohinta());
 
 		System.out.println("Kasino.loseMoney: " + kulut);
 

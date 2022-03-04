@@ -14,15 +14,19 @@ public final class Kasino {
     private static double asiakkaidenKeskimVarakkuus = 0;
     private static double yllapitohinta = 0;
     private final static double minimiYllapitohinta = 100;
+    private static double mainoskulut = 0;
     private static long seed = 1337;
     // Asiakkaiden ominaisuuksien jakauma.
     private static Normal asiakasOminNormal = new Normal(0, 0.5, seed);
     // Pelien jakauma.
     private static Uniform pelitUniform = new Uniform(0, 1, seed);
     // Sisäänkäynnin, uloskäynnin ja baarin palveluaikajakauma.
-    public final static double defaultPalveluaika = 10;
-    public final static Negexp defaultPalveluajatNegexp = new Negexp(defaultPalveluaika, seed);
+    public final static double defaultKeskimPalveluaika = 10;
+    public final static Negexp defaultPalveluajatNegexp = new Negexp(defaultKeskimPalveluaika, seed);
+    public final static double defaultKeskimSaapumisaika = 10;
+    public final static Negexp defaultSaapumisajatNegexp = new Negexp(defaultKeskimSaapumisaika, seed);
     private static boolean vararikko = false;
+    public final static double investmentInefficiencyRatio = 10;
 
     private Kasino() {
     }
@@ -35,12 +39,20 @@ public final class Kasino {
         Kasino.seed = seed;
     }
 
+    public static double getMainoskulut() {
+        return mainoskulut;
+    }
+
+    public static void setMainoskulut(double mainoskulut) {
+        Kasino.mainoskulut = mainoskulut;
+    }
+
     public static double getMinimiyllapitohinta() {
         return minimiYllapitohinta;
     }
 
-    public static double getYllapitohinta() {
-        return yllapitohinta;
+    public static double getKokoYllapitohinta() {
+        return yllapitohinta + mainoskulut + minimiYllapitohinta;
     }
 
     public static void setYllapitohinta(double yllapitohinta) {

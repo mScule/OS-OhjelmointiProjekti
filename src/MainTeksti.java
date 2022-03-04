@@ -8,8 +8,9 @@ public class MainTeksti { // Tekstipohjainen
 
 		Trace.setTraceLevel(Level.INFO);
 		Moottori m = new OmaMoottori(null);
-		m.setYllapitoRahamaara(3000);
-		m.setSimulointiaika(200);
+		m.setYllapitoRahamaara(100);
+		m.setMainostusRahamaara(0);
+		m.setSimulointiaika(1000);
 		m.run();
 	}
 }
