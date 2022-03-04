@@ -291,6 +291,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 						"\tUloskäynti: " + uloskaynti.getPalveluaika() / uloskaynti.getPalvellutAsiakkaat() + "\n" +
 						"\tBaari: " + baari.getPalveluaika() / baari.getPalvellutAsiakkaat() + "\n" +
 						"\tPeli: " + peli.getPalveluaika() / peli.getPalvellutAsiakkaat());
+		System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 	}
 
 	// IOmaMoottori

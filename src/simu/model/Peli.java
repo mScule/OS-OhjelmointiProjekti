@@ -27,6 +27,8 @@ public class Peli extends Palvelupiste {
 		uniform = Kasino.getPelitUniform();
 	}
 
+	// Pelikohtaiset säädöt:
+	
 	// public int getMinBet() {
 	// return minBet;
 	// }
