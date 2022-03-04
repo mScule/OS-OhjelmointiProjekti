@@ -128,8 +128,8 @@ public class Peli extends Palvelupiste {
 				}
 				Kasino.loseMoney((bet * varakkuusYksiDouble));
 
-				System.out.println("VOITTO: " + "BET: " + (bet *
-						varakkuusYksiDouble) + "\n" + asiakas + "\n");
+				// System.out.println("VOITTO: " + "BET: " + (bet *
+				// 		varakkuusYksiDouble) + "\n" + asiakas + "\n");
 				System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 			} else if (pelinTulos > pelinVoittoprosentti
 					&& pelinTulos <= (pelinVoittoprosentti + pelinTasapeliprosentti)) {
@@ -142,8 +142,8 @@ public class Peli extends Palvelupiste {
 				asiakas.setOminaisuus(Ominaisuus.MIELIALA, (asiakkaanMieliala - bet + asiakas.getAsiakkaanVoitto()));
 				Kasino.gainMoney((bet * varakkuusYksiDouble));
 
-				System.out.println("HÄVIÖ: " + "BET: " + (bet *
-						varakkuusYksiDouble) + "\n" + asiakas + "\n");
+				// System.out.println("HÄVIÖ: " + "BET: " + (bet *
+				// 		varakkuusYksiDouble) + "\n" + asiakas + "\n");
 				System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 			}
 
@@ -189,7 +189,7 @@ public class Peli extends Palvelupiste {
 			asiakas.setStatus(tyyppi);
 			Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + asiakas.getId() + " ["
 					+ this.getClass().toString() + " " + getId() + " ]");
-			System.out.println(asiakas);
+			// System.out.println(asiakas);
 			double poistumisaika = Kello.getInstance().getAika() + palveluaika;
 
 			tapahtumalista.lisaa(

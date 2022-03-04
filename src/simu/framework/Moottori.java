@@ -117,4 +117,6 @@ public abstract class Moottori extends Thread implements IMoottori {
 	public abstract void setYllapitoRahamaara(double rahamaara);
 
 	public abstract void setMainostusRahamaara(double rahamaara);
+
+	public abstract void lisaaPalvelupisteita(TapahtumanTyyppi palvelupisteTyyppi, int maara);
 }

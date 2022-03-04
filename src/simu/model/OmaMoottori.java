@@ -67,6 +67,9 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 		double keskimPalveluaika = Kasino.defaultKeskimPalveluaika
 				/ ((rahamaara / Kasino.investmentInefficiencyRatio) + 1);
+
+		Kasino.setKeskimPalveluaika(keskimPalveluaika);
+
 		System.out.println("keskimPalveluaika: " + keskimPalveluaika);
 
 		for (Map.Entry<TapahtumanTyyppi, Palvelupiste[]> pisteet : palvelupisteet.entrySet()) {
@@ -81,9 +84,56 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 		double keskimSaapumisvaliaika = Kasino.defaultKeskimSaapumisaika
 				/ ((rahamaara / Kasino.investmentInefficiencyRatio) + 1);
+
+		Kasino.setKeskimSaapumisvaliaika(keskimSaapumisvaliaika);
+
 		System.out.println("keskimSaapumisvaliaika: " + keskimSaapumisvaliaika);
 
 		saapumisprosessi.setKeskimSaapumisvaliaika(keskimSaapumisvaliaika);
+	}
+
+	public void lisaaPalvelupisteita(TapahtumanTyyppi palvelupisteTyyppi, int maara) {
+		switch (palvelupisteTyyppi) {
+			case SISAANKAYNTI:
+				for (int i = 0; i < maara; i++) {
+					palvelupisteet.put(TapahtumanTyyppi.SISAANKAYNTI, new Sisaankaynti[] {
+							new Sisaankaynti(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()), tapahtumalista)
+					});
+				}
+				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.sisaankaynninHinta * maara));
+				break;
+
+			case ULOSKAYNTI:
+				for (int i = 0; i < maara; i++) {
+					palvelupisteet.put(TapahtumanTyyppi.ULOSKAYNTI, new Uloskaynti[] {
+							new Uloskaynti(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()), tapahtumalista)
+					});
+				}
+				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.uloskaynninHinta * maara));
+				break;
+
+			case BAARI:
+				for (int i = 0; i < maara; i++) {
+					palvelupisteet.put(TapahtumanTyyppi.BAARI, new Baari[] {
+							new Baari(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()), tapahtumalista)
+					});
+				}
+				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.baarinHinta * maara));
+				break;
+
+			case PELI:
+				for (int i = 0; i < maara; i++) {
+					palvelupisteet.put(TapahtumanTyyppi.PELI, new Peli[] {
+							new Peli(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()), tapahtumalista)
+					});
+				}
+				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.pelipoydanHinta * maara));
+				break;
+
+			default:
+				System.err.println("Palvelupiste tyyppiä ei löytynyt.");
+				break;
+		}
 	}
 
 	@Override
@@ -167,9 +217,21 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			}
 
 			Asiakas uusiA = new Asiakas();
-			System.out.println(uusiA);
+			//System.out.println(uusiA);
 			asiakkaatKasinolla.add(uusiA);
-			palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0].lisaaJonoon(uusiA);
+			// palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0].lisaaJonoon(uusiA);
+
+			// Laita asiakas sisäänkäyntiin, jossa on pienin jono
+			Palvelupiste[] pisteet = palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI);
+			int lyhyinJono = pisteet[0].jono.size(), lyhyinIndex = 0;
+			for (int i = 1; i < pisteet.length; i++) {
+				if (pisteet[i].jono.size() < lyhyinJono) {
+					lyhyinJono = pisteet[i].jono.size();
+					lyhyinIndex = i;
+				}
+			}
+			pisteet[lyhyinIndex].lisaaJonoon(uusiA);
+
 			saapuneidenAsiakkaidenMaara++;
 			saapumisprosessi.generoiSeuraava();
 		}

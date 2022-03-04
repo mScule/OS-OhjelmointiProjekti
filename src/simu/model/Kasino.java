@@ -25,10 +25,37 @@ public final class Kasino {
     public final static Negexp defaultPalveluajatNegexp = new Negexp(defaultKeskimPalveluaika, seed);
     public final static double defaultKeskimSaapumisaika = 10;
     public final static Negexp defaultSaapumisajatNegexp = new Negexp(defaultKeskimSaapumisaika, seed);
+    public final static double pelipoydanHinta = 100;
+    public final static double baarinHinta = 300;
+    public final static double sisaankaynninHinta = 1000;
+    public final static double uloskaynninHinta = 1000;
     private static boolean vararikko = false;
     public final static double investmentInefficiencyRatio = 10;
 
+    private static double keskimPalveluaika = 10;
+    private static double keskimSaapumisvaliaika = 10;
+
     private Kasino() {
+    }
+
+    public static double getKeskimPalveluaika() {
+        return keskimPalveluaika;
+    }
+
+    public static void setKeskimPalveluaika(double keskimPalveluaika) {
+        Kasino.keskimPalveluaika = keskimPalveluaika;
+    }
+
+    public static double getKeskimSaapumisvaliaika() {
+        return keskimSaapumisvaliaika;
+    }
+
+    public static void setKeskimSaapumisvaliaika(double keskimSaapumisvaliaika) {
+        Kasino.keskimSaapumisvaliaika = keskimSaapumisvaliaika;
+    }
+
+    public static double getYllapitohinta() {
+        return yllapitohinta;
     }
 
     public static long getSeed() {
