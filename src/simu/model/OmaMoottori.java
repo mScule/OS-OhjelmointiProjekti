@@ -34,6 +34,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	private double poistuneidenAsiakKokUhkarohkeus;
 	private double poistuneidenAsiakKokPaihtyneisyys;
 
+	private double ajanjaksoltaKulutMaksettu = 0;
+
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
 		super(kontrolleri);
 
@@ -67,6 +69,14 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	protected void suoritaTapahtuma(Tapahtuma t) { // B-vaiheen tapahtumat
 
 		Asiakas a;
+		// Kasino menettää ylläpidon hinnan verran rahaa joka 50 aikayksikkö
+		double kulut = ((t.getAika() - ajanjaksoltaKulutMaksettu) / 50)
+		* (Kasino.getYllapitohinta() + Kasino.getMinimiyllapitohinta());
+
+		System.out.println("Kasino.loseMoney: " + kulut);
+
+		Kasino.loseMoney(kulut);
+		ajanjaksoltaKulutMaksettu = t.getAika();
 
 		// Palvelupisteet haetaan tyypin mukaan
 		TapahtumanTyyppi thisTyyppi = t.getTyypiLahtoSijainti();
@@ -114,7 +124,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 						asiakkaatKasinolla.remove(i);
 					}
 				}
-				
+
 				poistuneidenAsiakKokMielentila += a.getOminaisuudet(Ominaisuus.MIELIALA);
 				poistuneidenAsiakKokVarakkuus += a.getOminaisuudet(Ominaisuus.VARAKKUUS);
 				poistuneidenAsiakKokUhkarohkeus += a.getOminaisuudet(Ominaisuus.UHKAROHKEUS);

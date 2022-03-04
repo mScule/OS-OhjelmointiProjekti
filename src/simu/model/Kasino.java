@@ -11,6 +11,9 @@ public final class Kasino {
     private static double asiakkaidenKeskimMieliala = 0;
     private static double asiakkaidenKeskimPaihtyneisyys = 0;
     private static double asiakkaidenKeskimVarakkuus = 0;
+    private static double yllapitohinta = 0;
+    private final static double minimiYllapitohinta = 100;
+
     // Asiakkaiden ominaisuuksien jakauma.
     private static Normal asiakasOminNormal = new Normal(0, 0.5, 1337);
     // Pelien jakauma.
@@ -18,6 +21,18 @@ public final class Kasino {
     private static boolean vararikko = false;
 
     private Kasino() {
+    }
+
+    public static double getMinimiyllapitohinta() {
+        return minimiYllapitohinta;
+    }
+
+    public static double getYllapitohinta() {
+        return yllapitohinta;
+    }
+
+    public static void setYllapitohinta(double yllapitohinta) {
+        Kasino.yllapitohinta = yllapitohinta;
     }
 
     public static boolean isVararikko() {
@@ -57,7 +72,8 @@ public final class Kasino {
     }
 
     public static void setAsiakkaidenKeskimMieliala(double asiakkaidenKeskimMieliala) {
-        // TODO päivitä asiakkaiden keskim. mielialaa joka kerta, kun jonkin asiakkaan mieliala muuttuu.
+        // TODO päivitä asiakkaiden keskim. mielialaa joka kerta, kun jonkin asiakkaan
+        // mieliala muuttuu.
     }
 
     public static double getAsiakkaidenKeskimPaihtyneisyys() {
@@ -65,7 +81,8 @@ public final class Kasino {
     }
 
     public static void setAsiakkaidenKeskimPaihtyneisyys(double asiakkaidenKeskimPaihtyneisyys) {
-        // TODO päivitä asiakkaiden keskim. päihtyneisyys joka kerta, kun jonkin asiakkaan päihtyneisyys muuttuu.
+        // TODO päivitä asiakkaiden keskim. päihtyneisyys joka kerta, kun jonkin
+        // asiakkaan päihtyneisyys muuttuu.
     }
 
     public static double getAsiakkaidenKeskimVarakkuus() {
@@ -73,7 +90,8 @@ public final class Kasino {
     }
 
     public static void setAsiakkaidenKeskimVarakkuus(double asiakkaidenKeskimVarakkuus) {
-        // TODO päivitä asiakkaiden keskim. päihtyneisyys joka kerta, kun jonkin asiakkaan päihtyneisyys muuttuu.
+        // TODO päivitä asiakkaiden keskim. päihtyneisyys joka kerta, kun jonkin
+        // asiakkaan päihtyneisyys muuttuu.
     }
 
     // TODO: käytä rahaa kasinon ylläpitämiseen?
