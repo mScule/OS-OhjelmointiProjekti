@@ -73,7 +73,6 @@ public class Peli extends Palvelupiste {
 
 		boolean jatkaa = true;
 		boolean poistuu = false;
-		double asiakkaanLahtoVarat = asiakas.getAsiakkaanLahtoVarallisuus();
 
 		while (jatkaa) {
 			double asiakkaanMieliala = asiakas.getOminaisuudet(Ominaisuus.MIELIALA);
@@ -105,8 +104,6 @@ public class Peli extends Palvelupiste {
 			} else if (bet * varakkuusYksiDouble < minBet) {
 				bet = minBet / varakkuusYksiDouble;
 			}
-
-			// bet = minBet / varakkuusYksiDouble;
 
 			double pelinTulos = uniform.sample();
 
@@ -156,9 +153,9 @@ public class Peli extends Palvelupiste {
 			// ominaisuutta.
 			double jatkaakoSample = uniform.sample() * uniform.sample() * uniform.sample() * uniform.sample();
 
-			System.out.println("asiakkaanKokOminaisuudet: " + asiakkaanKokOminaisuudet);
-			System.out.println("jatkaakoSample: " + jatkaakoSample);
-			System.out.println();
+			// System.out.println("asiakkaanKokOminaisuudet: " + asiakkaanKokOminaisuudet);
+			// System.out.println("jatkaakoSample: " + jatkaakoSample);
+			// System.out.println();
 
 			if (jatkaakoSample > asiakkaanKokOminaisuudet) {
 				jatkaa = false;
