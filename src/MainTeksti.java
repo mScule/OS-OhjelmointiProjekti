@@ -17,7 +17,7 @@ public class MainTeksti { // Tekstipohjainen
 		m.setBlackjackTasapeliprosentti(0.08);
 		m.setBlackjackVoittoprosentti(0.42);
 		m.setMaxBet(10000);
-		m.setMinBet(10);
+		m.setMinBet(30);
 		//Pitää tällä hetkellä säätää viimeisenä, koska ainoa metodi millä säädetään saapumisväliaikoja
 		m.setMainostusRahamaara(1000);
 		m.setSimulointiaika(1000);

@@ -40,12 +40,21 @@ public class Asiakas implements IAsiakas {
 		id = i++;
 
 		for (int i = 0; i < ominaisuudet.length; i++) {
+
 			Double sample = -1d;
-			// Limit a customer's starting trait to be between 0 and 1.
-			while (sample < 0 || sample >= 1) {
-				sample = 0.5 + normal.sample();
+			if (i != Ominaisuus.VARAKKUUS.ordinal()) {
+				// Limit a customer's starting trait to be between 0 and 1.
+				while (sample < 0 || sample >= 1) {
+					sample = 0.5 + normal.sample();
+				}
+			} else {
+				// TODO lower varakkuus based on min bet
+				while (sample < 0) {
+					sample = (0.5 + normal.sample()) / (200 / (double)Kasino.getMinBet());
+				}
 			}
 			ominaisuudet[i] = sample;
+
 		}
 
 		asiakkaanLahtoVarat = getOminaisuudet(Ominaisuus.VARAKKUUS);
