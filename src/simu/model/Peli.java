@@ -22,7 +22,6 @@ public class Peli extends Palvelupiste {
 	private int maxBet = 1000;
 	private double pelinVoittoprosentti = 0.4222;
 	private double pelinTasapeliprosentti = 0.0848;
-
 	// Lista blackjack pöydästä poistuvien asiakkaiden poistumisajoista.
 	private PriorityQueue<Double> poistumisajatLista = new PriorityQueue<Double>();
 
@@ -74,6 +73,7 @@ public class Peli extends Palvelupiste {
 
 		boolean jatkaa = true;
 		boolean poistuu = false;
+		double asiakkaanLahtoVarat = asiakas.getAsiakkaanLahtoVarallisuus();
 
 		while (jatkaa) {
 			double asiakkaanMieliala = asiakas.getOminaisuudet(Ominaisuus.MIELIALA);
@@ -113,11 +113,19 @@ public class Peli extends Palvelupiste {
 			if (pelinTulos <= pelinVoittoprosentti) {
 				// VOITTO ASIAKKAALLE
 				asiakas.setOminaisuus(Ominaisuus.VARAKKUUS, (asiakkaanVarakkuus + bet));
-				asiakas.setOminaisuus(Ominaisuus.MIELIALA, (asiakkaanVarakkuus + bet));
+				if ((asiakas.getAsiakkaanVoitto()) > 0) {
+
+					// System.out.println("voitto statsit: " + asiakkaanMieliala + bet + asiakas.getAsiakkaanVoitto());
+
+					asiakas.setOminaisuus(Ominaisuus.MIELIALA,
+							(asiakkaanMieliala + bet + asiakas.getAsiakkaanVoitto()));
+				} else {
+					asiakas.setOminaisuus(Ominaisuus.MIELIALA, (asiakkaanMieliala + bet));
+				}
 				Kasino.loseMoney((bet * varakkuusYksiDouble));
 
-				System.out.println("VOITTO: " + asiakas + "BET: " + (bet *
-						varakkuusYksiDouble));
+				System.out.println("VOITTO: " + "BET: " + (bet *
+				varakkuusYksiDouble) + "\n" + asiakas + "\n");
 				System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 			} else if (pelinTulos > pelinVoittoprosentti
 					&& pelinTulos <= (pelinVoittoprosentti + pelinTasapeliprosentti)) {
@@ -127,11 +135,11 @@ public class Peli extends Palvelupiste {
 			} else {
 				// HÄVIÖ ASIAKKAALLE
 				asiakas.setOminaisuus(Ominaisuus.VARAKKUUS, (asiakkaanVarakkuus - bet));
-				asiakas.setOminaisuus(Ominaisuus.MIELIALA, (asiakkaanVarakkuus - bet));
+				asiakas.setOminaisuus(Ominaisuus.MIELIALA, (asiakkaanMieliala - bet + asiakas.getAsiakkaanVoitto()));
 				Kasino.gainMoney((bet * varakkuusYksiDouble));
 
-				System.out.println("HÄVIÖ " + asiakas + "BET: " + (bet *
-						varakkuusYksiDouble));
+				System.out.println("HÄVIÖ: " + "BET: " + (bet *
+						varakkuusYksiDouble) + "\n" + asiakas + "\n");
 				System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 			}
 

@@ -14,6 +14,7 @@ public class Asiakas implements IAsiakas {
 	private static int i = 1;
 	private static long sum = 0;
 	private double[] ominaisuudet = new double[Ominaisuus.values().length];
+	private double asiakkaanLahtoVarat;
 	private Normal normal;
 	private TapahtumanTyyppi status;
 	private double[] tulokset = new double[IAsiakas.TULOSTEN_MAARA];
@@ -45,11 +46,19 @@ public class Asiakas implements IAsiakas {
 				sample = 0.5 + normal.sample();
 			}
 			ominaisuudet[i] = sample;
-
 		}
 
+		asiakkaanLahtoVarat = getOminaisuudet(Ominaisuus.VARAKKUUS);
 		saapumisaika = Kello.getInstance().getAika();
 		Trace.out(Trace.Level.INFO, "Uusi asiakas nro " + id + " saapui klo " + saapumisaika);
+	}
+
+	public double getAsiakkaanLahtoVarallisuus(){
+		return asiakkaanLahtoVarat;
+	}
+
+	public double getAsiakkaanVoitto(){
+		return getOminaisuudet(Ominaisuus.VARAKKUUS) - asiakkaanLahtoVarat;
 	}
 
 	public void setOminaisuus(Ominaisuus ominaisuus, Double arvo) {
