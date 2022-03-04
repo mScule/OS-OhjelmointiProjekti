@@ -409,4 +409,36 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				return null;
 		}
 	}
+
+	public double getBlackjackVoittoprosentti() {
+		return Kasino.getBlackjackVoittoprosentti();
+	}
+
+	public void setBlackjackVoittoprosentti(double blackjackVoittoprosentti) {
+		Kasino.setBlackjackVoittoprosentti(blackjackVoittoprosentti);
+	}
+
+	public double getBlackjackTasapeliprosentti() {
+		return Kasino.getBlackjackTasapeliprosentti();
+	}
+
+	public void setBlackjackTasapeliprosentti(double blackjackTasapeliprosentti) {
+		Kasino.setBlackjackTasapeliprosentti(blackjackTasapeliprosentti);
+	}
+
+	public int getMinBet() {
+		return Kasino.getMinBet();
+	}
+
+	public void setMinBet(int minBet) {
+		Kasino.setMinBet(minBet);
+	}
+
+	public int getMaxBet() {
+		return Kasino.getMaxBet();
+	}
+
+	public void setMaxBet(int maxBet) {
+		Kasino.setMaxBet(maxBet);
+	}
 }

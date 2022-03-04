@@ -34,8 +34,44 @@ public final class Kasino {
 
     private static double keskimPalveluaika = 10;
     private static double keskimSaapumisvaliaika = 10;
+    private static int minBet = 100;
+    private static int maxBet = 1000;
+    private static double blackjackVoittoprosentti = 0.4222;
+    private static double blackjackTasapeliprosentti = 0.0848;
 
     private Kasino() {
+    }
+
+    public static double getBlackjackVoittoprosentti() {
+        return blackjackVoittoprosentti;
+    }
+
+    public static void setBlackjackVoittoprosentti(double blackjackVoittoprosentti) {
+        Kasino.blackjackVoittoprosentti = blackjackVoittoprosentti;
+    }
+
+    public static double getBlackjackTasapeliprosentti() {
+        return blackjackTasapeliprosentti;
+    }
+
+    public static void setBlackjackTasapeliprosentti(double blackjackTasapeliprosentti) {
+        Kasino.blackjackTasapeliprosentti = blackjackTasapeliprosentti;
+    }
+
+    public static int getMinBet() {
+        return minBet;
+    }
+
+    public static void setMinBet(int minBet) {
+        Kasino.minBet = minBet;
+    }
+
+    public static int getMaxBet() {
+        return maxBet;
+    }
+
+    public static void setMaxBet(int maxBet) {
+        Kasino.maxBet = maxBet;
     }
 
     public static double getKeskimPalveluaika() {

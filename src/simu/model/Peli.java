@@ -19,10 +19,6 @@ public class Peli extends Palvelupiste {
 	private Asiakas[] pelipisteet = new Asiakas[pelipaikkojenMaara];
 	private double jononpituus = 0;
 	private Uniform uniform;
-	private int minBet = 100;
-	private int maxBet = 1000;
-	private double pelinVoittoprosentti = 0.4222;
-	private double pelinTasapeliprosentti = 0.0848;
 	// Lista blackjack pöydästä poistuvien asiakkaiden poistumisajoista.
 	private PriorityQueue<Double> poistumisajatLista = new PriorityQueue<Double>();
 
@@ -31,40 +27,48 @@ public class Peli extends Palvelupiste {
 		uniform = Kasino.getPelitUniform();
 	}
 
-	public int getMinBet() {
-		return minBet;
-	}
+	// public int getMinBet() {
+	// return minBet;
+	// }
 
-	public void setMinBet(int minBet) {
-		this.minBet = minBet;
-	}
+	// public void setMinBet(int minBet) {
+	// this.minBet = minBet;
+	// }
 
-	public int getMaxBet() {
-		return maxBet;
-	}
+	// public int getMaxBet() {
+	// return maxBet;
+	// }
 
-	public void setMaxBet(int maxBet) {
-		this.maxBet = maxBet;
-	}
+	// public void setMaxBet(int maxBet) {
+	// this.maxBet = maxBet;
+	// }
 
-	public double getPelinVoittoprosentti() {
-		return pelinVoittoprosentti;
-	}
+	// public double getPelinVoittoprosentti() {
+	// return pelinVoittoprosentti;
+	// }
 
-	public void setPelinVoittoprosentti(double pelinVoittoprosentti) {
-		this.pelinVoittoprosentti = pelinVoittoprosentti;
-	}
+	// public void setPelinVoittoprosentti(double pelinVoittoprosentti) {
+	// this.pelinVoittoprosentti = pelinVoittoprosentti;
+	// }
 
-	public double getPelinTasapeliprosentti() {
-		return pelinTasapeliprosentti;
-	}
+	// public double getPelinTasapeliprosentti() {
+	// return pelinTasapeliprosentti;
+	// }
 
-	public void setPelinTasapeliprosentti(double pelinTasapeliprosentti) {
-		this.pelinTasapeliprosentti = pelinTasapeliprosentti;
-	}
+	// public void setPelinTasapeliprosentti(double pelinTasapeliprosentti) {
+	// this.pelinTasapeliprosentti = pelinTasapeliprosentti;
+	// }
 
 	@Override
 	public void aloitaPalvelu() {
+
+		// Hae pelin asetukset
+		double pelinVoittoprosentti = Kasino.getBlackjackVoittoprosentti();
+		// System.out.println("pelinVoittoprosentti: " + pelinVoittoprosentti);
+		double pelinTasapeliprosentti = Kasino.getBlackjackTasapeliprosentti();
+		int minBet = Kasino.getMinBet();
+		int maxBet = Kasino.getMaxBet();
+
 		System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 		double varakkuusYksiDouble = Kasino.asiakkaanVarakkuus1Double;
 
@@ -112,6 +116,7 @@ public class Peli extends Palvelupiste {
 			}
 
 			double pelinTulos = uniform.sample();
+			// System.out.println("pelinTulos: " + pelinTulos);
 
 			if (pelinTulos <= pelinVoittoprosentti) {
 				// VOITTO ASIAKKAALLE
@@ -129,7 +134,7 @@ public class Peli extends Palvelupiste {
 				Kasino.loseMoney((bet * varakkuusYksiDouble));
 
 				// System.out.println("VOITTO: " + "BET: " + (bet *
-				// 		varakkuusYksiDouble) + "\n" + asiakas + "\n");
+				// varakkuusYksiDouble) + "\n" + asiakas + "\n");
 				System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 			} else if (pelinTulos > pelinVoittoprosentti
 					&& pelinTulos <= (pelinVoittoprosentti + pelinTasapeliprosentti)) {
@@ -143,7 +148,7 @@ public class Peli extends Palvelupiste {
 				Kasino.gainMoney((bet * varakkuusYksiDouble));
 
 				// System.out.println("HÄVIÖ: " + "BET: " + (bet *
-				// 		varakkuusYksiDouble) + "\n" + asiakas + "\n");
+				// varakkuusYksiDouble) + "\n" + asiakas + "\n");
 				System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 			}
 
