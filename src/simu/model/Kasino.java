@@ -20,7 +20,8 @@ public final class Kasino {
     // Pelien jakauma.
     private static Uniform pelitUniform = new Uniform(0, 1, seed);
     // Sisäänkäynnin, uloskäynnin ja baarin palveluaikajakauma.
-    public final static Negexp defaultPalveluajatNegexp = new Negexp(10, seed);
+    public final static double defaultPalveluaika = 10;
+    public final static Negexp defaultPalveluajatNegexp = new Negexp(defaultPalveluaika, seed);
     private static boolean vararikko = false;
 
     private Kasino() {

@@ -3,6 +3,7 @@ package simu.model;
 import java.util.PriorityQueue;
 
 import eduni.distributions.ContinuousGenerator;
+import eduni.distributions.Negexp;
 import eduni.distributions.Uniform;
 import simu.framework.Kello;
 import simu.framework.Tapahtuma;
@@ -25,7 +26,7 @@ public class Peli extends Palvelupiste {
 	// Lista blackjack pöydästä poistuvien asiakkaiden poistumisajoista.
 	private PriorityQueue<Double> poistumisajatLista = new PriorityQueue<Double>();
 
-	public Peli(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
+	public Peli(Negexp generator, Tapahtumalista tapahtumalista) {
 		super(generator, tapahtumalista);
 		uniform = Kasino.getPelitUniform();
 	}

@@ -13,6 +13,7 @@ import simu.model.Asiakas.Ominaisuus;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class OmaMoottori extends Moottori implements IOmaMoottori {
 	private Kello kello = Kello.getInstance();
@@ -60,6 +61,19 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		saapumisprosessi = new Saapumisprosessi(new Negexp(10, 5), tapahtumalista, TapahtumanTyyppi.SISAANKAYNTI);
 	}
 
+	public void setYllapitoRahamaara(double rahamaara){
+		Kasino.setYllapitohinta(rahamaara);
+
+		double keskimPalveluaika = Kasino.defaultPalveluaika/((rahamaara/1000) + 1);
+		System.out.println("keskimPalveluaika: " + keskimPalveluaika);
+
+		for (Map.Entry<TapahtumanTyyppi, Palvelupiste[]> pisteet : palvelupisteet.entrySet()) {
+			for (Palvelupiste p : pisteet.getValue()) {
+				p.setKeskimPalveluaika(keskimPalveluaika);
+			}
+		}
+	}
+
 	@Override
 	protected void alustukset() {
 		saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
@@ -69,7 +83,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	protected void suoritaTapahtuma(Tapahtuma t) { // B-vaiheen tapahtumat
 
 		Asiakas a;
-		// Kasino menettää ylläpidon hinnan verran rahaa joka 50 aikayksikkö
+		// Kasino menettää ylläpidon hinnan verran rahaa joka 50 aikayksikössä
 		double kulut = ((t.getAika() - ajanjaksoltaKulutMaksettu) / 50)
 		* (Kasino.getYllapitohinta() + Kasino.getMinimiyllapitohinta());
 
