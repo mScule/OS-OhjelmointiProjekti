@@ -11,8 +11,8 @@ public class Asiakas implements IAsiakas {
 	private double saapumisaika;
 	private double poistumisaika;
 	private int id;
-	private static int i = 1;
-	private static long sum = 0;
+	public static int i = 1;
+	public static long sum = 0;
 	private double[] ominaisuudet = new double[Ominaisuus.values().length];
 	private double asiakkaanLahtoVarat;
 	private Normal normal;

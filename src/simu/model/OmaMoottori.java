@@ -24,8 +24,6 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 	private double poistumisajatSummattuna = 0.0;
 
-	public static TapahtumanTyyppi seuraava;
-
 	private LinkedList<Asiakas> asiakkaatKasinolla = new LinkedList<Asiakas>();
 
 	private double[] tulokset = new double[IOmaMoottori.TULOSTEN_MAARA];
@@ -39,6 +37,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
 		super(kontrolleri);
+		
+		Kasino.resetKasino();
 
 		palvelupisteet = new HashMap<TapahtumanTyyppi, LinkedList<Palvelupiste>>();
 
