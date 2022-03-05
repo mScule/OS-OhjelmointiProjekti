@@ -148,7 +148,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		double kulut = ((t.getAika() - ajanjaksoltaKulutMaksettu) / 50)
 				* (Kasino.getKokoYllapitohinta());
 
-		// Trace.out(Trace.Level.INFO,"Kasino.loseMoney: " + kulut);
+		Trace.out(Trace.Level.INFO,"Kasino.loseMoney: " + kulut);
 
 		Kasino.loseMoney(kulut);
 		ajanjaksoltaKulutMaksettu = t.getAika();
@@ -191,7 +191,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			} else {
 				// Asiakas poistuu kasinolta
 				Trace.out(Trace.Level.INFO,"Asiakas " + a.getId() + " poistuu kasinolta.");
-				// Trace.out(Trace.Level.INFO,a);
+				Trace.out(Trace.Level.INFO,a);
 
 				// Poista asiakas kasinolla oleskelevien asiakkaiden listasta.
 				for (int i = 0; i < asiakkaatKasinolla.size(); i++) {
@@ -216,7 +216,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			}
 
 			Asiakas uusiA = new Asiakas();
-			// Trace.out(Trace.Level.INFO,uusiA);
+			Trace.out(Trace.Level.INFO,uusiA);
 			asiakkaatKasinolla.add(uusiA);
 			// palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0].lisaaJonoon(uusiA);
 

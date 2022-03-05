@@ -26,9 +26,9 @@ public class Saapumisprosessi {
 		double valiaikaMultiplierWinPer = 1;
 
 		for (int i = 0; i < 6; i++) {
-			// Trace.out(Trace.Level.INFO,"valiaikaMultiplier: " + valiaikaMultiplierWinPer);
-			// Trace.out(Trace.Level.INFO,
-			// 		"(0.42 / Kasino.getBlackjackVoittoprosentti(): " + (0.42 / Kasino.getBlackjackVoittoprosentti()));
+			Trace.out(Trace.Level.INFO,"valiaikaMultiplier: " + valiaikaMultiplierWinPer);
+			Trace.out(Trace.Level.INFO,
+			 		"(0.42 / Kasino.getBlackjackVoittoprosentti(): " + (0.42 / Kasino.getBlackjackVoittoprosentti()));
 			valiaikaMultiplierWinPer = valiaikaMultiplierWinPer * (0.4222 / Kasino.getBlackjackVoittoprosentti());
 		}
 
@@ -40,8 +40,6 @@ public class Saapumisprosessi {
 					"(100 / Kasino.getMinBet()): " + (100 / Kasino.getMinBet()));
 			valiaikaMultiplierMinBet = valiaikaMultiplierMinBet * ((double)Kasino.getMinBet() / 100);
 		}
-
-		// Trace.out(Trace.Level.INFO,"valiaikaMultiplier: " + valiaikaMultiplier);
 
 		double keskimSaapumisaika = Kasino.getKeskimSaapumisvaliaika();
 

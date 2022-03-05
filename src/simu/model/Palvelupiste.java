@@ -94,7 +94,7 @@ public class Palvelupiste implements IPalvelupiste {
 		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + jono.peek().getId() + " ["
 				+ this.getClass().toString() + " " + getId() + " ]");
 		// Printtaa asiakkaan tiedot
-		//Trace.out(Trace.Level.INFO,jono.peek());
+		Trace.out(Trace.Level.INFO,jono.peek());
 
 		// TODO: Käytä asiakkaan palveluajan laskemiseen jonkun satunnaisesti
 		// generoidun luvun lisäksi asiakkaan ominaisuuksia.
