@@ -136,4 +136,6 @@ public abstract class Moottori extends Thread implements IMoottori {
 	public abstract int getMaxBet();
 
 	public abstract void setMaxBet(int maxBet);
+
+	public abstract double[] getTulokset();
 }

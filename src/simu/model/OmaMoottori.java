@@ -367,16 +367,6 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			}
 		}
 
-		// tulokset[IOmaMoottori.TULOS_KOKONAIS_MIELENTILA] += kokonaisMieliala;
-		// tulokset[IOmaMoottori.TULOS_KOKONAIS_VARAKKUUS] += kokonaisVarakkuus;
-		// tulokset[IOmaMoottori.TULOS_KOKONAIS_UHKAROHKEUS] += kokonaisUhkarohkeus;
-		// tulokset[IOmaMoottori.TULOS_KOKONAIS_PAIHTYNEISYYS] += kokonaisPaihtymys;
-
-		// keskimMieliala = kokonaisMieliala / asiakkaatKasinolla.size();
-		// keskimVarakkuus = kokonaisVarakkuus / asiakkaatKasinolla.size();
-		// keskimUhkarohkeus = kokonaisUhkarohkeus / asiakkaatKasinolla.size();
-		// keskimPaihtymys = kokonaisPaihtymys / asiakkaatKasinolla.size();
-
 		tulokset[IOmaMoottori.TULOS_KESKIM_MIELENTILA] = (kokonaisMieliala + poistuneidenAsiakKokMielentila)
 				/ saapuneidenAsiakkaidenMaara;
 		tulokset[IOmaMoottori.TULOS_KESKIM_VARAKKUUS] = (kokonaisVarakkuus + poistuneidenAsiakKokVarakkuus)

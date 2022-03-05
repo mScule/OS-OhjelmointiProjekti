@@ -1,5 +1,6 @@
 import simu.framework.*;
 import simu.framework.Trace.Level;
+import simu.model.IOmaMoottori;
 import simu.model.OmaMoottori;
 import simu.model.TapahtumanTyyppi;
 
@@ -21,5 +22,6 @@ public class MainTeksti { // Tekstipohjainen
 		m.lisaaPalvelupisteita(TapahtumanTyyppi.SISAANKAYNTI, 1);
 		m.setSimulointiaika(100);
 		m.run();
+		System.out.println("m.getTulokset(): " + m.getTulokset()[IOmaMoottori.TULOS_KESKIM_PAIHTYNEISYYS]);
 	}
 }
