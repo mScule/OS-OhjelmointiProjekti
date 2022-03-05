@@ -84,8 +84,6 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		Kasino.setKeskimSaapumisvaliaika(keskimSaapumisvaliaika);
 
 		System.out.println("keskimSaapumisvaliaika: " + keskimSaapumisvaliaika);
-
-		saapumisprosessi.setKeskimSaapumisvaliaika(keskimSaapumisvaliaika);
 	}
 
 	public void lisaaPalvelupisteita(TapahtumanTyyppi palvelupisteTyyppi, int maara) {
@@ -138,6 +136,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 	@Override
 	protected void alustukset() {
+		saapumisprosessi.calculateKeskimSaapumisaika(); // Lasketaan asiakkaiden keskimääräinen saapumiväliaika
 		saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
 	}
 
