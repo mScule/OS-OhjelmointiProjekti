@@ -18,10 +18,10 @@ public class Palvelupiste implements IPalvelupiste {
 	protected Negexp negexpGenerator;
 	protected Tapahtumalista tapahtumalista;
 	// Arvo joku muu tapahtuma, kuin SISÄÄNKÄYNTI tai POISTUMINEN.
-	protected Uniform uniform = new Uniform(2, TapahtumanTyyppi.values().length);
+	protected Uniform uniform = new Uniform(2, TapahtumanTyyppi.values().length, Kasino.getSeed());
 
 	// JonoStartegia strategia; //optio: asiakkaiden järjestys
-	private static int palveluid = 0;
+	public static int palveluid = 0;
 	private int id;
 	protected boolean varattu = false;
 
@@ -94,7 +94,7 @@ public class Palvelupiste implements IPalvelupiste {
 		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + jono.peek().getId() + " ["
 				+ this.getClass().toString() + " " + getId() + " ]");
 		// Printtaa asiakkaan tiedot
-		//System.out.println(jono.peek());
+		Trace.out(Trace.Level.INFO,jono.peek());
 
 		// TODO: Käytä asiakkaan palveluajan laskemiseen jonkun satunnaisesti
 		// generoidun luvun lisäksi asiakkaan ominaisuuksia.

@@ -22,9 +22,9 @@ public final class Kasino {
     private static Uniform pelitUniform = new Uniform(0, 1, seed);
     // Sisäänkäynnin, uloskäynnin ja baarin palveluaikajakauma.
     public final static double defaultKeskimPalveluaika = 10;
-    public final static Negexp defaultPalveluajatNegexp = new Negexp(defaultKeskimPalveluaika, seed);
+    public static Negexp defaultPalveluajatNegexp = new Negexp(defaultKeskimPalveluaika, seed);
     public final static double defaultKeskimSaapumisaika = 10;
-    public final static Negexp defaultSaapumisajatNegexp = new Negexp(defaultKeskimSaapumisaika, seed);
+    public static Negexp defaultSaapumisajatNegexp = new Negexp(defaultKeskimSaapumisaika, seed);
     public final static double pelipoydanHinta = 100;
     public final static double baarinHinta = 300;
     public final static double sisaankaynninHinta = 1000;
@@ -40,6 +40,43 @@ public final class Kasino {
     private static double blackjackTasapeliprosentti = 0.0848;
 
     private Kasino() {
+
+    }
+
+    public static void resetKasino() {
+        // Resetoi tämä class:
+
+        kasinonRahat = kasinonLahtoRahat;
+        asiakkaidenKeskimMieliala = 0;
+        asiakkaidenKeskimPaihtyneisyys = 0;
+        asiakkaidenKeskimVarakkuus = 0;
+        yllapitohinta = 0;
+        mainoskulut = 0;
+        seed = 1337;
+
+        defaultSaapumisajatNegexp = new Negexp(defaultKeskimSaapumisaika, seed);
+        // Asiakkaiden ominaisuuksien jakauma.
+        asiakasOminNormal = new Normal(0, 0.5, seed);
+        // Pelien jakauma.
+        pelitUniform = new Uniform(0, 1, seed);
+        // Sisäänkäynnin, uloskäynnin ja baarin palveluaikajakauma.
+        defaultPalveluajatNegexp = new Negexp(defaultKeskimPalveluaika, seed);
+
+        vararikko = false;
+
+        keskimPalveluaika = 10;
+        keskimSaapumisvaliaika = 10;
+        minBet = 100;
+        maxBet = 1000;
+        blackjackVoittoprosentti = 0.4222;
+        blackjackTasapeliprosentti = 0.0848;
+
+        // Resetoi asiakkaat
+
+        Asiakas.i = 1;
+        Asiakas.sum = 0;
+
+        Palvelupiste.palveluid = 0;
     }
 
     public static double getBlackjackVoittoprosentti() {

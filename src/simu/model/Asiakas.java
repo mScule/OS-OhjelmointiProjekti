@@ -11,8 +11,8 @@ public class Asiakas implements IAsiakas {
 	private double saapumisaika;
 	private double poistumisaika;
 	private int id;
-	private static int i = 1;
-	private static long sum = 0;
+	public static int i = 1;
+	public static long sum = 0;
 	private double[] ominaisuudet = new double[Ominaisuus.values().length];
 	private double asiakkaanLahtoVarat;
 	private Normal normal;
@@ -97,7 +97,7 @@ public class Asiakas implements IAsiakas {
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " viipyi: " + (poistumisaika - saapumisaika));
 		sum += (poistumisaika - saapumisaika);
 		double keskiarvo = sum / id;
-		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän asti " + keskiarvo);
+		Trace.out(Trace.Level.INFO,"Asiakkaiden läpimenoaikojen keskiarvo tähän asti " + keskiarvo);
 	}
 
 	@Override

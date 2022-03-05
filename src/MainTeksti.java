@@ -6,7 +6,7 @@ import simu.model.TapahtumanTyyppi;
 
 public class MainTeksti { // Tekstipohjainen
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
 		Trace.setTraceLevel(Level.INFO);
 		Moottori m = new OmaMoottori(null);
@@ -21,7 +21,8 @@ public class MainTeksti { // Tekstipohjainen
 		m.lisaaPalvelupisteita(TapahtumanTyyppi.ULOSKAYNTI, 1);
 		m.lisaaPalvelupisteita(TapahtumanTyyppi.SISAANKAYNTI, 1);
 		m.setSimulointiaika(100);
-		m.run();
+		m.start();
+		m.join();
 		System.out.println("m.getTulokset(): " + m.getTulokset()[IOmaMoottori.TULOS_KESKIM_PAIHTYNEISYYS]);
 	}
 }

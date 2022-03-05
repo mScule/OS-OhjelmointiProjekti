@@ -6,6 +6,7 @@ import eduni.distributions.Uniform;
 import simu.framework.Kello;
 import simu.framework.Tapahtuma;
 import simu.framework.Tapahtumalista;
+import simu.framework.Trace;
 import simu.model.Asiakas.Ominaisuus;
 
 public class Baari extends Palvelupiste {
@@ -19,8 +20,8 @@ public class Baari extends Palvelupiste {
 		varattu = true;
 		super.aloitaPalvelu();
 		double palveluaika = negexpGenerator.sample();
-		System.out.println("generator:" + negexpGenerator);
-		System.out.println("palveluaika: " + palveluaika);
+		Trace.out(Trace.Level.INFO,"generator:" + negexpGenerator);
+		Trace.out(Trace.Level.INFO,"palveluaika: " + palveluaika);
 		lisaaPalveluAikaa(palveluaika);
 		Asiakas a = jono.peek();
 

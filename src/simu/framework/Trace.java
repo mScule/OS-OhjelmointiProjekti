@@ -17,4 +17,10 @@ public class Trace {
 			System.out.println(txt);
 		}
 	}
+
+	public static void out(Level lvl, Object object) {
+		if (lvl.ordinal() >= traceLevel.ordinal()) {
+			System.out.println(object);
+		}
+	}
 }
