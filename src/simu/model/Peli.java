@@ -3,6 +3,7 @@ package simu.model;
 import java.util.PriorityQueue;
 
 import eduni.distributions.ContinuousGenerator;
+import eduni.distributions.Negexp;
 import eduni.distributions.Uniform;
 import simu.framework.Kello;
 import simu.framework.Tapahtuma;
@@ -18,53 +19,58 @@ public class Peli extends Palvelupiste {
 	private Asiakas[] pelipisteet = new Asiakas[pelipaikkojenMaara];
 	private double jononpituus = 0;
 	private Uniform uniform;
-	private int minBet = 100;
-	private int maxBet = 1000;
-	private double pelinVoittoprosentti = 0.4222;
-	private double pelinTasapeliprosentti = 0.0848;
-
 	// Lista blackjack pöydästä poistuvien asiakkaiden poistumisajoista.
 	private PriorityQueue<Double> poistumisajatLista = new PriorityQueue<Double>();
 
-	public Peli(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
+	public Peli(Negexp generator, Tapahtumalista tapahtumalista) {
 		super(generator, tapahtumalista);
 		uniform = Kasino.getPelitUniform();
 	}
 
-	public int getMinBet() {
-		return minBet;
-	}
+	// Pelikohtaiset säädöt:
+	
+	// public int getMinBet() {
+	// return minBet;
+	// }
 
-	public void setMinBet(int minBet) {
-		this.minBet = minBet;
-	}
+	// public void setMinBet(int minBet) {
+	// this.minBet = minBet;
+	// }
 
-	public int getMaxBet() {
-		return maxBet;
-	}
+	// public int getMaxBet() {
+	// return maxBet;
+	// }
 
-	public void setMaxBet(int maxBet) {
-		this.maxBet = maxBet;
-	}
+	// public void setMaxBet(int maxBet) {
+	// this.maxBet = maxBet;
+	// }
 
-	public double getPelinVoittoprosentti() {
-		return pelinVoittoprosentti;
-	}
+	// public double getPelinVoittoprosentti() {
+	// return pelinVoittoprosentti;
+	// }
 
-	public void setPelinVoittoprosentti(double pelinVoittoprosentti) {
-		this.pelinVoittoprosentti = pelinVoittoprosentti;
-	}
+	// public void setPelinVoittoprosentti(double pelinVoittoprosentti) {
+	// this.pelinVoittoprosentti = pelinVoittoprosentti;
+	// }
 
-	public double getPelinTasapeliprosentti() {
-		return pelinTasapeliprosentti;
-	}
+	// public double getPelinTasapeliprosentti() {
+	// return pelinTasapeliprosentti;
+	// }
 
-	public void setPelinTasapeliprosentti(double pelinTasapeliprosentti) {
-		this.pelinTasapeliprosentti = pelinTasapeliprosentti;
-	}
+	// public void setPelinTasapeliprosentti(double pelinTasapeliprosentti) {
+	// this.pelinTasapeliprosentti = pelinTasapeliprosentti;
+	// }
 
 	@Override
 	public void aloitaPalvelu() {
+
+		// Hae pelin asetukset
+		double pelinVoittoprosentti = Kasino.getBlackjackVoittoprosentti();
+		// System.out.println("pelinVoittoprosentti: " + pelinVoittoprosentti);
+		double pelinTasapeliprosentti = Kasino.getBlackjackTasapeliprosentti();
+		int minBet = Kasino.getMinBet();
+		int maxBet = Kasino.getMaxBet();
+
 		System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 		double varakkuusYksiDouble = Kasino.asiakkaanVarakkuus1Double;
 
@@ -76,13 +82,18 @@ public class Peli extends Palvelupiste {
 		boolean poistuu = false;
 
 		while (jatkaa) {
+
+			// Alenna asiakkaan päihtyneisyyttä, kun hän pelaa
+			if ((asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS) - 0.005) > 0)
+				asiakas.setOminaisuus(Ominaisuus.PAIHTYMYS, (asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS) - 0.01));
+
 			double asiakkaanMieliala = asiakas.getOminaisuudet(Ominaisuus.MIELIALA);
 			double asiakkaanVarakkuus = asiakas.getOminaisuudet(Ominaisuus.VARAKKUUS);
 			double asiakkaanUhkarohkeus = asiakas.getOminaisuudet(Ominaisuus.UHKAROHKEUS);
 			double asiakkaanPaihtymys = asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS);
 
 			if (Kasino.getKasinonRahat() <= 0) {
-				// TODO: lopeta simulointi.
+				// Lopeta simulointi.
 				Kasino.setVararikko(true);
 				break;
 			}
@@ -106,18 +117,26 @@ public class Peli extends Palvelupiste {
 				bet = minBet / varakkuusYksiDouble;
 			}
 
-			// bet = minBet / varakkuusYksiDouble;
-
 			double pelinTulos = uniform.sample();
+			// System.out.println("pelinTulos: " + pelinTulos);
 
 			if (pelinTulos <= pelinVoittoprosentti) {
 				// VOITTO ASIAKKAALLE
 				asiakas.setOminaisuus(Ominaisuus.VARAKKUUS, (asiakkaanVarakkuus + bet));
-				asiakas.setOminaisuus(Ominaisuus.MIELIALA, (asiakkaanVarakkuus + bet));
+				if ((asiakas.getAsiakkaanVoitto()) > 0) {
+
+					// System.out.println("voitto statsit: " + asiakkaanMieliala + bet +
+					// asiakas.getAsiakkaanVoitto());
+
+					asiakas.setOminaisuus(Ominaisuus.MIELIALA,
+							(asiakkaanMieliala + bet + asiakas.getAsiakkaanVoitto()));
+				} else {
+					asiakas.setOminaisuus(Ominaisuus.MIELIALA, (asiakkaanMieliala + bet));
+				}
 				Kasino.loseMoney((bet * varakkuusYksiDouble));
 
-				System.out.println("VOITTO: " + asiakas + "BET: " + (bet *
-						varakkuusYksiDouble));
+				// System.out.println("VOITTO: " + "BET: " + (bet *
+				// varakkuusYksiDouble) + "\n" + asiakas + "\n");
 				System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 			} else if (pelinTulos > pelinVoittoprosentti
 					&& pelinTulos <= (pelinVoittoprosentti + pelinTasapeliprosentti)) {
@@ -127,11 +146,11 @@ public class Peli extends Palvelupiste {
 			} else {
 				// HÄVIÖ ASIAKKAALLE
 				asiakas.setOminaisuus(Ominaisuus.VARAKKUUS, (asiakkaanVarakkuus - bet));
-				asiakas.setOminaisuus(Ominaisuus.MIELIALA, (asiakkaanVarakkuus - bet));
+				asiakas.setOminaisuus(Ominaisuus.MIELIALA, (asiakkaanMieliala - bet + asiakas.getAsiakkaanVoitto()));
 				Kasino.gainMoney((bet * varakkuusYksiDouble));
 
-				System.out.println("HÄVIÖ " + asiakas + "BET: " + (bet *
-						varakkuusYksiDouble));
+				// System.out.println("HÄVIÖ: " + "BET: " + (bet *
+				// varakkuusYksiDouble) + "\n" + asiakas + "\n");
 				System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 			}
 
@@ -148,9 +167,9 @@ public class Peli extends Palvelupiste {
 			// ominaisuutta.
 			double jatkaakoSample = uniform.sample() * uniform.sample() * uniform.sample() * uniform.sample();
 
-			System.out.println("asiakkaanKokOminaisuudet: " + asiakkaanKokOminaisuudet);
-			System.out.println("jatkaakoSample: " + jatkaakoSample);
-			System.out.println();
+			// System.out.println("asiakkaanKokOminaisuudet: " + asiakkaanKokOminaisuudet);
+			// System.out.println("jatkaakoSample: " + jatkaakoSample);
+			// System.out.println();
 
 			if (jatkaakoSample > asiakkaanKokOminaisuudet) {
 				jatkaa = false;
@@ -177,7 +196,7 @@ public class Peli extends Palvelupiste {
 			asiakas.setStatus(tyyppi);
 			Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + asiakas.getId() + " ["
 					+ this.getClass().toString() + " " + getId() + " ]");
-			System.out.println(asiakas);
+			// System.out.println(asiakas);
 			double poistumisaika = Kello.getInstance().getAika() + palveluaika;
 
 			tapahtumalista.lisaa(

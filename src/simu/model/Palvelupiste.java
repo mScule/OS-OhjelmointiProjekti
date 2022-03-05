@@ -3,6 +3,7 @@ package simu.model;
 import java.util.LinkedList;
 
 import eduni.distributions.ContinuousGenerator;
+import eduni.distributions.Negexp;
 import eduni.distributions.Uniform;
 import simu.framework.Tapahtumalista;
 import simu.framework.Trace;
@@ -10,11 +11,11 @@ import simu.framework.Trace;
 // TODO:
 // Palvelupistekohtaiset toiminnallisuudet, laskutoimitukset (+ tarvittavat muuttujat), jonjen pituudet 
 // ja raportointi koodattava
-public class Palvelupiste {
+public class Palvelupiste implements IPalvelupiste {
 
 	protected LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
 
-	protected ContinuousGenerator generator;
+	protected Negexp negexpGenerator;
 	protected Tapahtumalista tapahtumalista;
 	// Arvo joku muu tapahtuma, kuin SISÄÄNKÄYNTI tai POISTUMINEN.
 	protected Uniform uniform = new Uniform(2, TapahtumanTyyppi.values().length);
@@ -27,12 +28,19 @@ public class Palvelupiste {
 	private double palveluaika = 0;
 	private int palvellutAsiakkaat = 0;
 
-	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
+	private double[] tulokset = new double[IPalvelupiste.TULOSTEN_MAARA];
+
+	public Palvelupiste(Negexp negexpGenerator, Tapahtumalista tapahtumalista) {
 		this.tapahtumalista = tapahtumalista;
-		this.generator = generator;
+		this.negexpGenerator = negexpGenerator;
 
 		id = palveluid;
 		palveluid++;
+	}
+
+	public void setKeskimPalveluaika(double uusiKeskimPalveluaika){
+		Negexp newGenerator = new Negexp(uusiKeskimPalveluaika, Kasino.getSeed());
+		negexpGenerator = newGenerator;
 	}
 
 	private int getSample() {
@@ -85,15 +93,13 @@ public class Palvelupiste {
 
 		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + jono.peek().getId() + " ["
 				+ this.getClass().toString() + " " + getId() + " ]");
-		System.out.println(jono.peek());
+		// Printtaa asiakkaan tiedot
+		//System.out.println(jono.peek());
 
 		// TODO: Käytä asiakkaan palveluajan laskemiseen jonkun satunnaisesti
 		// generoidun luvun lisäksi asiakkaan ominaisuuksia.
 
 		// TODO: Laske ja päivitä asiakkaiden ominaisuudet.
-
-		// TODO: Luo asiakkaalle kasinosta poistumistapahtuma, jos hänen pelimerkit
-		// loppuvat.
 	}
 
 	public void poistu() {
@@ -114,5 +120,30 @@ public class Palvelupiste {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public double[] getTulokset() {
+		double onVarattu;
+
+		if (onVarattu()) {
+			onVarattu = 1;
+		} else {
+			onVarattu = 0;
+		}
+
+		// ID
+		tulokset[IPalvelupiste.ID] = getId();
+
+		// Varattu
+		tulokset[IPalvelupiste.VARATTU] = onVarattu;
+
+		// Saapuneiden asiakkaiden määrä
+		tulokset[IPalvelupiste.PALVELUAIKA] = getPalveluaika();
+
+		// Poistuneiden asiakkaiden määrä
+		tulokset[IPalvelupiste.PALVELLUT_ASIAKKAAT] = getPalvellutAsiakkaat();
+
+		return tulokset;
 	}
 }

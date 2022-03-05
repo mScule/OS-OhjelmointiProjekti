@@ -1,13 +1,14 @@
 package simu.model;
 
 import eduni.distributions.ContinuousGenerator;
+import eduni.distributions.Negexp;
 import simu.framework.Kello;
 import simu.framework.Tapahtuma;
 import simu.framework.Tapahtumalista;
 
 public class Sisaankaynti extends Palvelupiste {
 
-	public Sisaankaynti(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
+	public Sisaankaynti(Negexp generator, Tapahtumalista tapahtumalista) {
 		super(generator, tapahtumalista);
 	}
 
@@ -16,7 +17,7 @@ public class Sisaankaynti extends Palvelupiste {
 		varattu = true;
 		super.aloitaPalvelu();
 
-		double palveluaika = generator.sample();
+		double palveluaika = negexpGenerator.sample();
 		lisaaPalveluAikaa(palveluaika);
 
 		Asiakas a = jono.peek();

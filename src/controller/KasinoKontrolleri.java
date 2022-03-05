@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.LinkedList;
+
 import javafx.application.Platform;
 import simu.model.IOmaMoottori;
 import simu.model.OmaMoottori;
@@ -64,7 +66,7 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	}
 
 	@Override
-	public Palvelupiste[] haePalvelupisteet(int palvelu) {
+	public LinkedList<Palvelupiste> haePalvelupisteet(int palvelu) {
 		return moottori.getPalvelupisteet(palvelu);
 	}
 }

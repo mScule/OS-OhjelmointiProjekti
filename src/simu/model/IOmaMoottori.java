@@ -1,5 +1,7 @@
 package simu.model;
 
+import java.util.LinkedList;
+
 import simu.framework.IMoottori;
 
 public interface IOmaMoottori extends IMoottori {
@@ -17,11 +19,7 @@ public interface IOmaMoottori extends IMoottori {
 		TULOS_KESKIM_VARAKKUUS               = 9,
 		TULOS_KESKIM_UHKAROHKEUS             = 10,
 		TULOS_KESKIM_PAIHTYNEISYYS           = 11,
-		TULOS_KOKONAIS_MIELENTILA            = 12,
-		TULOS_KOKONAIS_VARAKKUUS             = 13,
-		TULOS_KOKONAIS_UHKAROHKEUS           = 14,
-		TULOS_KOKONAIS_PAIHTYNEISYYS         = 15,
-		TULOSTEN_MAARA                       = 16;
+		TULOSTEN_MAARA                       = 12; // Käytetään vain arrayn luomisessa.
 	
 	public double[] getTulokset();
 	
@@ -32,5 +30,5 @@ public interface IOmaMoottori extends IMoottori {
 		PALVELUTYYPPI_PELI         = 3,
 		PALVELUJEN_MAARA           = 4;
 	
-	public Palvelupiste[] getPalvelupisteet(int palvelu);
+	public LinkedList<Palvelupiste> getPalvelupisteet(int palvelu);
 }

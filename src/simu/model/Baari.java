@@ -1,6 +1,7 @@
 package simu.model;
 
 import eduni.distributions.ContinuousGenerator;
+import eduni.distributions.Negexp;
 import eduni.distributions.Uniform;
 import simu.framework.Kello;
 import simu.framework.Tapahtuma;
@@ -9,7 +10,7 @@ import simu.model.Asiakas.Ominaisuus;
 
 public class Baari extends Palvelupiste {
 
-	public Baari(ContinuousGenerator generator, Tapahtumalista tapahtumalista) {
+	public Baari(Negexp generator, Tapahtumalista tapahtumalista) {
 		super(generator, tapahtumalista);
 	}
 
@@ -17,7 +18,9 @@ public class Baari extends Palvelupiste {
 	public void aloitaPalvelu() {
 		varattu = true;
 		super.aloitaPalvelu();
-		double palveluaika = generator.sample();
+		double palveluaika = negexpGenerator.sample();
+		System.out.println("generator:" + negexpGenerator);
+		System.out.println("palveluaika: " + palveluaika);
 		lisaaPalveluAikaa(palveluaika);
 		Asiakas a = jono.peek();
 
