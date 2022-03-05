@@ -27,8 +27,8 @@ class MoottoriTest {
 	}
 
 	@ParameterizedTest(name = "Tuleeko sama tulos samoilla lähtöarvoilla")
-	@CsvSource({ "1,2,3,4,5,6,7,8,9,10,11" })
-	void test(int luku) throws InterruptedException {
+	@CsvSource({ "0","1","2","3","4","5","6","7","8","9","10","11" })
+	void SamatLoppuarvotTesti(int luku) throws InterruptedException {
 		Trace.setTraceLevel(Level.ERR);
 		Moottori m = new OmaMoottori(null);
 		m.setBlackjackTasapeliprosentti(0.08);
@@ -45,7 +45,7 @@ class MoottoriTest {
 		m.start();
 		m.join();
 
-		double keskimPaihtyneisyys1 = m.getTulokset()[luku];
+		double tulos1 = m.getTulokset()[luku];
 
 		Kello.getInstance().setAika(0);
 
@@ -64,12 +64,12 @@ class MoottoriTest {
 		m2.start();
 		m2.join();
 
-		double keskimPaihtyneisyys2 = m2.getTulokset()[luku];
+		double tulos2 = m2.getTulokset()[luku];
+		
+		System.out.println("m.getTulokset()[" + luku + "]: " + tulos1);
+		System.out.println("m2.getTulokset()[" + luku + "]: " + tulos2);
 
-		assertEquals(keskimPaihtyneisyys1, keskimPaihtyneisyys2, DELTA, ("Eri tulos"));
-
-		System.out.println("keskimPaihtyneisyys1: " + keskimPaihtyneisyys1);
-		System.out.println("keskimPaihtyneisyys2: " + keskimPaihtyneisyys2);
+		assertEquals(tulos1, tulos2, DELTA, ("Eri tulos"));
 	}
 
 }

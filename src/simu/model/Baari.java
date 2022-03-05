@@ -19,8 +19,8 @@ public class Baari extends Palvelupiste {
 		varattu = true;
 		super.aloitaPalvelu();
 		double palveluaika = negexpGenerator.sample();
-		System.out.println("generator:" + negexpGenerator);
-		System.out.println("palveluaika: " + palveluaika);
+		// System.out.println("generator:" + negexpGenerator);
+		// System.out.println("palveluaika: " + palveluaika);
 		lisaaPalveluAikaa(palveluaika);
 		Asiakas a = jono.peek();
 

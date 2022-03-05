@@ -54,7 +54,7 @@ public abstract class Moottori extends Thread implements IMoottori {
 
 	private boolean simuloidaan() {
 		if (Kasino.isVararikko()) {
-			System.out.println("Kasino meni vararikkoon!!!");
+			// System.out.println("Kasino meni vararikkoon!!!");
 			return false;
 		}
 		return kello.getAika() < simulointiaika;

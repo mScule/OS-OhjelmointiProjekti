@@ -66,7 +66,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 		Kasino.setKeskimPalveluaika(keskimPalveluaika);
 
-		System.out.println("keskimPalveluaika: " + keskimPalveluaika);
+		// System.out.println("keskimPalveluaika: " + keskimPalveluaika);
 
 		for (Map.Entry<TapahtumanTyyppi, LinkedList<Palvelupiste>> pisteet : palvelupisteet.entrySet()) {
 			for (Palvelupiste p : pisteet.getValue()) {
@@ -83,7 +83,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 		Kasino.setKeskimSaapumisvaliaika(keskimSaapumisvaliaika);
 
-		System.out.println("keskimSaapumisvaliaika: " + keskimSaapumisvaliaika);
+		// System.out.println("keskimSaapumisvaliaika: " + keskimSaapumisvaliaika);
 	}
 
 	public void lisaaPalvelupisteita(TapahtumanTyyppi palvelupisteTyyppi, int maara) {
@@ -148,7 +148,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		double kulut = ((t.getAika() - ajanjaksoltaKulutMaksettu) / 50)
 				* (Kasino.getKokoYllapitohinta());
 
-		// System.out.println("Kasino.loseMoney: " + kulut);
+		// // System.out.println("Kasino.loseMoney: " + kulut);
 
 		Kasino.loseMoney(kulut);
 		ajanjaksoltaKulutMaksettu = t.getAika();
@@ -190,8 +190,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				pisteet.get(lyhyinIndex).lisaaJonoon(a);
 			} else {
 				// Asiakas poistuu kasinolta
-				System.out.println("Asiakas " + a.getId() + " poistuu kasinolta.");
-				// System.out.println(a);
+				// System.out.println("Asiakas " + a.getId() + " poistuu kasinolta.");
+				// // System.out.println(a);
 
 				// Poista asiakas kasinolla oleskelevien asiakkaiden listasta.
 				for (int i = 0; i < asiakkaatKasinolla.size(); i++) {
@@ -216,7 +216,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			}
 
 			Asiakas uusiA = new Asiakas();
-			// System.out.println(uusiA);
+			// // System.out.println(uusiA);
 			asiakkaatKasinolla.add(uusiA);
 			// palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0].lisaaJonoon(uusiA);
 
@@ -290,7 +290,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 						"\tUloskäynti: " + uloskaynti.getPalveluaika() / uloskaynti.getPalvellutAsiakkaat() + "\n" +
 						"\tBaari: " + baari.getPalveluaika() / baari.getPalvellutAsiakkaat() + "\n" +
 						"\tPeli: " + peli.getPalveluaika() / peli.getPalvellutAsiakkaat());
-		System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
+		// System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 	}
 
 	// IOmaMoottori

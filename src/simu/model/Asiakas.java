@@ -97,7 +97,7 @@ public class Asiakas implements IAsiakas {
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " viipyi: " + (poistumisaika - saapumisaika));
 		sum += (poistumisaika - saapumisaika);
 		double keskiarvo = sum / id;
-		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän asti " + keskiarvo);
+		// System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän asti " + keskiarvo);
 	}
 
 	@Override
