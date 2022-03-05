@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.LinkedList;
+
 import simu.model.Palvelupiste;
 
 public interface IKontrolleriVtoM {
@@ -11,5 +13,5 @@ public interface IKontrolleriVtoM {
 		public void hidasta();
 		
 		public double[] haeTulokset();
-		public Palvelupiste[] haePalvelupisteet(int palvelu);
+		public LinkedList<Palvelupiste> haePalvelupisteet(int palvelu);
 }
