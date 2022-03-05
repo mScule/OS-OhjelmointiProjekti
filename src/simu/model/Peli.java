@@ -66,12 +66,12 @@ public class Peli extends Palvelupiste {
 
 		// Hae pelin asetukset
 		double pelinVoittoprosentti = Kasino.getBlackjackVoittoprosentti();
-		// // System.out.println("pelinVoittoprosentti: " + pelinVoittoprosentti);
+		// Trace.out(Trace.Level.INFO,"pelinVoittoprosentti: " + pelinVoittoprosentti);
 		double pelinTasapeliprosentti = Kasino.getBlackjackTasapeliprosentti();
 		int minBet = Kasino.getMinBet();
 		int maxBet = Kasino.getMaxBet();
 
-		// System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
+		Trace.out(Trace.Level.INFO,"Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 		double varakkuusYksiDouble = Kasino.asiakkaanVarakkuus1Double;
 
 		Asiakas asiakas = jono.get(0);
@@ -118,14 +118,14 @@ public class Peli extends Palvelupiste {
 			}
 
 			double pelinTulos = uniform.sample();
-			// // System.out.println("pelinTulos: " + pelinTulos);
+			// Trace.out(Trace.Level.INFO,"pelinTulos: " + pelinTulos);
 
 			if (pelinTulos <= pelinVoittoprosentti) {
 				// VOITTO ASIAKKAALLE
 				asiakas.setOminaisuus(Ominaisuus.VARAKKUUS, (asiakkaanVarakkuus + bet));
 				if ((asiakas.getAsiakkaanVoitto()) > 0) {
 
-					// // System.out.println("voitto statsit: " + asiakkaanMieliala + bet +
+					// Trace.out(Trace.Level.INFO,"voitto statsit: " + asiakkaanMieliala + bet +
 					// asiakas.getAsiakkaanVoitto());
 
 					asiakas.setOminaisuus(Ominaisuus.MIELIALA,
@@ -135,13 +135,13 @@ public class Peli extends Palvelupiste {
 				}
 				Kasino.loseMoney((bet * varakkuusYksiDouble));
 
-				// // System.out.println("VOITTO: " + "BET: " + (bet *
+				// Trace.out(Trace.Level.INFO,"VOITTO: " + "BET: " + (bet *
 				// varakkuusYksiDouble) + "\n" + asiakas + "\n");
-				// System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
+				Trace.out(Trace.Level.INFO,"Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 			} else if (pelinTulos > pelinVoittoprosentti
 					&& pelinTulos <= (pelinVoittoprosentti + pelinTasapeliprosentti)) {
 				// TASAPELI
-				// System.out.println("TASAPELI");
+				Trace.out(Trace.Level.INFO,"TASAPELI");
 
 			} else {
 				// HÄVIÖ ASIAKKAALLE
@@ -149,9 +149,9 @@ public class Peli extends Palvelupiste {
 				asiakas.setOminaisuus(Ominaisuus.MIELIALA, (asiakkaanMieliala - bet + asiakas.getAsiakkaanVoitto()));
 				Kasino.gainMoney((bet * varakkuusYksiDouble));
 
-				// // System.out.println("HÄVIÖ: " + "BET: " + (bet *
+				// Trace.out(Trace.Level.INFO,"HÄVIÖ: " + "BET: " + (bet *
 				// varakkuusYksiDouble) + "\n" + asiakas + "\n");
-				// System.out.println("Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
+				Trace.out(Trace.Level.INFO,"Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 			}
 
 			asiakkaanMieliala = asiakas.getOminaisuudet(Ominaisuus.MIELIALA);
@@ -167,9 +167,9 @@ public class Peli extends Palvelupiste {
 			// ominaisuutta.
 			double jatkaakoSample = uniform.sample() * uniform.sample() * uniform.sample() * uniform.sample();
 
-			// // System.out.println("asiakkaanKokOminaisuudet: " + asiakkaanKokOminaisuudet);
-			// // System.out.println("jatkaakoSample: " + jatkaakoSample);
-			// // System.out.println();
+			// Trace.out(Trace.Level.INFO,"asiakkaanKokOminaisuudet: " + asiakkaanKokOminaisuudet);
+			// Trace.out(Trace.Level.INFO,"jatkaakoSample: " + jatkaakoSample);
+			// Trace.out(Trace.Level.INFO,);
 
 			if (jatkaakoSample > asiakkaanKokOminaisuudet) {
 				jatkaa = false;
@@ -196,7 +196,7 @@ public class Peli extends Palvelupiste {
 			asiakas.setStatus(tyyppi);
 			Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + asiakas.getId() + " ["
 					+ this.getClass().toString() + " " + getId() + " ]");
-			// // System.out.println(asiakas);
+			// Trace.out(Trace.Level.INFO,asiakas);
 			double poistumisaika = Kello.getInstance().getAika() + palveluaika;
 
 			tapahtumalista.lisaa(
@@ -226,7 +226,7 @@ public class Peli extends Palvelupiste {
 
 			if (varattu) {
 				jononpituus += (poistumisajatLista.peek() - Kello.getInstance().getAika());
-				// System.out.println("jononpituus peli: " + jononpituus);
+				Trace.out(Trace.Level.INFO,"jononpituus peli: " + jononpituus);
 			}
 		}
 	}

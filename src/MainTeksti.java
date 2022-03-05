@@ -8,7 +8,7 @@ public class MainTeksti { // Tekstipohjainen
 
 	public static void main(String[] args) throws InterruptedException {
 
-		Trace.setTraceLevel(Level.ERR);
+		Trace.setTraceLevel(Level.INFO);
 		Moottori m = new OmaMoottori(null);
 		m.setBlackjackTasapeliprosentti(0.08);
 		m.setMainostusRahamaara(4000);

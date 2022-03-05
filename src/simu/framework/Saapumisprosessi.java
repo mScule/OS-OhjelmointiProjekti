@@ -26,8 +26,8 @@ public class Saapumisprosessi {
 		double valiaikaMultiplierWinPer = 1;
 
 		for (int i = 0; i < 6; i++) {
-			// // System.out.println("valiaikaMultiplier: " + valiaikaMultiplierWinPer);
-			// // System.out.println(
+			// Trace.out(Trace.Level.INFO,"valiaikaMultiplier: " + valiaikaMultiplierWinPer);
+			// Trace.out(Trace.Level.INFO,
 			// 		"(0.42 / Kasino.getBlackjackVoittoprosentti(): " + (0.42 / Kasino.getBlackjackVoittoprosentti()));
 			valiaikaMultiplierWinPer = valiaikaMultiplierWinPer * (0.4222 / Kasino.getBlackjackVoittoprosentti());
 		}
@@ -35,18 +35,18 @@ public class Saapumisprosessi {
 		double valiaikaMultiplierMinBet = 1;
 
 		for (int i = 0; i < 1; i++) {
-			// System.out.println("valiaikaMultiplierMinBet: " + valiaikaMultiplierMinBet);
-			// System.out.println(
-			//		"(100 / Kasino.getMinBet()): " + (100 / Kasino.getMinBet()));
+			Trace.out(Trace.Level.INFO,"valiaikaMultiplierMinBet: " + valiaikaMultiplierMinBet);
+			Trace.out(Trace.Level.INFO,
+					"(100 / Kasino.getMinBet()): " + (100 / Kasino.getMinBet()));
 			valiaikaMultiplierMinBet = valiaikaMultiplierMinBet * ((double)Kasino.getMinBet() / 100);
 		}
 
-		// // System.out.println("valiaikaMultiplier: " + valiaikaMultiplier);
+		// Trace.out(Trace.Level.INFO,"valiaikaMultiplier: " + valiaikaMultiplier);
 
 		double keskimSaapumisaika = Kasino.getKeskimSaapumisvaliaika();
 
 		keskimSaapumisaika *= valiaikaMultiplierWinPer * valiaikaMultiplierMinBet;
-		// System.out.println("keskimSaapumisaika: " + keskimSaapumisaika);
+		Trace.out(Trace.Level.INFO,"keskimSaapumisaika: " + keskimSaapumisaika);
 		Negexp uusiGeneraattori = new Negexp(keskimSaapumisaika, Kasino.getSeed());
 		generaattori = uusiGeneraattori;
 	}
