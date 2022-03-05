@@ -6,9 +6,9 @@ import simu.model.TapahtumanTyyppi;
 
 public class MainTeksti { // Tekstipohjainen
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
-		Trace.setTraceLevel(Level.INFO);
+		Trace.setTraceLevel(Level.ERR);
 		Moottori m = new OmaMoottori(null);
 		m.setBlackjackTasapeliprosentti(0.08);
 		m.setMainostusRahamaara(4000);
@@ -21,7 +21,8 @@ public class MainTeksti { // Tekstipohjainen
 		m.lisaaPalvelupisteita(TapahtumanTyyppi.ULOSKAYNTI, 1);
 		m.lisaaPalvelupisteita(TapahtumanTyyppi.SISAANKAYNTI, 1);
 		m.setSimulointiaika(100);
-		m.run();
+		m.start();
+		m.join();
 		System.out.println("m.getTulokset(): " + m.getTulokset()[IOmaMoottori.TULOS_KESKIM_PAIHTYNEISYYS]);
 	}
 }
