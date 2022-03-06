@@ -11,7 +11,4 @@ public interface ISimulaattorinUI {
 	
 	// Kontrolleri tarvitsee  
 	public IVisualisointi getVisualisointi();
-
-	// Kutsu kasinoVisualisointinnin paivita metodia täällä
-	public void paivita();
 }

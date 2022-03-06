@@ -25,17 +25,50 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	}
 
 	@Override
-	public void visualisoiAsiakas() {
-		Platform.runLater(new Runnable() {
-			public void run() {
-				ui.getVisualisointi().uusiAsiakas();
-			}
-		});
+	public void visualisoiAsiakas(int x1, int y1, int x2, int y2) {
+		Platform.runLater(() -> 
+			ui.getVisualisointi().asiakkaanLiikeAnimaatio(x1, y1, x2, y2)
+		);
 	}
 	
+	// Baari
 	@Override
-	public void paivitaUI() {
-		ui.paivita();
+	public void baariPalveltavat(int maara) {
+		this.ui.getVisualisointi().setBaariPalveltavienMaara(maara);
+	}
+	@Override
+	public void baariJonossa(int maara) {
+		this.ui.getVisualisointi().setBaariJononPituus(maara);
+	}
+	
+	// Blackjack
+	@Override
+	public void blackjackPalveltavat(int maara) {
+		this.ui.getVisualisointi().setBlackjackPalveltavienMaara(maara);
+	}
+	@Override
+	public void blackjackJonossa(int maara) {
+		this.ui.getVisualisointi().setBlackjackJononPituus(maara);
+	}
+	
+	// Sisäänkäynti
+	@Override
+	public void sisaankayntiPalveltavat(int maara) {
+		this.ui.getVisualisointi().setSisaankayntiPalveltavienMaara(maara);
+	}
+	@Override
+	public void sisaankayntiJonossa(int maara) {
+		this.ui.getVisualisointi().setSisaankayntiJononPituus(maara);
+	}
+	
+	// Uloskäynti
+	@Override
+	public void uloskayntiPalveltavat(int maara) {
+		this.ui.getVisualisointi().setUloskayntiPalveltavienMaara(maara);
+	}
+	@Override
+	public void uloskayntiJonossa(int maara) {
+		this.ui.getVisualisointi().setUloskayntiJononPituus(maara);
 	}
 
 	// IKontrolleriVtoM:
@@ -46,7 +79,6 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 		moottori.setSimulointiaika(ui.getAika());
 		
 		moottori.setViive(ui.getViive());
-		ui.getVisualisointi().tyhjennaNaytto();
 		((Thread)moottori).start();
 	}
 

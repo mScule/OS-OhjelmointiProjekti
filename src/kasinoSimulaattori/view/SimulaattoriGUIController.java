@@ -1,6 +1,8 @@
 package kasinoSimulaattori.view;
 
 import javafx.scene.canvas.Canvas;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -24,7 +26,6 @@ public class SimulaattoriGUIController {
 
 	private Stage stage;
 	private BorderPane root;
-
 
 	@FXML
 	private Label aikaID;
@@ -58,17 +59,15 @@ public class SimulaattoriGUIController {
 	private MainApp mainApp;
 
 	private static IKontrolleriVtoM kontrolleri;
-	private IVisualisointi view = null;
-	private static KasinoVisualisointi visualisointi;
+	public KasinoVisualisointi visualisointi;
 	
-	public SimulaattoriGUIController() {
-		
+	public SimulaattoriGUIController() throws FileNotFoundException {
+		visualisointi = new KasinoVisualisointi();
 	}
 	
 	public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
-
 
 	public void setCanvas() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
@@ -89,8 +88,7 @@ public class SimulaattoriGUIController {
 		kontrolleri = mainApp.getController();
 		kontrolleri.kaynnistaSimulointi();
 		naytaTulokset();
-	
+		canvas.setCenter(visualisointi.getCanvas());
+		visualisointi.start();
 	}
-
-
 }
