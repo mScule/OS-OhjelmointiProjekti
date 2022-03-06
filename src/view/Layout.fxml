@@ -5,132 +5,70 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="873.0" prefWidth="1163.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="941.0" prefWidth="1272.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SimulaattoriGUInew">
    <children>
       <SplitPane dividerPositions="0.6762342135476463" orientation="VERTICAL" prefHeight="713.0" prefWidth="1047.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0">
                <children>
-                  <SplitPane dividerPositions="0.2372735116479724" layoutX="2.0" prefHeight="562.0" prefWidth="1161.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.2372735116479724" layoutX="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <BorderPane fx:id="canvas" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children></AnchorPane>
                     </items>
                   </SplitPane>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="164.0" prefWidth="1161.0">
+          <AnchorPane fx:id="alapaneelit" minHeight="0.0" minWidth="0.0" prefHeight="164.0" prefWidth="1161.0" styleClass="background" stylesheets="@Teema.css">
                <children>
-                  <ButtonBar layoutX="25.0" layoutY="179.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="25.0">
+                  <ButtonBar layoutX="25.0" layoutY="179.0" prefHeight="40.0" prefWidth="316.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="25.0">
                     <buttons>
-                      <Button mnemonicParsing="false" onAction="#handelStart" prefHeight="25.0" prefWidth="88.0" text="START" />
-                        <Button mnemonicParsing="false" text="PAUSE" />
-                        <Button mnemonicParsing="false" text="RESET" />
+                      <Button fx:id="aloitusBtn" mnemonicParsing="false" onAction="#handleStart" prefHeight="25.0" prefWidth="88.0" stylesheets="@Teema.css" text="START" />
+                        <Button fx:id="pysäytysBtn" mnemonicParsing="false" stylesheets="@Teema.css" text="PAUSE" />
+                        <Button fx:id="uusikäynistysBtn" mnemonicParsing="false" stylesheets="@Teema.css" text="RESET" />
                     </buttons>
                   </ButtonBar>
-                  <GridPane layoutX="462.0" layoutY="51.0" prefHeight="120.0" prefWidth="671.0" AnchorPane.bottomAnchor="108.0">
+                  <GridPane layoutX="478.0" layoutY="14.0" prefHeight="264.0" prefWidth="759.0" AnchorPane.bottomAnchor="23.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="252.0" minWidth="10.0" prefWidth="243.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="124.0" minWidth="10.0" prefWidth="44.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="309.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="52.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="265.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="124.0" minWidth="10.0" prefWidth="64.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="341.0" minWidth="10.0" prefWidth="330.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="49.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="49.0" minHeight="8.0" prefHeight="49.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Saapuneet asiakkaat:">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Palvellut asiakkaat:" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Keskimääräinen jonotusaika:" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Asiakkaiden kokonaisoleskeluaika:" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="saapuneetID" text="Label" GridPane.columnIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="palvellutID" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="avgJonoID" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="kokonaisoleskeluID" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Asiakkaiden keskimääräinen onnellisuus:" GridPane.columnIndex="2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Asiakkaiden keskimääräinen päihtymys:" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Asiakkaiden keskimääräinen varallisuus:" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Asiakkaiden keskimääräinen läpimenoaika:" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="avgOnnellisuusID" text="Label" GridPane.columnIndex="3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="avgPaihtymysID" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="avgVarallisuusID" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="avglapimenoID" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
+                        <Label text="Saapuneet asiakkaat:" />
+                        <Label text="Palvellut asiakkaat:" GridPane.rowIndex="1" />
+                        <Label text="Keskimääräinen jonotusaika:" GridPane.rowIndex="2" />
+                        <Label text="Asiakkaiden kokonaisoleskeluaika:" GridPane.rowIndex="3" />
+                        <Label fx:id="saapuneetID" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="palvellutID" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="avgJonoID" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="kokonaisoleskeluID" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Asiakkaiden keskimääräinen onnellisuus:" GridPane.columnIndex="2" />
+                        <Label text="Asiakkaiden keskimääräinen päihtymys:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label text="Asiakkaiden keskimääräinen varallisuus:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label text="Asiakkaiden keskimääräinen läpimenoaika:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label fx:id="avgOnnellisuusID" text="Label" GridPane.columnIndex="3" />
+                        <Label fx:id="avgPaihtymysID" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label fx:id="avgVarallisuusID" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Label fx:id="avgLapimenoID" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
-                  <GridPane layoutX="40.0" layoutY="51.0" AnchorPane.bottomAnchor="108.0" AnchorPane.leftAnchor="40.0">
+                  <GridPane layoutX="42.0" layoutY="29.0" prefHeight="184.0" prefWidth="422.0" stylesheets="@Teema.css" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="42.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="83.0" />
@@ -138,92 +76,28 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="83.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="32.0" minHeight="0.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="38.0" minHeight="0.0" prefHeight="38.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Aika:">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="paivaID" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Label" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="rahatID" text="Label" GridPane.columnIndex="3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Päivä:" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Label" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="aikaID" text="Label" GridPane.columnIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Kasinon rahat:" GridPane.columnIndex="2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Kasinon voitot:" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="voitotID" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
+                        <Label text="Aika:" />
+                        <Label fx:id="paivaID" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Label text="Label" GridPane.rowIndex="3" />
+                        <Label fx:id="rahatID" text="Label" GridPane.columnIndex="3" />
+                        <Label text="Päivä:" GridPane.rowIndex="1" />
+                        <Label text="Label" GridPane.rowIndex="2" />
+                        <Label fx:id="aikaID" text="Label" GridPane.columnIndex="1" />
+                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Kasinon rahat:" GridPane.columnIndex="2" />
+                        <Label text="Kasinon voitot:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label fx:id="voitotID" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>
