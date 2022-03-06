@@ -9,28 +9,33 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import simu.framework.Kello;
-import simu.framework.Moottori;
-import simu.framework.Trace;
-import simu.framework.Trace.Level;
-import simu.model.IOmaMoottori;
-import simu.model.OmaMoottori;
-import simu.model.TapahtumanTyyppi;
+import kasinoSimulaattori.simu.framework.Kello;
+import kasinoSimulaattori.simu.framework.Moottori;
+import kasinoSimulaattori.simu.framework.Trace;
+import kasinoSimulaattori.simu.framework.Trace.Level;
+import kasinoSimulaattori.simu.model.IOmaMoottori;
+import kasinoSimulaattori.simu.model.OmaMoottori;
+import kasinoSimulaattori.simu.model.TapahtumanTyyppi;
 
 class MoottoriTest {
 
 	private final double DELTA = 0.0000000000000001;
+	Moottori m;
+
+	@BeforeAll
+	static void setTraceLevel(){
+		Trace.setTraceLevel(Level.ERR);
+	}
 
 	@BeforeEach
 	public void nollaaKello() {
 		Kello.getInstance().setAika(0);
+		m = new OmaMoottori(null);
 	}
 
 	@ParameterizedTest(name = "Tuleeko sama tulos samoilla lähtöarvoilla")
 	@CsvSource({ "0","1","2","3","4","5","6","7","8","9","10","11" })
 	void SamatLoppuarvotTesti(int luku) throws InterruptedException {
-		Trace.setTraceLevel(Level.ERR);
-		Moottori m = new OmaMoottori(null);
 		m.setBlackjackTasapeliprosentti(0.08);
 		m.setMainostusRahamaara(4000);
 		m.setBlackjackVoittoprosentti(0.42);
@@ -70,6 +75,12 @@ class MoottoriTest {
 		System.out.println("m2.getTulokset()[" + luku + "]: " + tulos2);
 
 		assertEquals(tulos1, tulos2, DELTA, ("Eri tulos"));
+	}
+
+	@Test
+	@DisplayName("setBlackjackTasapeliprosentti")
+	void setBlackjackTasapeliprosenttiLegalArgument(){
+		// IllegalArgumentException poikkeus = assertThrows(IllegalArgumentException)
 	}
 
 }
