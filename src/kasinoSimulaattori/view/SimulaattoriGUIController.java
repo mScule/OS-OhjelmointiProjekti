@@ -120,7 +120,7 @@ public class SimulaattoriGUIController extends Application implements ISimulaatt
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("Layout.fxml"));
 		canvas = (BorderPane) loader.load();
-		canvas.setCenter(visualisointi.getKanvas());
+		canvas.setCenter(visualisointi.getCanvas());
 	}
 
 	public void naytaTulokset() {

@@ -41,7 +41,6 @@ public class KasinoVisualisointi extends Thread {
 		sisaankayntiJono = 0, sisaankayntiPalveltavat = 0,
 		uloskayntiJono   = 0, uloskayntiPalveltavat   = 0;
 		
-	
 	public KasinoVisualisointi() throws FileNotFoundException {
 		kuvaTausta            = new Image(new FileInputStream("images\\background.png"     ));
 		kuvaLattia            = new Image(new FileInputStream("images\\floor.png"          ));
@@ -60,28 +59,25 @@ public class KasinoVisualisointi extends Thread {
 		kanvas = new Canvas(512 + 256 + 128, 512 + 256);
 		gc = kanvas.getGraphicsContext2D();
 		gc.setStroke(Color.WHITE);
-		
-		this.start();
 	}
 	
-	private void piirraInfo(int x, int y, int jononPituus, int palveltavienMaara) {
-		
-		gc.drawImage(kuvaJonossa,    x * 128,      y * 128);
+	synchronized private void piirraInfo(int x, int y, int jononPituus, int palveltavienMaara) {
+		gc.drawImage(kuvaJonossa   ,      x * 128, y * 128);
 		gc.drawImage(kuvaPalvelussa, x * 128 + 64, y * 128);
 		
-		gc.strokeText(jononPituus + ""  , x * 128     , y * 128);
+		gc.strokeText(jononPituus + ""      , x * 128     , y * 128);
 		gc.strokeText(palveltavienMaara + "", x * 128 + 64, y * 128);
 	}
 	
-	private void piirraTausta(int x, int y) {
+	synchronized private void piirraTausta(int x, int y) {
 		gc.drawImage(kuvaTausta, x*128, y*128);
 	}
 	
-	private void piirraPalvelu(Image kuva, int x, int y) {
+	synchronized private void piirraPalvelu(Image kuva, int x, int y) {
 		gc.drawImage(kuva, x*128, y*128);
 	}
 	
-	private void piirraLattia(int x, int y) {
+	synchronized private void piirraLattia(int x, int y) {
 		x *= 128;
 		y *= 128;
 		
@@ -95,7 +91,7 @@ public class KasinoVisualisointi extends Thread {
 		liikkujat.add(new Liikkuja(kuvaAsiakas, gc, aloitusX, aloitusY, lopetusX, lopetusY, 32));
 	}
 	
-	public void paivita() {
+	synchronized void paivita() {
 		
 		// Tausta
 		for(int x = 0; x < 7; x++)
@@ -157,12 +153,12 @@ public class KasinoVisualisointi extends Thread {
 				liikkujat.remove(i);
 	}
 	
-	public Canvas getKanvas() {
+	synchronized public Canvas getCanvas() {
 		return this.kanvas;
 	}
 	
 	@Override
-	public void run() {
+	synchronized public void run() {
 		double alkuAika = System.currentTimeMillis();
 		double paivitysVali = 1000/33.33334; // 30 fps
 
