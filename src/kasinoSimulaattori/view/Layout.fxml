@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="941.0" prefWidth="1272.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SimulaattoriGUInew">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="941.0" prefWidth="1272.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kasinoSimulaattori.view.SimulaattoriGUIController">
    <children>
       <SplitPane dividerPositions="0.6762342135476463" orientation="VERTICAL" prefHeight="713.0" prefWidth="1047.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -31,9 +31,9 @@
                <children>
                   <ButtonBar layoutX="25.0" layoutY="179.0" prefHeight="40.0" prefWidth="316.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="25.0">
                     <buttons>
-                      <Button fx:id="aloitusBtn" mnemonicParsing="false" onAction="#handleStart" prefHeight="25.0" prefWidth="88.0" stylesheets="@Teema.css" text="START" />
-                        <Button fx:id="pysäytysBtn" mnemonicParsing="false" stylesheets="@Teema.css" text="PAUSE" />
-                        <Button fx:id="uusikäynistysBtn" mnemonicParsing="false" stylesheets="@Teema.css" text="RESET" />
+                      <Button mnemonicParsing="false" onAction="#handleStart" prefHeight="25.0" prefWidth="88.0" stylesheets="@Teema.css" text="START" />
+                        <Button mnemonicParsing="false" stylesheets="@Teema.css" text="PAUSE" />
+                        <Button mnemonicParsing="false" stylesheets="@Teema.css" text="RESET" />
                     </buttons>
                   </ButtonBar>
                   <GridPane layoutX="478.0" layoutY="14.0" prefHeight="264.0" prefWidth="759.0" AnchorPane.bottomAnchor="23.0">

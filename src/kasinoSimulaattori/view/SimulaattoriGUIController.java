@@ -14,22 +14,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import kasinoSimulaattori.MainApp;
 import kasinoSimulaattori.controller.IKontrolleriVtoM;
 import kasinoSimulaattori.controller.KasinoKontrolleri;
 import kasinoSimulaattori.simu.framework.Trace;
 import kasinoSimulaattori.simu.framework.Trace.Level;
 
-public class SimulaattoriGUIController extends Application implements ISimulaattorinUI {
+public class SimulaattoriGUIController {
 
 	private Stage stage;
 	private BorderPane root;
 
-	@FXML
-	private Button aloitusBtn;
-	@FXML
-	private Button pysäytysBtn;
-	@FXML
-	private Button uusikäynistysBtn;
+
 	@FXML
 	private Label aikaID;
 	@FXML
@@ -58,63 +54,29 @@ public class SimulaattoriGUIController extends Application implements ISimulaatt
 	private BorderPane canvas;
 	@FXML
 	private AnchorPane alapaneelit;
+	
+	private MainApp mainApp;
 
-	private IKontrolleriVtoM kontrolleri;
+	private static IKontrolleriVtoM kontrolleri;
 	private IVisualisointi view = null;
 	private static KasinoVisualisointi visualisointi;
+	
+	public SimulaattoriGUIController() {
+		
+	}
 
-	@Override
 	public void init() {
 
 		Trace.setTraceLevel(Level.INFO);
 
-		kontrolleri = new KasinoKontrolleri(this);
+		kontrolleri = new KasinoKontrolleri((ISimulaattorinUI) this);
 
 	}
+	
+	public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+    }
 
-	@Override
-	public void start(Stage stage) {
-		try {
-			this.stage = stage;
-			this.stage.setTitle("Kasino Simulaattori");
-
-			rootLayout();
-
-			setAlapaneelit();
-			init();
-			// naytaTulokset();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public void rootLayout() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("MainLayout.fxml"));
-			root = (BorderPane) loader.load();
-
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void setAlapaneelit() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("Layout.fxml"));
-			alapaneelit = (AnchorPane) loader.load();
-			root.setCenter(alapaneelit);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public void setCanvas() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
@@ -132,50 +94,11 @@ public class SimulaattoriGUIController extends Application implements ISimulaatt
 	@FXML
 	public void handleStart() {
 		System.out.println("TESTI");
-		// aloitusBtn.setOnAction(new EventHandler<ActionEvent>() {
-		// @Override
-		// public void handle(ActionEvent event) {
-		//kontrolleri = new KasinoKontrolleri(this);
-		System.out.println("testttt");
+		kontrolleri = new KasinoKontrolleri((ISimulaattorinUI) this);
 		kontrolleri.kaynnistaSimulointi();
 		naytaTulokset();
-		aloitusBtn.setDisable(true);
-		// }
-		// });
-
+	
 	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
 
-	@Override
-	public double getAika() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public long getViive() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setLoppuaika(double aika) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public IVisualisointi getVisualisointi() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void paivita() {
-		// TODO Kutsu IKasinoVisualisoinnin paivita metodia täällä
-
-	}
 }
