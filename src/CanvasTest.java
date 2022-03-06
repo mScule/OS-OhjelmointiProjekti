@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import view.KasinoVisualisointi;
+import kasinoSimulaattori.view.KasinoVisualisointi;
 
 // KasinoVisualisointi DEMO
 public class CanvasTest extends Application {

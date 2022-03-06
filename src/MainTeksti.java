@@ -1,8 +1,8 @@
-import simu.framework.*;
-import simu.framework.Trace.Level;
-import simu.model.IOmaMoottori;
-import simu.model.OmaMoottori;
-import simu.model.TapahtumanTyyppi;
+import kasinoSimulaattori.simu.framework.*;
+import kasinoSimulaattori.simu.framework.Trace.Level;
+import kasinoSimulaattori.simu.model.IOmaMoottori;
+import kasinoSimulaattori.simu.model.OmaMoottori;
+import kasinoSimulaattori.simu.model.TapahtumanTyyppi;
 
 public class MainTeksti { // Tekstipohjainen
 
