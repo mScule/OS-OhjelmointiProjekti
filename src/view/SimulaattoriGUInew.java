@@ -24,9 +24,6 @@ public class SimulaattoriGUInew extends Application implements ISimulaattorinUI{
 	private Stage stage;
 	private BorderPane root;
 	
-	@FXML private Button aloitusBtn;
-	@FXML private Button pysäytysBtn;
-	@FXML private Button uusikäynistysBtn;
 	@FXML private Label aikaID;
 	@FXML private Label paivaID;
 	@FXML private Label rahatID;
@@ -116,16 +113,9 @@ public class SimulaattoriGUInew extends Application implements ISimulaattorinUI{
 	}
 	
 	public void handleStart() {
-		aloitusBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-            	kontrolleri.kaynnistaSimulointi();
-                naytaTulokset();
-                aloitusBtn.setDisable(true);
-            }
-            });
-
-	}
+		kontrolleri.kaynnistaSimulointi();
+        naytaTulokset();
+    }
 	
 	public static void main(String[] args) {
 		launch(args);
