@@ -64,14 +64,6 @@ public class SimulaattoriGUIController {
 	public SimulaattoriGUIController() {
 		
 	}
-
-	public void init() {
-
-		Trace.setTraceLevel(Level.INFO);
-
-		kontrolleri = new KasinoKontrolleri((ISimulaattorinUI) this);
-
-	}
 	
 	public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -94,7 +86,7 @@ public class SimulaattoriGUIController {
 	@FXML
 	public void handleStart() {
 		System.out.println("TESTI");
-		kontrolleri = new KasinoKontrolleri((ISimulaattorinUI) this);
+		kontrolleri = mainApp.getController();
 		kontrolleri.kaynnistaSimulointi();
 		naytaTulokset();
 	

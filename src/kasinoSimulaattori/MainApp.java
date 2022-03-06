@@ -1,6 +1,7 @@
 package kasinoSimulaattori;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -10,31 +11,45 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import kasinoSimulaattori.controller.IKontrolleriVtoM;
 import kasinoSimulaattori.controller.KasinoKontrolleri;
+import kasinoSimulaattori.simu.framework.Trace;
+import kasinoSimulaattori.simu.framework.Trace.Level;
+import kasinoSimulaattori.view.ISimulaattorinUI;
+import kasinoSimulaattori.view.IVisualisointi;
+import kasinoSimulaattori.view.KasinoVisualisointi;
 import kasinoSimulaattori.view.SimulaattoriGUIController;
 
-public class MainApp extends Application {
+public class MainApp extends Application implements ISimulaattorinUI{
 
     private Stage primaryStage;
+    private IVisualisointi visualisointi;
     private BorderPane rootLayout;
-    private KasinoKontrolleri kontrolleri;
+    private IKontrolleriVtoM kontrolleri;
     private SimulaattoriGUIController controller = new SimulaattoriGUIController();
 	
     public MainApp() {
 	}
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws FileNotFoundException {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Kasino simulaattori");
         try {
-			controller.init();
+			//controller.init();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        Trace.setTraceLevel(Level.ERR);
+        visualisointi = new KasinoVisualisointi();
+        kontrolleri = new KasinoKontrolleri(this);
         initMainLayout();
         showAlapaneelit();
+    }
+    
+    public IKontrolleriVtoM getController() {
+    	return kontrolleri;
     }
     
     /**
@@ -99,6 +114,36 @@ public class MainApp extends Application {
 
 	public void kaynnistaSimulointi() {
 		kontrolleri.kaynnistaSimulointi();
+		
+	}
+
+	@Override
+	public double getAika() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public long getViive() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setLoppuaika(double aika) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public IVisualisointi getVisualisointi() {
+		// TODO Auto-generated method stub
+		return visualisointi;
+	}
+
+	@Override
+	public void paivita() {
+		// TODO Auto-generated method stub
 		
 	}
 }

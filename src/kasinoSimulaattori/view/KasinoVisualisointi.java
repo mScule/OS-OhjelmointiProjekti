@@ -14,7 +14,7 @@ import kasinoSimulaattori.view.animated.Liikkuja;
 
 import java.util.Timer;
 
-public class KasinoVisualisointi extends Thread {
+public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	
 	private Canvas kanvas;
 	
@@ -201,5 +201,17 @@ public class KasinoVisualisointi extends Thread {
 
 	public void setUloskayntiPalveltavienMaara(int maara) {
 		uloskayntiPalveltavat = maara;
+	}
+
+	@Override
+	public void tyhjennaNaytto() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void uusiAsiakas() {
+		// TODO Auto-generated method stub
+		
 	}
 }
