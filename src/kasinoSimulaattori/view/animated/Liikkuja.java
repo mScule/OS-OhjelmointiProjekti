@@ -37,9 +37,6 @@ public class Liikkuja {
 		x += (lopetusX - aloitusX) * nopeus;
 		y += (lopetusY - aloitusY) * nopeus;
 		
-		//System.out.println("x:" + x);
-		//System.out.println("y:" + y);
-		
 		double
 			etaisyysX = x < lopetusX ? lopetusX - x : x - lopetusX,
 			etaisyysY = y < lopetusY ? lopetusY - y : y - lopetusY;

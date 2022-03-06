@@ -1,6 +1,8 @@
 package kasinoSimulaattori.view;
 
 import javafx.scene.canvas.Canvas;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -24,7 +26,6 @@ public class SimulaattoriGUIController {
 
 	private Stage stage;
 	private BorderPane root;
-
 
 	@FXML
 	private Label aikaID;
@@ -58,18 +59,15 @@ public class SimulaattoriGUIController {
 	private MainApp mainApp;
 
 	private static IKontrolleriVtoM kontrolleri;
-	private IVisualisointi view = null;
-	private static KasinoVisualisointi visualisointi;
+	public KasinoVisualisointi visualisointi;
 	
-	public SimulaattoriGUIController() {
-		
+	public SimulaattoriGUIController() throws FileNotFoundException {
+		visualisointi = new KasinoVisualisointi();
 	}
-
 	
 	public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
-
 
 	public void setCanvas() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
@@ -80,30 +78,17 @@ public class SimulaattoriGUIController {
 
 	public void naytaTulokset() {
 		double tulokset[] = kontrolleri.haeTulokset();
+		System.out.println(tulokset[0]);
 		aikaID.setText(Double.toString(tulokset[0]));
-		paivaID.setText(Double.toString(tulokset[0]));
-		rahatID.setText(Double.toString(tulokset[6]));
-		voitotID.setText(Double.toString(tulokset[7]));
-		
-		saapuneetID.setText(Double.toString(tulokset[1]));
-		palvellutID.setText(Double.toString(tulokset[2]));
-		avgJonoID.setText(Double.toString(tulokset[5]));
-		
-		kokonaisoleskeluID.setText(Double.toString(tulokset[4]));
-		avgOnnellisuusID.setText(Double.toString(tulokset[8]));
-		avgPaihtymysID.setText(Double.toString(tulokset[11]));
-		avgVarallisuusID.setText(Double.toString(tulokset[9]));
-		avgLapimenoID.setText(Double.toString(tulokset[3]));
-		
 	}
 
 	@FXML
-	public void handleStart(ActionEvent e) {
+	public void handleStart() {
 		System.out.println("TESTI");
 		kontrolleri = mainApp.getController();
 		kontrolleri.kaynnistaSimulointi();
 		naytaTulokset();
+		canvas.setCenter(visualisointi.getCanvas());
+		visualisointi.start();
 	}
-
-
 }

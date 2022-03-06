@@ -209,12 +209,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				poistumisajatSummattuna += a.getPoistumisaika();
 			}
 		} else {
-			// Tee seuraavat asiat kun asiakas saapuu kasinolle.
-			// TODO: TEMP visualisointi
-			if (kontrolleri != null) {
-				kontrolleri.visualisoiAsiakas();
-			}
-
+			
 			Asiakas uusiA = new Asiakas();
 			Trace.out(Trace.Level.INFO,uusiA);
 			asiakkaatKasinolla.add(uusiA);

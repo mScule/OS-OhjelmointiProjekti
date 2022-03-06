@@ -20,29 +20,27 @@ import kasinoSimulaattori.view.IVisualisointi;
 import kasinoSimulaattori.view.KasinoVisualisointi;
 import kasinoSimulaattori.view.SimulaattoriGUIController;
 
-public class MainApp extends Application implements ISimulaattorinUI{
+public class MainApp extends Application implements ISimulaattorinUI {
 
     private Stage primaryStage;
-    private IVisualisointi visualisointi;
     private BorderPane rootLayout;
     private IKontrolleriVtoM kontrolleri;
-    private SimulaattoriGUIController controller = new SimulaattoriGUIController();
+    private SimulaattoriGUIController controller;
 	
-    public MainApp() {
-	}
+    public MainApp() {}
 
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Kasino simulaattori");
+        
         try {
-			//controller.init();
+			controller = new SimulaattoriGUIController();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         Trace.setTraceLevel(Level.ERR);
-        visualisointi = new KasinoVisualisointi();
+        
         kontrolleri = new KasinoKontrolleri(this);
         initMainLayout();
         showAlapaneelit();
@@ -97,9 +95,6 @@ public class MainApp extends Application implements ISimulaattorinUI{
         }
     }
     
-  
-
-    
 	/**
 	 * Returns the main stage.
 	 * @return
@@ -137,13 +132,6 @@ public class MainApp extends Application implements ISimulaattorinUI{
 
 	@Override
 	public IVisualisointi getVisualisointi() {
-		// TODO Auto-generated method stub
-		return visualisointi;
-	}
-
-	@Override
-	public void paivita() {
-		// TODO Auto-generated method stub
-		
+		return controller.visualisointi;
 	}
 }
