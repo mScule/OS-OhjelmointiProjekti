@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import view.KasinoVisualisointi;
+import kasinoSimulaattori.view.KasinoVisualisointi;
 
 // KasinoVisualisointi DEMO
 public class CanvasTest extends Application {
@@ -21,22 +21,20 @@ public class CanvasTest extends Application {
 		this.stage.setTitle("KasinoSimulaattori");
 		
 		visualisointi = new KasinoVisualisointi();
-		visualisointi.piirraAsiakasLiike(5*128, 1*128, 4*128, 4*128);
-		visualisointi.piirraAsiakasLiike(2*128, 4*128, 1*128, 1*128);
-		visualisointi.piirraAsiakasLiike(5*128, 1*128, 1*128, 1*128);
-		visualisointi.piirraAsiakasLiike(5*128, 1*128, 1*128, 1*128);
-		visualisointi.piirraAsiakasLiike(1*128, 1*128, 4*128, 4*128);
-		visualisointi.piirraAsiakasLiike(2*128, 4*128, 5*128, 1*128);
 		
-		root.setCenter(visualisointi.getKanvas());
+		root.setCenter(visualisointi.getCanvas());
 		
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
 		
-		Platform.runLater(() -> visualisointi.setBaariJononPituus(10));
-		Platform.runLater(() -> visualisointi.setBaariPalveltavienMaara(2));
-		Platform.runLater(() -> visualisointi.setBaariJononPituus(8));
+		AsiakasSpawner spawneri = new AsiakasSpawner(visualisointi);
+		
+		
+			visualisointi.start();
+			spawneri.start();
+		
+		
 	}
 	
 	public static void main(String[] args) {
