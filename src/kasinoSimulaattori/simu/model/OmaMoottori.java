@@ -10,10 +10,13 @@ import kasinoSimulaattori.simu.framework.Tapahtuma;
 import kasinoSimulaattori.simu.framework.Trace;
 import kasinoSimulaattori.simu.framework.Trace.Level;
 import kasinoSimulaattori.simu.model.Asiakas.Ominaisuus;
+import kasinoSimulaattori.util.Sijainti;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+
+import javafx.application.Platform;
 
 public class OmaMoottori extends Moottori implements IOmaMoottori {
 	
@@ -35,7 +38,13 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	private double poistuneidenAsiakKokPaihtyneisyys;
 
 	private double ajanjaksoltaKulutMaksettu = 0;
-
+	
+	private Sijainti
+		baariSijainti        = new Sijainti(1 * 128, 1 * 128),
+		blackjackSijainti    = new Sijainti(5 * 128, 1 * 128),
+		sisaankayntiSijainti = new Sijainti(2 * 128, 4 * 128),
+		uloskayntiSijainti   = new Sijainti(4 * 128, 4 * 128);
+	
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
 		super(kontrolleri);
 		
@@ -44,16 +53,18 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		palvelupisteet = new HashMap<TapahtumanTyyppi, LinkedList<Palvelupiste>>();
 
 		palvelupisteet.put(TapahtumanTyyppi.SISAANKAYNTI, new LinkedList<Palvelupiste>());
-		palvelupisteet.put(TapahtumanTyyppi.ULOSKAYNTI, new LinkedList<Palvelupiste>());
-		palvelupisteet.put(TapahtumanTyyppi.BAARI, new LinkedList<Palvelupiste>());
-		palvelupisteet.put(TapahtumanTyyppi.PELI, new LinkedList<Palvelupiste>());
+		palvelupisteet.put(TapahtumanTyyppi.ULOSKAYNTI,   new LinkedList<Palvelupiste>());
+		palvelupisteet.put(TapahtumanTyyppi.BAARI,        new LinkedList<Palvelupiste>());
+		palvelupisteet.put(TapahtumanTyyppi.PELI,         new LinkedList<Palvelupiste>());
 
 		palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)
-				.add(new Sisaankaynti(Kasino.defaultPalveluajatNegexp, tapahtumalista));
+				.add(new Sisaankaynti(Kasino.defaultPalveluajatNegexp, tapahtumalista, sisaankayntiSijainti));
 		palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI)
-				.add(new Uloskaynti(Kasino.defaultPalveluajatNegexp, tapahtumalista));
-		palvelupisteet.get(TapahtumanTyyppi.BAARI).add(new Baari(Kasino.defaultPalveluajatNegexp, tapahtumalista));
-		palvelupisteet.get(TapahtumanTyyppi.PELI).add(new Peli(Kasino.defaultPalveluajatNegexp, tapahtumalista));
+				.add(new Uloskaynti(Kasino.defaultPalveluajatNegexp, tapahtumalista, uloskayntiSijainti));
+		palvelupisteet.get(TapahtumanTyyppi.BAARI)
+				.add(new Baari(Kasino.defaultPalveluajatNegexp, tapahtumalista, baariSijainti));
+		palvelupisteet.get(TapahtumanTyyppi.PELI)
+				.add(new Peli(Kasino.defaultPalveluajatNegexp, tapahtumalista, blackjackSijainti));
 
 		saapumisprosessi = new Saapumisprosessi(Kasino.defaultSaapumisajatNegexp, tapahtumalista,
 				TapahtumanTyyppi.SISAANKAYNTI);
@@ -97,7 +108,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 					// });
 					palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)
 							.add(new Sisaankaynti(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()),
-									tapahtumalista));
+									tapahtumalista, sisaankayntiSijainti));
 				}
 				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.sisaankaynninHinta * maara));
 				break;
@@ -107,7 +118,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 					palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI)
 							.add(new Uloskaynti(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()),
-									tapahtumalista));
+									tapahtumalista, uloskayntiSijainti));
 				}
 				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.uloskaynninHinta * maara));
 				break;
@@ -116,7 +127,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				for (int i = 0; i < maara; i++) {
 					palvelupisteet.get(TapahtumanTyyppi.BAARI)
 							.add(new Baari(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()),
-									tapahtumalista));
+									tapahtumalista, baariSijainti));
 				}
 				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.baarinHinta * maara));
 				break;
@@ -124,7 +135,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			case PELI:
 				for (int i = 0; i < maara; i++) {
 					palvelupisteet.get(TapahtumanTyyppi.PELI)
-							.add(new Peli(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()), tapahtumalista));
+							.add(new Peli(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()),
+									tapahtumalista, blackjackSijainti));
 				}
 				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.pelipoydanHinta * maara));
 				break;
@@ -145,11 +157,12 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	protected void suoritaTapahtuma(Tapahtuma t) { // B-vaiheen tapahtumat
 
 		Asiakas a;
+		
 		// Kasino menettää ylläpidon hinnan verran rahaa joka 50 aikayksikössä
 		double kulut = ((t.getAika() - ajanjaksoltaKulutMaksettu) / 50)
 				* (Kasino.getKokoYllapitohinta());
 
-		Trace.out(Trace.Level.INFO,"Kasino.loseMoney: " + kulut);
+		Trace.out(Trace.Level.INFO, "Kasino.loseMoney: " + kulut);
 
 		Kasino.loseMoney(kulut);
 		ajanjaksoltaKulutMaksettu = t.getAika();
@@ -157,6 +170,9 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		// Palvelupisteet haetaan tyypin mukaan
 		TapahtumanTyyppi thisTyyppi = t.getTyypiLahtoSijainti();
 		TapahtumanTyyppi seuraavanTapahtumanTyyppi = t.getTyyppiPaamaara();
+		
+		// Sijaintien alustus asiakkaan liikkumisanimaatiota varten
+		Sijainti nykysijainti, loppusijainti;
 
 		if (seuraavanTapahtumanTyyppi != TapahtumanTyyppi.SISAANKAYNTI) {
 			// Haetaan nykyinen palvelupiste, josta haetaan asiakas
@@ -174,6 +190,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			} else {
 				a = thisPalvelupiste.otaJonosta();
 			}
+			
+			nykysijainti = thisPalvelupiste.getSijainti();
 
 			// Jos asiakas ei ole poistumassa, viedään asiakas haluttun tyyppiseen
 			// pisteeseen jossa on lyhyin jono.
@@ -189,11 +207,17 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 					}
 				}
 				pisteet.get(lyhyinIndex).lisaaJonoon(a);
+				
+				// Minne asiakas kävelee seuraavaksi
+				loppusijainti = pisteet.get(lyhyinIndex).getSijainti();
+				
 			} else {
 				// Asiakas poistuu kasinolta
 				Trace.out(Trace.Level.INFO,"Asiakas " + a.getId() + " poistuu kasinolta.");
 				Trace.out(Trace.Level.INFO,a);
 
+				loppusijainti = uloskayntiSijainti;
+				
 				// Poista asiakas kasinolla oleskelevien asiakkaiden listasta.
 				for (int i = 0; i < asiakkaatKasinolla.size(); i++) {
 					if (asiakkaatKasinolla.get(i).getId() == a.getId()) {
@@ -201,19 +225,20 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 					}
 				}
 
-				poistuneidenAsiakKokMielentila += a.getOminaisuudet(Ominaisuus.MIELIALA);
-				poistuneidenAsiakKokVarakkuus += a.getOminaisuudet(Ominaisuus.VARAKKUUS);
-				poistuneidenAsiakKokUhkarohkeus += a.getOminaisuudet(Ominaisuus.UHKAROHKEUS);
+				poistuneidenAsiakKokMielentila    += a.getOminaisuudet(Ominaisuus.MIELIALA);
+				poistuneidenAsiakKokVarakkuus     += a.getOminaisuudet(Ominaisuus.VARAKKUUS);
+				poistuneidenAsiakKokUhkarohkeus   += a.getOminaisuudet(Ominaisuus.UHKAROHKEUS);
 				poistuneidenAsiakKokPaihtyneisyys += a.getOminaisuudet(Ominaisuus.PAIHTYMYS);
 
 				poistuneidenAsiakkaidenMaara++;
 				poistumisajatSummattuna += a.getPoistumisaika();
 			}
 		} else {
-			
 			Asiakas uusiA = new Asiakas();
 			Trace.out(Trace.Level.INFO,uusiA);
 			asiakkaatKasinolla.add(uusiA);
+			
+			nykysijainti = palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI).get(0).getSijainti();
 			// palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0].lisaaJonoon(uusiA);
 
 			// Laita asiakas sisäänkäyntiin, jossa on pienin jono
@@ -227,9 +252,69 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			}
 
 			pisteet.get(lyhyinIndex).lisaaJonoon(uusiA);
+			loppusijainti = pisteet.get(lyhyinIndex).getSijainti();
 
 			saapuneidenAsiakkaidenMaara++;
 			saapumisprosessi.generoiSeuraava();
+		}
+		
+		// Luodaan mahdollinen liikkumisanimaatio
+		if(nykysijainti != null && loppusijainti != null) {
+			Trace.out(Trace.Level.INFO, "Asiakas animaatio " + nykysijainti + " : " + loppusijainti);
+			kontrolleri.visualisoiAsiakas(
+				nykysijainti.getX(),
+				nykysijainti.getY(),
+				loppusijainti.getX(),
+				loppusijainti.getY()
+			);
+		}
+		
+		int
+		baariJono = 0, baariPalveltavat = 0,
+		blackjackJono = 0, blackjackPalveltavat = 0,
+		sisaankayntiJono = 0, uloskayntiJono = 0;
+		
+		// Päivitetään luvut visualisoinnissa
+		for(Map.Entry<TapahtumanTyyppi, LinkedList<Palvelupiste>> pisteet : palvelupisteet.entrySet())
+		{
+			
+			for(Palvelupiste piste : pisteet.getValue()) {
+				switch(pisteet.getKey()) {
+				case SISAANKAYNTI:
+					Sisaankaynti sisaankaynti = (Sisaankaynti) piste;
+					sisaankayntiJono += sisaankaynti.jono.size();
+					break;
+					
+				case ULOSKAYNTI:
+					Uloskaynti uloskaynti = (Uloskaynti) piste;
+					uloskayntiJono += uloskaynti.jono.size();
+					break;
+					
+				case BAARI:
+					Baari baari = (Baari) piste;
+					baariJono += baari.jono.size();
+					baariPalveltavat += baari.onVarattu() ? 1 : 0;
+					break;
+					
+				case PELI:
+					Peli peli = (Peli) piste;
+					blackjackJono += peli.getJononpituus();
+					blackjackPalveltavat += peli.getPelaajatPoydassa();
+					break;
+					
+				default:
+					break;
+				}
+			}
+
+			kontrolleri.baariJonossa(baariJono);
+			kontrolleri.baariPalveltavat(baariPalveltavat);
+			
+			kontrolleri.blackjackJonossa(blackjackJono);
+			kontrolleri.blackjackPalveltavat(blackjackPalveltavat);
+			
+			kontrolleri.uloskayntiJonossa(uloskayntiJono);
+			kontrolleri.sisaankayntiJonossa(sisaankayntiJono);
 		}
 	}
 

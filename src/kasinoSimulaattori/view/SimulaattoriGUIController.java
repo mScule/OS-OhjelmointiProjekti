@@ -59,21 +59,15 @@ public class SimulaattoriGUIController {
 	private MainApp mainApp;
 
 	private static IKontrolleriVtoM kontrolleri;
-	public KasinoVisualisointi visualisointi;
 	
-	public SimulaattoriGUIController() throws FileNotFoundException {
-		visualisointi = new KasinoVisualisointi();
-	}
+	public SimulaattoriGUIController(){}
 	
 	public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
-
-	public void setCanvas() throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("Layout.fxml"));
-		canvas = (BorderPane) loader.load();
-		canvas.setCenter(visualisointi.getCanvas());
+	
+	public void setVisualisaattori(Canvas visualisaattori) {
+		canvas.setCenter(visualisaattori);
 	}
 
 	public void naytaTulokset() {
@@ -88,7 +82,5 @@ public class SimulaattoriGUIController {
 		kontrolleri = mainApp.getController();
 		kontrolleri.kaynnistaSimulointi();
 		naytaTulokset();
-		canvas.setCenter(visualisointi.getCanvas());
-		visualisointi.start();
 	}
 }

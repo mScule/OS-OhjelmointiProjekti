@@ -26,9 +26,7 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 
 	@Override
 	public void visualisoiAsiakas(int x1, int y1, int x2, int y2) {
-		Platform.runLater(() -> 
-			ui.getVisualisointi().asiakkaanLiikeAnimaatio(x1, y1, x2, y2)
-		);
+		ui.getVisualisointi().asiakkaanLiikeAnimaatio(x1, y1, x2, y2);
 	}
 	
 	// Baari
@@ -70,26 +68,27 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	public void uloskayntiJonossa(int maara) {
 		this.ui.getVisualisointi().setUloskayntiJononPituus(maara);
 	}
-
+	
 	// IKontrolleriVtoM:
 	
 	@Override
 	public void kaynnistaSimulointi() {
 		moottori = new OmaMoottori(this);
-		moottori.setSimulointiaika(ui.getAika());
-		
-		moottori.setViive(ui.getViive());
+		moottori.setSimulointiaika(1000/*ui.getAika()*/);
+		moottori.setViive(/*ui.getViive()*/1000);
 		((Thread)moottori).start();
 	}
 
 	@Override
 	public void nopeuta() {
 		moottori.setViive((long)(moottori.getViive() * 0.9));
+		this.ui.getVisualisointi().setAsiakasNopeus(moottori.getViive());
 	}
 
 	@Override
 	public void hidasta() {
 		moottori.setViive((long)(moottori.getViive() * 1.1));
+		this.ui.getVisualisointi().setAsiakasNopeus(moottori.getViive());
 	}
 
 	@Override

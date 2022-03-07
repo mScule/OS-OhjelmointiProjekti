@@ -8,11 +8,12 @@ import kasinoSimulaattori.simu.framework.Tapahtuma;
 import kasinoSimulaattori.simu.framework.Tapahtumalista;
 import kasinoSimulaattori.simu.framework.Trace;
 import kasinoSimulaattori.simu.model.Asiakas.Ominaisuus;
+import kasinoSimulaattori.util.Sijainti;
 
 public class Baari extends Palvelupiste {
 
-	public Baari(Negexp generator, Tapahtumalista tapahtumalista) {
-		super(generator, tapahtumalista);
+	public Baari(Negexp generator, Tapahtumalista tapahtumalista, Sijainti sijainti) {
+		super(generator, tapahtumalista, sijainti);
 	}
 
 	@Override
