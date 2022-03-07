@@ -512,4 +512,5 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	public void setMaxBet(int maxBet) {
 		Kasino.setMaxBet(maxBet);
 	}
+
 }

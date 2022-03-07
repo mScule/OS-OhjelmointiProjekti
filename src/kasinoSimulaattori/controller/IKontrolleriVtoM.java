@@ -8,7 +8,7 @@ public interface IKontrolleriVtoM {
 	
 		// Rajapinta, joka tarjotaan  käyttöliittymälle:
 	
-		public void kaynnistaSimulointi(double aika, long viive, double mainostus, double max, double min, double yllapito, double tasapeli);
+		public void kaynnistaSimulointi(double aika, long viive, double mainostus, int max, int min, double yllapito, double tasapeli);
 		public void nopeuta();
 		public void hidasta();
 		

@@ -74,7 +74,7 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	// IKontrolleriVtoM:
 	
 	@Override
-	public void kaynnistaSimulointi(double aika, long viive, double mainostus, double max, double min, double yllapito, double tasapeli) {
+	public void kaynnistaSimulointi(double aika, long viive, double mainostus, int max, int min, double yllapito, double tasapeli) {
 		moottori = new OmaMoottori(this);
 		moottori.setSimulointiaika(aika);
 		moottori.setViive(viive);

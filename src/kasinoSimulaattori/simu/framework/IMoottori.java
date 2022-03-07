@@ -8,8 +8,8 @@ public interface IMoottori { // UUSI
 	public void setViive(long aika);
 	public long getViive();
 	public void setMainostusRahamaara(double mainostus);
-	public void setMaxBet(double max);
-	public void setMinBet(double min);
+	public void setMaxBet(int max);
+	public void setMinBet(int min);
 	public void setYllapitoRahamaara(double yllapito);
 	public void setBlackjackTasapeliprosentti(double tasapeli);
 }

@@ -107,10 +107,6 @@ public class MainApp extends Application implements ISimulaattorinUI {
         launch(args);
     }
 
-	public void kaynnistaSimulointi() throws IOException {
-		kontrolleri.kaynnistaSimulointi();
-	}
-
 	@Override
 	public double getAika() {
 		// TODO Auto-generated method stub
