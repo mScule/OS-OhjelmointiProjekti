@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class OmaMoottori extends Moottori implements IOmaMoottori {
+	
 	private Kello kello = Kello.getInstance();
 
 	private Saapumisprosessi saapumisprosessi;

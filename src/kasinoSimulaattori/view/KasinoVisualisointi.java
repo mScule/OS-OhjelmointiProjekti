@@ -35,7 +35,9 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		baariJono        = 0, baariPalveltavat        = 0,
 		blackjackJono    = 0, blackjackPalveltavat    = 0,
 		sisaankayntiJono = 0, sisaankayntiPalveltavat = 0,
-		uloskayntiJono   = 0, uloskayntiPalveltavat   = 0;
+		uloskayntiJono   = 0, uloskayntiPalveltavat   = 0,
+		
+	    ruudunLiike = 0;
 		
 	public KasinoVisualisointi() throws FileNotFoundException {
 		kuvaTausta            = new Image(new FileInputStream("images\\background.png"     ));
@@ -164,6 +166,10 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 			if(fps >= paivitysVali) {
 				alkuAika = System.currentTimeMillis();
 				paivita();
+				
+				// Ruudun liike päivitys
+				gc.strokeText("Fps: " + fps + "\n" + "Frame: " + ruudunLiike, 32, 32);
+				ruudunLiike++;
 			}
 		}
 	}
