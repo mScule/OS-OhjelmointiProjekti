@@ -39,7 +39,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        Trace.setTraceLevel(Level.ERR);
+        Trace.setTraceLevel(Level.INFO);
         
         kontrolleri = new KasinoKontrolleri(this);
         initMainLayout();
@@ -107,14 +107,8 @@ public class MainApp extends Application implements ISimulaattorinUI {
         launch(args);
     }
 
-	public void kaynnistaSimulointi() {
-		kontrolleri.kaynnistaSimulointi();
-		
-	}
-
 	@Override
 	public double getAika() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

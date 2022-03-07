@@ -74,11 +74,15 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	// IKontrolleriVtoM:
 	
 	@Override
-	public void kaynnistaSimulointi() {
+	public void kaynnistaSimulointi(double aika, long viive, double mainostus, double max, double min, double yllapito, double tasapeli) {
 		moottori = new OmaMoottori(this);
-		moottori.setSimulointiaika(ui.getAika());
-		
-		moottori.setViive(ui.getViive());
+		moottori.setSimulointiaika(aika);
+		moottori.setViive(viive);
+		moottori.setMainostusRahamaara(mainostus);
+		moottori.setMaxBet(max);
+		moottori.setMinBet(min);
+		moottori.setYllapitoRahamaara(yllapito);
+		moottori.setBlackjackTasapeliprosentti(tasapeli);
 		((Thread)moottori).start();
 	}
 
@@ -96,9 +100,11 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	public double[] haeTulokset() {
 		return moottori.getTulokset();
 	}
+	
 
 	@Override
 	public LinkedList<Palvelupiste> haePalvelupisteet(int palvelu) {
 		return moottori.getPalvelupisteet(palvelu);
 	}
+
 }
