@@ -214,10 +214,7 @@ public final class Kasino {
     }
 
     public static void setAsiakkaidenKeskimVarakkuus(double asiakkaidenKeskimVarakkuus) {
-        // TODO päivitä asiakkaiden keskim. päihtyneisyys joka kerta, kun jonkin
-        // asiakkaan päihtyneisyys muuttuu.
+        // TODO päivitä asiakkaiden keskim. varakkuus joka kerta, kun jonkin
+        // asiakkaan varakkuus muuttuu.
     }
-
-    // TODO: käytä rahaa kasinon laajentamiseen?
-    // TODO: käytä rahaa kasinon mainostamiseen?
 }

@@ -72,11 +72,13 @@ public abstract class Moottori extends Thread implements IMoottori {
 
 	@Override
 	public void setSimulointiaika(double aika) {
+		tarkistaDoubleLuku(aika);
 		simulointiaika = aika;
 	}
 
 	@Override
 	public void setViive(long viive) {
+		tarkistaLongLuku(viive);
 		this.viive = viive;
 	}
 
@@ -104,6 +106,29 @@ public abstract class Moottori extends Thread implements IMoottori {
 
 		}
 		tulokset();
+	}
+
+	public void tarkistaDoubleProsenttiluku(double luku) {
+		if (!(luku <= 1) || !(luku > 0)) {
+			throw new IllegalArgumentException("Valitse joku double luku 0-1 väliltä.");
+		}
+	}
+
+	public void tarkistaDoubleLuku(double luku) {
+		if (luku < 0)
+			throw new IllegalArgumentException("Valitse joku positiivinen double luku.");
+	}
+
+	public void tarkistaIntLuku(int luku) {
+		if (luku < 0) {
+			throw new IllegalArgumentException("Valitse joku positiivinen int luku.");
+		}
+	}
+
+	public void tarkistaLongLuku(long luku) {
+		if (luku < 0) {
+			throw new IllegalArgumentException("Valitse joku positiivinen long luku.");
+		}
 	}
 
 	// Abstraktit metodit
@@ -137,4 +162,6 @@ public abstract class Moottori extends Thread implements IMoottori {
 	public abstract void setMaxBet(int maxBet);
 
 	public abstract double[] getTulokset();
+
+	public abstract LinkedList<Palvelupiste> getPalvelupisteet(int palvelu);
 }

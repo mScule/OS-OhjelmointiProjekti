@@ -2,7 +2,6 @@ package kasinoSimulaattori.simu.model;
 
 import kasinoSimulaattori.controller.IKontrolleriMtoV;
 import kasinoSimulaattori.eduni.distributions.Negexp;
-import kasinoSimulaattori.eduni.distributions.Normal;
 import kasinoSimulaattori.simu.framework.Kello;
 import kasinoSimulaattori.simu.framework.Moottori;
 import kasinoSimulaattori.simu.framework.Saapumisprosessi;
@@ -59,6 +58,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void setYllapitoRahamaara(double rahamaara) {
+		tarkistaDoubleLuku(rahamaara);
+
 		Kasino.setYllapitohinta(rahamaara);
 
 		double keskimPalveluaika = Kasino.defaultKeskimPalveluaika
@@ -76,6 +77,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void setMainostusRahamaara(double rahamaara) {
+		tarkistaDoubleLuku(rahamaara);
+
 		Kasino.setMainoskulut(rahamaara);
 
 		double keskimSaapumisvaliaika = Kasino.defaultKeskimSaapumisaika
@@ -87,6 +90,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void lisaaPalvelupisteita(TapahtumanTyyppi palvelupisteTyyppi, int maara) {
+		tarkistaIntLuku(maara);
+
 		switch (palvelupisteTyyppi) {
 			case SISAANKAYNTI:
 				for (int i = 0; i < maara; i++) {
@@ -405,6 +410,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void setBlackjackVoittoprosentti(double blackjackVoittoprosentti) {
+		tarkistaDoubleProsenttiluku(blackjackVoittoprosentti);
+
 		Kasino.setBlackjackVoittoprosentti(blackjackVoittoprosentti);
 	}
 
@@ -425,6 +432,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void setMinBet(int minBet) {
+		tarkistaIntLuku(minBet);
 		Kasino.setMinBet(minBet);
 	}
 
@@ -433,6 +441,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void setMaxBet(int maxBet) {
+		tarkistaIntLuku(maxBet);
 		Kasino.setMaxBet(maxBet);
 	}
 }
