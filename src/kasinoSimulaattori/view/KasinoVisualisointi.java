@@ -35,7 +35,12 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		baariJono        = 0, baariPalveltavat        = 0,
 		blackjackJono    = 0, blackjackPalveltavat    = 0,
 		sisaankayntiJono = 0, sisaankayntiPalveltavat = 0,
-		uloskayntiJono   = 0, uloskayntiPalveltavat   = 0;
+		uloskayntiJono   = 0, uloskayntiPalveltavat   = 0,
+		
+	    ruudunLiike = 0;
+	
+	private double
+		asiakkaidenNopeus = 1.5;
 		
 	public KasinoVisualisointi() throws FileNotFoundException {
 		kuvaTausta            = new Image(new FileInputStream("images\\background.png"     ));
@@ -142,7 +147,7 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		
 		// Asiakkaiden liikkeet
 		for(Liikkuja l : liikkujat)
-			l.liikuta(0.01);
+			l.liikuta(0.01 * asiakkaidenNopeus);
 		
 		// Poista asiakkaat jotka kohteessa
 		for(int i = liikkujat.size() - 1; i >= 0; i--)
@@ -150,12 +155,12 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 				liikkujat.remove(i);
 	}
 	
-	synchronized public Canvas getCanvas() {
+	public Canvas getCanvas() {
 		return this.kanvas;
 	}
 	
 	@Override
-	synchronized public void run() {
+	public void run() {
 		double alkuAika = System.currentTimeMillis();
 		double paivitysVali = 1000/33.33334; // 30 fps
 
@@ -164,6 +169,10 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 			if(fps >= paivitysVali) {
 				alkuAika = System.currentTimeMillis();
 				paivita();
+				
+				// Ruudun liike päivitys
+				gc.strokeText("Fps: " + fps + "\n" + "Frame: " + ruudunLiike, 32, 32);
+				ruudunLiike++;
 			}
 		}
 	}
@@ -206,5 +215,11 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	@Override
 	public void setUloskayntiJononPituus(int pituus) {
 		uloskayntiJono = pituus;
+	}
+	
+	// Animointi
+	@Override
+	public void setAsiakasNopeus(double nopeus) {
+		asiakkaidenNopeus = nopeus;
 	}
 }

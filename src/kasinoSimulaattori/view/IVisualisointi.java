@@ -23,4 +23,7 @@ public interface IVisualisointi {
 	// Uloskäynti
 	public void setUloskayntiPalveltavienMaara(int maara);
 	public void setUloskayntiJononPituus(int pituus);
+	
+	// Animointi
+	public void setAsiakasNopeus(double nopeus);
 }
