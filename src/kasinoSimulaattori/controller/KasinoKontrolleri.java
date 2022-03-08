@@ -25,28 +25,64 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	}
 
 	@Override
-	public void visualisoiAsiakas() {
-		Platform.runLater(new Runnable() {
-			public void run() {
-				ui.getVisualisointi().uusiAsiakas();
-			}
-		});
+	public void visualisoiAsiakas(int x1, int y1, int x2, int y2) {
+		Platform.runLater(() -> 
+			ui.getVisualisointi().asiakkaanLiikeAnimaatio(x1, y1, x2, y2)
+		);
 	}
 	
+	// Baari
 	@Override
-	public void paivitaUI() {
-		ui.paivita();
+	public void baariPalveltavat(int maara) {
+		this.ui.getVisualisointi().setBaariPalveltavienMaara(maara);
+	}
+	@Override
+	public void baariJonossa(int maara) {
+		this.ui.getVisualisointi().setBaariJononPituus(maara);
+	}
+	
+	// Blackjack
+	@Override
+	public void blackjackPalveltavat(int maara) {
+		this.ui.getVisualisointi().setBlackjackPalveltavienMaara(maara);
+	}
+	@Override
+	public void blackjackJonossa(int maara) {
+		this.ui.getVisualisointi().setBlackjackJononPituus(maara);
+	}
+	
+	// Sisäänkäynti
+	@Override
+	public void sisaankayntiPalveltavat(int maara) {
+		this.ui.getVisualisointi().setSisaankayntiPalveltavienMaara(maara);
+	}
+	@Override
+	public void sisaankayntiJonossa(int maara) {
+		this.ui.getVisualisointi().setSisaankayntiJononPituus(maara);
+	}
+	
+	// Uloskäynti
+	@Override
+	public void uloskayntiPalveltavat(int maara) {
+		this.ui.getVisualisointi().setUloskayntiPalveltavienMaara(maara);
+	}
+	@Override
+	public void uloskayntiJonossa(int maara) {
+		this.ui.getVisualisointi().setUloskayntiJononPituus(maara);
 	}
 
 	// IKontrolleriVtoM:
 	
 	@Override
-	public void kaynnistaSimulointi() {
+	public void kaynnistaSimulointi(double aika, long viive, double mainostus, int max, int min, double yllapito, double tasapeli) {
 		moottori = new OmaMoottori(this);
-		moottori.setSimulointiaika(ui.getAika());
-		
-		moottori.setViive(ui.getViive());
-		ui.getVisualisointi().tyhjennaNaytto();
+		moottori.setSimulointiaika(aika);
+		moottori.setViive(viive);
+		moottori.setMainostusRahamaara(mainostus);
+		moottori.setMaxBet(max);
+		moottori.setMinBet(min);
+		moottori.setYllapitoRahamaara(yllapito);
+		moottori.setBlackjackTasapeliprosentti(tasapeli);
 		((Thread)moottori).start();
 	}
 
@@ -64,9 +100,11 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	public double[] haeTulokset() {
 		return moottori.getTulokset();
 	}
+	
 
 	@Override
 	public LinkedList<Palvelupiste> haePalvelupisteet(int palvelu) {
 		return moottori.getPalvelupisteet(palvelu);
 	}
+
 }

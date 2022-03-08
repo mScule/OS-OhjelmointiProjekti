@@ -10,6 +10,7 @@ import kasinoSimulaattori.simu.framework.Tapahtuma;
 import kasinoSimulaattori.simu.framework.Tapahtumalista;
 import kasinoSimulaattori.simu.framework.Trace;
 import kasinoSimulaattori.simu.model.Asiakas.Ominaisuus;
+import kasinoSimulaattori.util.Sijainti;
 
 public class Peli extends Palvelupiste {
 
@@ -22,10 +23,12 @@ public class Peli extends Palvelupiste {
 	// Lista blackjack pöydästä poistuvien asiakkaiden poistumisajoista.
 	private PriorityQueue<Double> poistumisajatLista = new PriorityQueue<Double>();
 
-	public Peli(Negexp generator, Tapahtumalista tapahtumalista) {
-		super(generator, tapahtumalista);
+	public Peli(Negexp generator, Tapahtumalista tapahtumalista, Sijainti sijainti) {
+		super(generator, tapahtumalista, sijainti);
 		uniform = Kasino.getPelitUniform();
 	}
+	
+	public int getPelaajatPoydassa() { return pelaajatPoydassa; }
 
 	// Pelikohtaiset säädöt:
 	

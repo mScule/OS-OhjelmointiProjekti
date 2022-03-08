@@ -5,11 +5,12 @@ import kasinoSimulaattori.eduni.distributions.Negexp;
 import kasinoSimulaattori.simu.framework.Kello;
 import kasinoSimulaattori.simu.framework.Tapahtuma;
 import kasinoSimulaattori.simu.framework.Tapahtumalista;
+import kasinoSimulaattori.util.Sijainti;
 
 public class Sisaankaynti extends Palvelupiste {
 
-	public Sisaankaynti(Negexp generator, Tapahtumalista tapahtumalista) {
-		super(generator, tapahtumalista);
+	public Sisaankaynti(Negexp generator, Tapahtumalista tapahtumalista, Sijainti sijainti) {
+		super(generator, tapahtumalista, sijainti);
 	}
 
 	@Override

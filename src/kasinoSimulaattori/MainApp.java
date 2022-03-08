@@ -1,11 +1,8 @@
 package kasinoSimulaattori;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -20,32 +17,32 @@ import kasinoSimulaattori.view.IVisualisointi;
 import kasinoSimulaattori.view.KasinoVisualisointi;
 import kasinoSimulaattori.view.SimulaattoriGUIController;
 
-public class MainApp extends Application implements ISimulaattorinUI{
+public class MainApp extends Application implements ISimulaattorinUI {
 
     private Stage primaryStage;
-    private IVisualisointi visualisointi;
     private BorderPane rootLayout;
     private IKontrolleriVtoM kontrolleri;
-    private SimulaattoriGUIController controller = new SimulaattoriGUIController();
+    private SimulaattoriGUIController gui;
+    private KasinoVisualisointi visualisointi;
 	
-    public MainApp() {
-	}
+    public MainApp() throws FileNotFoundException {
+        kontrolleri   = new KasinoKontrolleri(this);
+    	gui           = new SimulaattoriGUIController();
+    	visualisointi = new KasinoVisualisointi();
+    }
 
     @Override
-    public void start(Stage primaryStage) throws FileNotFoundException {
+    public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Kasino simulaattori");
-        try {
-			//controller.init();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        Trace.setTraceLevel(Level.ERR);
-        visualisointi = new KasinoVisualisointi();
-        kontrolleri = new KasinoKontrolleri(this);
+        
+        Trace.setTraceLevel(Level.INFO);
+    	
         initMainLayout();
         showAlapaneelit();
+        
+        gui.setVisualisaattori(visualisointi.getCanvas());
+        visualisointi.start();
     }
     
     public IKontrolleriVtoM getController() {
@@ -56,12 +53,11 @@ public class MainApp extends Application implements ISimulaattorinUI{
      * Initializes the root layout and tries to load the last opened
      * person file.
      */
-    public void initMainLayout() {
+    private void initMainLayout() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class
-                    .getResource("view/MainLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/MainLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
@@ -69,16 +65,16 @@ public class MainApp extends Application implements ISimulaattorinUI{
             primaryStage.setScene(scene);
 
             // Give the controller access to the main app.
-            SimulaattoriGUIController controller = loader.getController();
-            controller.setMainApp(this);
-
+            gui = loader.getController();
+            gui.setMainApp(this);
+            
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    public void showAlapaneelit() {
+    private void showAlapaneelit() {
         try {
             // Load layout.
             FXMLLoader loader = new FXMLLoader();
@@ -89,16 +85,15 @@ public class MainApp extends Application implements ISimulaattorinUI{
             rootLayout.setCenter(alapaneelit);
 
             // Give the controller access to the main app.
-            SimulaattoriGUIController controller = loader.getController();
-            controller.setMainApp(this);
-
+            gui = loader.getController();
+            gui.setMainApp(this);
+            
+            // Asetetaan canvas
+            gui.setVisualisaattori(visualisointi.getCanvas());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-  
-
     
 	/**
 	 * Returns the main stage.
@@ -111,11 +106,6 @@ public class MainApp extends Application implements ISimulaattorinUI{
     public static void main(String[] args) {
         launch(args);
     }
-
-	public void kaynnistaSimulointi() {
-		kontrolleri.kaynnistaSimulointi();
-		
-	}
 
 	@Override
 	public double getAika() {
@@ -132,18 +122,10 @@ public class MainApp extends Application implements ISimulaattorinUI{
 	@Override
 	public void setLoppuaika(double aika) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public IVisualisointi getVisualisointi() {
-		// TODO Auto-generated method stub
 		return visualisointi;
-	}
-
-	@Override
-	public void paivita() {
-		// TODO Auto-generated method stub
-		
 	}
 }

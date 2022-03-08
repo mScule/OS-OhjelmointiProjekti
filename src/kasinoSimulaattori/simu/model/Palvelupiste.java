@@ -7,6 +7,7 @@ import kasinoSimulaattori.eduni.distributions.Negexp;
 import kasinoSimulaattori.eduni.distributions.Uniform;
 import kasinoSimulaattori.simu.framework.Tapahtumalista;
 import kasinoSimulaattori.simu.framework.Trace;
+import kasinoSimulaattori.util.Sijainti;
 
 // TODO:
 // Palvelupistekohtaiset toiminnallisuudet, laskutoimitukset (+ tarvittavat muuttujat), jonjen pituudet 
@@ -29,15 +30,22 @@ public class Palvelupiste implements IPalvelupiste {
 	private int palvellutAsiakkaat = 0;
 
 	private double[] tulokset = new double[IPalvelupiste.TULOSTEN_MAARA];
+	
+	private Sijainti sijainti;
 
-	public Palvelupiste(Negexp negexpGenerator, Tapahtumalista tapahtumalista) {
+	public Palvelupiste(Negexp negexpGenerator, Tapahtumalista tapahtumalista, Sijainti sijainti) {
 		this.tapahtumalista = tapahtumalista;
 		this.negexpGenerator = negexpGenerator;
-
+		this.sijainti = sijainti;
+		
 		id = palveluid;
 		palveluid++;
 	}
 
+	public Sijainti getSijainti() {
+		return sijainti;
+	}
+	
 	public void setKeskimPalveluaika(double uusiKeskimPalveluaika){
 		Negexp newGenerator = new Negexp(uusiKeskimPalveluaika, Kasino.getSeed());
 		negexpGenerator = newGenerator;

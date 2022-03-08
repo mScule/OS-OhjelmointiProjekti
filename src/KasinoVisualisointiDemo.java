@@ -1,13 +1,12 @@
 import javafx.scene.Scene;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import kasinoSimulaattori.view.KasinoVisualisointi;
 
 // KasinoVisualisointi DEMO
-public class CanvasTest extends Application {
+public class KasinoVisualisointiDemo extends Application {
 	
 	private Stage stage;
 	private BorderPane root;
@@ -29,12 +28,8 @@ public class CanvasTest extends Application {
 		stage.show();
 		
 		AsiakasSpawner spawneri = new AsiakasSpawner(visualisointi);
-		
-		
 			visualisointi.start();
 			spawneri.start();
-		
-		
 	}
 	
 	public static void main(String[] args) {

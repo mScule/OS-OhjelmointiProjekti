@@ -8,11 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import kasinoSimulaattori.controller.KasinoKontrolleri;
-import kasinoSimulaattori.simu.model.IOmaMoottori;
 import kasinoSimulaattori.view.animated.Liikkuja;
-
-import java.util.Timer;
 
 public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	
@@ -39,7 +35,12 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		baariJono        = 0, baariPalveltavat        = 0,
 		blackjackJono    = 0, blackjackPalveltavat    = 0,
 		sisaankayntiJono = 0, sisaankayntiPalveltavat = 0,
-		uloskayntiJono   = 0, uloskayntiPalveltavat   = 0;
+		uloskayntiJono   = 0, uloskayntiPalveltavat   = 0,
+		
+	    ruudunLiike = 0;
+	
+	private double
+		asiakkaidenNopeus = 1.5;
 		
 	public KasinoVisualisointi() throws FileNotFoundException {
 		kuvaTausta            = new Image(new FileInputStream("images\\background.png"     ));
@@ -61,23 +62,23 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		gc.setStroke(Color.WHITE);
 	}
 	
-	synchronized private void piirraInfo(int x, int y, int jononPituus, int palveltavienMaara) {
-		gc.drawImage(kuvaJonossa   ,      x * 128, y * 128);
+	private void piirraInfo(int x, int y, int jononPituus, int palveltavienMaara) {
+		gc.drawImage(kuvaJonossa   , x * 128     , y * 128);
 		gc.drawImage(kuvaPalvelussa, x * 128 + 64, y * 128);
 		
 		gc.strokeText(jononPituus + ""      , x * 128     , y * 128);
 		gc.strokeText(palveltavienMaara + "", x * 128 + 64, y * 128);
 	}
 	
-	synchronized private void piirraTausta(int x, int y) {
-		gc.drawImage(kuvaTausta, x*128, y*128);
+	private void piirraTausta(int x, int y) {
+		gc.drawImage(kuvaTausta, x * 128, y * 128);
 	}
 	
-	synchronized private void piirraPalvelu(Image kuva, int x, int y) {
-		gc.drawImage(kuva, x*128, y*128);
+	private void piirraPalvelu(Image kuva, int x, int y) {
+		gc.drawImage(kuva, x * 128, y * 128);
 	}
 	
-	synchronized private void piirraLattia(int x, int y) {
+	private void piirraLattia(int x, int y) {
 		x *= 128;
 		y *= 128;
 		
@@ -87,11 +88,12 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		gc.drawImage(kuvaLattia, x + 64, y + 64);
 	}
 	
-	public void piirraAsiakasLiike(int aloitusX, int aloitusY, int lopetusX, int lopetusY) {
+	@Override
+	public void asiakkaanLiikeAnimaatio(int aloitusX, int aloitusY, int lopetusX, int lopetusY) {
 		liikkujat.add(new Liikkuja(kuvaAsiakas, gc, aloitusX, aloitusY, lopetusX, lopetusY, 32));
 	}
 	
-	synchronized void paivita() {
+	private void paivita() {
 		
 		// Tausta
 		for(int x = 0; x < 7; x++)
@@ -145,7 +147,7 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		
 		// Asiakkaiden liikkeet
 		for(Liikkuja l : liikkujat)
-			l.liikuta(0.01);
+			l.liikuta(0.01 * asiakkaidenNopeus);
 		
 		// Poista asiakkaat jotka kohteessa
 		for(int i = liikkujat.size() - 1; i >= 0; i--)
@@ -153,12 +155,12 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 				liikkujat.remove(i);
 	}
 	
-	synchronized public Canvas getCanvas() {
+	public Canvas getCanvas() {
 		return this.kanvas;
 	}
 	
 	@Override
-	synchronized public void run() {
+	public void run() {
 		double alkuAika = System.currentTimeMillis();
 		double paivitysVali = 1000/33.33334; // 30 fps
 
@@ -167,51 +169,57 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 			if(fps >= paivitysVali) {
 				alkuAika = System.currentTimeMillis();
 				paivita();
+				
+				// Ruudun liike päivitys
+				gc.strokeText("Fps: " + fps + "\n" + "Frame: " + ruudunLiike, 32, 32);
+				ruudunLiike++;
 			}
 		}
 	}
 
+	// Baari
+	@Override
 	public void setBaariJononPituus(int pituus) {
 		baariJono = pituus;
 	}
-
+	@Override
 	public void setBaariPalveltavienMaara(int maara) {
 		baariPalveltavat = maara;
 	}
 
+	// Blackjack
+	@Override
 	public void setBlackjackJononPituus(int pituus) {
 		blackjackJono = pituus;
 	}
-
+	@Override
 	public void setBlackjackPalveltavienMaara(int maara) {
 		blackjackPalveltavat = maara;
 	}
 
+	// Sisäänkäynti
+	@Override
 	public void setSisaankayntiJononPituus(int pituus) {
 		sisaankayntiJono = pituus;
 	}
-
+	@Override
 	public void setSisaankayntiPalveltavienMaara(int maara) {
 		sisaankayntiPalveltavat = maara;
 	}
 
-	public void setUloskayntiJononPituus(int pituus) {
-		uloskayntiJono = pituus;
-	}
-
+	// Uloskäynti
+	@Override
 	public void setUloskayntiPalveltavienMaara(int maara) {
 		uloskayntiPalveltavat = maara;
 	}
-
 	@Override
-	public void tyhjennaNaytto() {
-		// TODO Auto-generated method stub
-		
+	public void setUloskayntiJononPituus(int pituus) {
+		uloskayntiJono = pituus;
 	}
-
+	
+	// Animointi
 	@Override
-	public void uusiAsiakas() {
-		// TODO Auto-generated method stub
-		
+	public void setAsiakasNopeus(double nopeus) {
+		asiakkaidenNopeus = nopeus;
 	}
 }
