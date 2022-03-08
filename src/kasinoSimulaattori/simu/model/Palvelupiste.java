@@ -19,7 +19,7 @@ public class Palvelupiste implements IPalvelupiste {
 	protected Negexp negexpGenerator;
 	protected Tapahtumalista tapahtumalista;
 	// Arvo joku muu tapahtuma, kuin SISÄÄNKÄYNTI tai POISTUMINEN.
-	protected Uniform uniform = new Uniform(2, TapahtumanTyyppi.values().length, Kasino.getSeed());
+	protected Uniform nextTapahtumaUniform;
 
 	// JonoStartegia strategia; //optio: asiakkaiden järjestys
 	public static int palveluid = 0;
@@ -30,14 +30,16 @@ public class Palvelupiste implements IPalvelupiste {
 	private int palvellutAsiakkaat = 0;
 
 	private double[] tulokset = new double[IPalvelupiste.TULOSTEN_MAARA];
-	
+
 	private Sijainti sijainti;
 
-	public Palvelupiste(Negexp negexpGenerator, Tapahtumalista tapahtumalista, Sijainti sijainti) {
+	public Palvelupiste(Negexp negexpGenerator, Tapahtumalista tapahtumalista, Sijainti sijainti,
+			Uniform nextTapahtumaUniform) {
 		this.tapahtumalista = tapahtumalista;
 		this.negexpGenerator = negexpGenerator;
 		this.sijainti = sijainti;
-		
+		this.nextTapahtumaUniform = nextTapahtumaUniform;
+
 		id = palveluid;
 		palveluid++;
 	}
@@ -45,14 +47,14 @@ public class Palvelupiste implements IPalvelupiste {
 	public Sijainti getSijainti() {
 		return sijainti;
 	}
-	
-	public void setKeskimPalveluaika(double uusiKeskimPalveluaika){
+
+	public void setKeskimPalveluaika(double uusiKeskimPalveluaika) {
 		Negexp newGenerator = new Negexp(uusiKeskimPalveluaika, Kasino.getSeed());
 		negexpGenerator = newGenerator;
 	}
 
 	private int getSample() {
-		return (int) uniform.sample();
+		return (int) nextTapahtumaUniform.sample();
 	}
 
 	protected TapahtumanTyyppi arvoTapahtuma() {
@@ -102,7 +104,7 @@ public class Palvelupiste implements IPalvelupiste {
 		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu, asiakas " + jono.peek().getId() + " ["
 				+ this.getClass().toString() + " " + getId() + " ]");
 		// Printtaa asiakkaan tiedot
-		Trace.out(Trace.Level.INFO,jono.peek());
+		Trace.out(Trace.Level.INFO, jono.peek());
 
 		// TODO: Käytä asiakkaan palveluajan laskemiseen jonkun satunnaisesti
 		// generoidun luvun lisäksi asiakkaan ominaisuuksia.

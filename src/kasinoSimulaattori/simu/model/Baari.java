@@ -12,8 +12,9 @@ import kasinoSimulaattori.util.Sijainti;
 
 public class Baari extends Palvelupiste {
 
-	public Baari(Negexp generator, Tapahtumalista tapahtumalista, Sijainti sijainti) {
-		super(generator, tapahtumalista, sijainti);
+	public Baari(Negexp generator, Tapahtumalista tapahtumalista, Sijainti sijainti, Uniform nextTapahtumaUniform) {
+		super(generator, tapahtumalista, sijainti, nextTapahtumaUniform);
+		// nextTapahtumaUniform = new Uniform(2, TapahtumanTyyppi.values().length, Kasino.getSeed());
 	}
 
 	@Override

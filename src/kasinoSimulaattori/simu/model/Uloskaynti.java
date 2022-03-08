@@ -2,6 +2,7 @@ package kasinoSimulaattori.simu.model;
 
 import kasinoSimulaattori.eduni.distributions.ContinuousGenerator;
 import kasinoSimulaattori.eduni.distributions.Negexp;
+import kasinoSimulaattori.eduni.distributions.Uniform;
 import kasinoSimulaattori.simu.framework.Kello;
 import kasinoSimulaattori.simu.framework.Tapahtuma;
 import kasinoSimulaattori.simu.framework.Tapahtumalista;
@@ -9,8 +10,8 @@ import kasinoSimulaattori.util.Sijainti;
 
 public class Uloskaynti extends Palvelupiste {
 
-	public Uloskaynti(Negexp generator, Tapahtumalista tapahtumalista, Sijainti sijainti) {
-		super(generator, tapahtumalista, sijainti);
+	public Uloskaynti(Negexp generator, Tapahtumalista tapahtumalista, Sijainti sijainti, Uniform nextTapahtumaUniform) {
+		super(generator, tapahtumalista, sijainti, nextTapahtumaUniform);
 	}
 
 	@Override
