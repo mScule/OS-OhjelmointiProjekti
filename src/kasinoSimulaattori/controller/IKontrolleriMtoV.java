@@ -30,7 +30,7 @@ public interface IKontrolleriMtoV {
 		
 		// UI
 		public void setAika(String value);
-		public void setPaiva(String value);
+		// public void setPaiva(String value);
 		public void setRahat(String value);
 		public void setVoitot(String value);
 		public void setSaapuneet(String value);

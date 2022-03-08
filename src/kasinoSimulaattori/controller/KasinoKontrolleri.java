@@ -98,8 +98,8 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	
 	@Override
 	public void setAika(String value)             { this.ui.getGui().setAika(value);             }
-	@Override
-	public void setPaiva(String value)            { this.ui.getGui().setPaiva(value);            }
+	// @Override
+	// public void setPaiva(String value)            { this.ui.getGui().setPaiva(value);            }
 	@Override
 	public void setRahat(String value)            { this.ui.getGui().setRahat(value);            }
 	@Override
@@ -111,7 +111,7 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	@Override
 	public void setAvgJono(String value)          { this.ui.getGui().setAvgJono(value);          }
 	@Override
-	public void setKokonaisoleskelu(String value) { this.ui.getGui().setKokonaisoleskelu(value); }
+	public void setKokonaisoleskelu(String value)	 { this.ui.getGui().setKokonaisoleskelu(value); }
 	@Override
 	public void setAvgOnnellisuus(String value)      { this.ui.getGui().setAvgOnnellisuus(value);   }
 	@Override
@@ -124,7 +124,7 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	// IKontrolleriVtoM:
 	
 	@Override
-	public void kaynnistaSimulointi(double aika, long viive, double mainostus, int max, int min, double yllapito, double tasapeli) {
+	public void kaynnistaSimulointi(double aika, long viive, double mainostus, int max, int min, double yllapito, double tasapeli, double voitto) {
 		moottori = new OmaMoottori(this);
 		moottori.setSimulointiaika(aika);
 		moottori.setViive(viive);
@@ -133,6 +133,7 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 		moottori.setMinBet(min);
 		moottori.setYllapitoRahamaara(yllapito);
 		moottori.setBlackjackTasapeliprosentti(tasapeli);
+		moottori.setBlackjackVoittoprosentti(voitto);
 		((Thread)moottori).start();
 	}
 

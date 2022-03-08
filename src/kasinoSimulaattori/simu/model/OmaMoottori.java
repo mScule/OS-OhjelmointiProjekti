@@ -344,7 +344,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		// Päivitetään tulokset GUI:hin
 		
 		Platform.runLater(() -> { kontrolleri.setAika(kello.getAika() + "");
-			kontrolleri.setPaiva(1 + "");
+			//kontrolleri.setPaiva(1 + "");
 			kontrolleri.setRahat(getTulokset()[IOmaMoottori.TULOS_RAHA] + "");
 			kontrolleri.setVoitot(getTulokset()[IOmaMoottori.TULOS_VOITTO] + "");
 			kontrolleri.setSaapuneet(getTulokset()[IOmaMoottori.TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA] + "");

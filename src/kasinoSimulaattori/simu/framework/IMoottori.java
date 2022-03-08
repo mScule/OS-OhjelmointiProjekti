@@ -12,4 +12,5 @@ public interface IMoottori { // UUSI
 	public void setMinBet(int min);
 	public void setYllapitoRahamaara(double yllapito);
 	public void setBlackjackTasapeliprosentti(double tasapeli);
+	public void setBlackjackVoittoprosentti(double voitto);
 }

@@ -48,10 +48,11 @@ public class MainApp extends Application implements ISimulaattorinUI {
         // Valmiit arvot
         Platform.runLater(() -> {
         	gui.setMainostusTF("1");
-        	gui.setMaxTF("100");
-        	gui.setMinTF("50");
-        	gui.setYllapitoTF("1000");
-        	gui.setTasapeliTF("0.8");
+        	gui.setMaxTF("10000");
+        	gui.setMinTF("200");
+        	gui.setYllapitoTF("50");
+        	gui.setTasapeliTF("0.08");
+        	gui.setVoittoTF("0.44");
         	
         	gui.setAikaTF("1000");
         	gui.setViiveTF("250");

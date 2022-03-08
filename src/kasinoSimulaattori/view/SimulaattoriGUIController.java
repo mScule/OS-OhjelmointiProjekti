@@ -21,8 +21,8 @@ public class SimulaattoriGUIController {
 
 	@FXML
 	private Label aikaID;
-	@FXML
-	private Label paivaID;
+	// @FXML
+	// private Label paivaID;
 	@FXML
 	private Label rahatID;
 	@FXML
@@ -61,6 +61,8 @@ public class SimulaattoriGUIController {
 	private TextField yllapitoTF;
 	@FXML
 	private TextField tasapeliTF;
+	@FXML
+	private TextField voittoTF;
 	
 	private MainApp mainApp;
 
@@ -80,7 +82,7 @@ public class SimulaattoriGUIController {
 		double tulokset[] = kontrolleri.haeTulokset();
 		System.out.println(tulokset[0]);
 		aikaID.setText(Double.toString(tulokset[0]));
-		paivaID.setText(Double.toString(tulokset[0]));
+		// paivaID.setText(Double.toString(tulokset[0]));
 		rahatID.setText(Double.toString(tulokset[6]));
 		voitotID.setText(Double.toString(tulokset[7]));
 
@@ -106,7 +108,8 @@ public class SimulaattoriGUIController {
 		int min = Integer.parseInt(minTF.getText());
 		double yllapito = Double.parseDouble(yllapitoTF.getText());
 		double tasapeli = Double.parseDouble(tasapeliTF.getText());
-		kontrolleri.kaynnistaSimulointi(aika, viive, mainostus, max, min, yllapito, tasapeli);
+		double voitto = Double.parseDouble(voittoTF.getText());
+		kontrolleri.kaynnistaSimulointi(aika, viive, mainostus, max, min, yllapito, tasapeli, voitto);
 		System.out.println(aika + " " + viive);
 		naytaTulokset();
 	}
@@ -114,7 +117,7 @@ public class SimulaattoriGUIController {
 	@FXML
 	public void handleReset() {
 		aikaID.setText("");
-		paivaID.setText("");
+		// paivaID.setText("");
 		rahatID.setText("");
 		voitotID.setText("");
 		saapuneetID.setText("");
@@ -157,10 +160,11 @@ public class SimulaattoriGUIController {
 	public void setMinTF(String value)       { minTF.setText(value);       }
 	public void setYllapitoTF(String value)  { yllapitoTF.setText(value);  }
 	public void setTasapeliTF(String value)  { tasapeliTF.setText(value);  }
+	public void setVoittoTF(String value)    { voittoTF.setText(value);    }
 	
 	// Setterit labelelille
 	public void setAika(String value)             { aikaID.setText(value);             }
-	public void setPaiva(String value)            { paivaID.setText(value);            }
+	// public void setPaiva(String value)            { paivaID.setText(value);            }
 	public void setRahat(String value)            { rahatID.setText(value);            }
 	public void setVoitot(String value)           { voitotID.setText(value);           }
 	public void setSaapuneet(String value)        { saapuneetID.setText(value);        }

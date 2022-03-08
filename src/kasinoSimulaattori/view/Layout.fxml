@@ -27,15 +27,16 @@
                                     <Button mnemonicParsing="false" onAction="#handleHidasta" text="Hidasta" />
                                 </buttons>
                               </ButtonBar>
-                              <GridPane layoutX="17.0" layoutY="28.0" prefHeight="214.0" prefWidth="257.0">
+                              <GridPane layoutX="17.0" layoutY="28.0" prefHeight="264.0" prefWidth="257.0">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="141.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="116.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
@@ -44,12 +45,14 @@
                                     <Label text="Maksimipanos:" GridPane.rowIndex="1" />
                                     <Label text="Minimipanos:" GridPane.rowIndex="2" />
                                     <Label text="Ylläpito:" GridPane.rowIndex="3" />
-                                    <Label text="Tasapeli:" GridPane.rowIndex="4" />
+                                    <Label text="Tasapeliprosentti:" GridPane.rowIndex="4" />
+                                    <Label text="Voittoprosentti:" GridPane.rowIndex="5" />
                                     <TextField fx:id="mainostusTF" GridPane.columnIndex="1" />
                                     <TextField fx:id="maxTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField fx:id="minTF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="yllapitoTF" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <TextField fx:id="tasapeliTF" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="voittoTF" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                  </children>
                               </GridPane>
                               <GridPane layoutX="49.0" layoutY="453.0" prefHeight="78.0" prefWidth="200.0">
@@ -86,17 +89,17 @@
                         <Button mnemonicParsing="false" onAction="#handleReset" stylesheets="@Teema.css" text="RESET" />
                     </buttons>
                   </ButtonBar>
-                  <GridPane layoutX="478.0" layoutY="14.0" prefHeight="264.0" prefWidth="759.0" AnchorPane.bottomAnchor="23.0">
+                  <GridPane layoutX="423.0" layoutY="14.0" prefHeight="264.0" prefWidth="814.0" AnchorPane.bottomAnchor="23.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="265.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="124.0" minWidth="10.0" prefWidth="64.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="341.0" minWidth="10.0" prefWidth="330.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" prefWidth="49.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="237.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="125.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="366.0" minWidth="10.0" prefWidth="316.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.0" minWidth="10.0" prefWidth="111.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="49.0" minHeight="8.0" prefHeight="49.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="49.0" minHeight="8.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="89.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
@@ -118,12 +121,10 @@
                         <Label fx:id="avgLapimenoID" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
-                  <GridPane layoutX="42.0" layoutY="29.0" prefHeight="184.0" prefWidth="422.0" stylesheets="@Teema.css" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="42.0">
+                  <GridPane layoutX="42.0" layoutY="29.0" prefHeight="182.0" prefWidth="353.0" stylesheets="@Teema.css" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="42.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="83.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.0" minWidth="10.0" prefWidth="134.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="83.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="231.0" minWidth="10.0" prefWidth="123.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.0" minWidth="10.0" prefWidth="211.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
@@ -133,20 +134,13 @@
                     </rowConstraints>
                      <children>
                         <Label text="Aika:" />
-                        <Label fx:id="paivaID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.rowIndex="3" />
-                        <Label fx:id="rahatID" GridPane.columnIndex="3" />
-                        <Label text="Päivä:" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.rowIndex="2" />
+                        <Label text="Kasinon rahat:" GridPane.rowIndex="1" />
+                        <Label text="Kasinon voitot:" GridPane.rowIndex="2" />
+                        <Label GridPane.rowIndex="3" />
                         <Label fx:id="aikaID" GridPane.columnIndex="1" />
-                        <Label GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="rahatID" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="voitotID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Kasinon rahat:" GridPane.columnIndex="2" />
-                        <Label text="Kasinon voitot:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <Label fx:id="voitotID" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <Label GridPane.columnIndex="3" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>
