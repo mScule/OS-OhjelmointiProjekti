@@ -18,6 +18,9 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	
 	private ArrayList<Liikkuja> liikkujat;
 	
+	private boolean visualisointiPaalla = true;
+	private String lopetusViesti = "";
+	
 	private Image
 		kuvaTausta,
 		kuvaLattia,
@@ -29,18 +32,19 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		kuvaHakkiUloskaynti,
 		kuvaJonossa,
 		kuvaPalvelussa,
-		kuvaAsiakas;
+		kuvaAsiakas,
+		kuvaTyontekija;
 	
 	private int
-		baariJono        = 0, baariPalveltavat        = 0,
-		blackjackJono    = 0, blackjackPalveltavat    = 0,
-		sisaankayntiJono = 0, sisaankayntiPalveltavat = 0,
-		uloskayntiJono   = 0, uloskayntiPalveltavat   = 0,
+		baariJono        = 0, baariPalveltavat        = 0, baariTyontekijat        = 0,
+		blackjackJono    = 0, blackjackPalveltavat    = 0, blackjackTyontekijat    = 0,
+		sisaankayntiJono = 0, sisaankayntiPalveltavat = 0, sisaankayntiTyontekijat = 0,
+		uloskayntiJono   = 0, uloskayntiPalveltavat   = 0, uloskayntiTyontekijat   = 0,
 		
 	    ruudunLiike = 0;
 	
 	private double
-		asiakkaidenNopeus = 1.5;
+		asiakkaidenNopeus = 2;
 		
 	public KasinoVisualisointi() throws FileNotFoundException {
 		kuvaTausta            = new Image(new FileInputStream("images\\background.png"     ));
@@ -53,7 +57,8 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		kuvaHakkiUloskaynti   = new Image(new FileInputStream("images\\cage_exit.png"      ));
 		kuvaJonossa           = new Image(new FileInputStream("images\\queue.png"          ));
 		kuvaPalvelussa        = new Image(new FileInputStream("images\\service.png"        ));
-		kuvaAsiakas           = new Image(new FileInputStream("images\\customer.png"       ));
+		kuvaAsiakas           = new Image(new FileInputStream("images\\customer_style2.png"));
+		kuvaTyontekija        = new Image(new FileInputStream("images\\employees.png"      ));
 		
 		liikkujat = new ArrayList<Liikkuja>();
 		
@@ -62,12 +67,14 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		gc.setStroke(Color.WHITE);
 	}
 	
-	private void piirraInfo(int x, int y, int jononPituus, int palveltavienMaara) {
-		gc.drawImage(kuvaJonossa   , x * 128     , y * 128);
-		gc.drawImage(kuvaPalvelussa, x * 128 + 64, y * 128);
+	private void piirraInfo(int x, int y, int jononPituus, int palveltavienMaara, int tyontekijoidenMaara) {
+		gc.drawImage(kuvaJonossa   , x * 128         , y * 128);
+		gc.drawImage(kuvaPalvelussa, x * 128 + 64    , y * 128);
+		gc.drawImage(kuvaTyontekija, x * 128 + 64 * 2, y * 128);
 		
-		gc.strokeText(jononPituus + ""      , x * 128     , y * 128);
-		gc.strokeText(palveltavienMaara + "", x * 128 + 64, y * 128);
+		gc.strokeText(jononPituus + ""        , x * 128         , y * 128);
+		gc.strokeText(palveltavienMaara + ""  , x * 128 + 64    , y * 128);
+		gc.strokeText(tyontekijoidenMaara + "", x * 128 + 64 * 2, y * 128);
 	}
 	
 	private void piirraTausta(int x, int y) {
@@ -89,16 +96,26 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	}
 	
 	@Override
+	public void lopetaVisualisointi(String viesti) {
+		lopetusViesti = viesti;
+		visualisointiPaalla = false;
+	}
+	
+	@Override
 	public void asiakkaanLiikeAnimaatio(int aloitusX, int aloitusY, int lopetusX, int lopetusY) {
 		liikkujat.add(new Liikkuja(kuvaAsiakas, gc, aloitusX, aloitusY, lopetusX, lopetusY, 32));
+	}
+	
+	private void piirraKokoTausta() {
+		for(int x = 0; x < 7; x++)
+			for(int y = 0; y < 6; y++)
+				piirraTausta(x, y);
 	}
 	
 	private void paivita() {
 		
 		// Tausta
-		for(int x = 0; x < 7; x++)
-			for(int y = 0; y < 6; y++)
-				piirraTausta(x, y);
+		piirraKokoTausta();
 		
 		// Lattia
 		piirraLattia(1,1);
@@ -121,7 +138,7 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		
 		piirraLattia(1,4);
 		piirraLattia(2,4);
-
+		piirraLattia(3,4);
 		piirraLattia(4,4);
 		piirraLattia(5,4);
 		
@@ -129,21 +146,21 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		
 		// Baari
 		piirraPalvelu(kuvaBar, 1,1);
-		piirraInfo(1,1, baariJono, baariPalveltavat);
+		piirraInfo(1,1, baariJono, baariPalveltavat, baariTyontekijat);
 
 		// Blackjack
 		piirraPalvelu(kuvaBlackjack, 5,1);
-		piirraInfo(5,1, blackjackJono, blackjackPalveltavat);
+		piirraInfo(5,1, blackjackJono, blackjackPalveltavat, blackjackTyontekijat);
 		
 		// Sisäänkäynti
 		piirraPalvelu(kuvaSisaankaynti, 2,4);
 		piirraPalvelu(kuvaHakkiSisaankaynti, 1,4);
-		piirraInfo(2,4, sisaankayntiJono, sisaankayntiPalveltavat);
+		piirraInfo(2,4, sisaankayntiJono, sisaankayntiPalveltavat, sisaankayntiTyontekijat);
 		
 		// Uloskäynti
 		piirraPalvelu(kuvaUloskaynti, 4,4);
 		piirraPalvelu(kuvaHakkiUloskaynti, 5,4);
-		piirraInfo(4,4, uloskayntiJono, uloskayntiPalveltavat);
+		piirraInfo(4,4, uloskayntiJono, uloskayntiPalveltavat, uloskayntiTyontekijat);
 		
 		// Asiakkaiden liikkeet
 		for(Liikkuja l : liikkujat)
@@ -164,7 +181,7 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		double alkuAika = System.currentTimeMillis();
 		double paivitysVali = 1000/33.33334; // 30 fps
 
-		while(true) {
+		while(visualisointiPaalla) {
 			double fps = System.currentTimeMillis() - alkuAika;
 			if(fps >= paivitysVali) {
 				alkuAika = System.currentTimeMillis();
@@ -175,6 +192,10 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 				ruudunLiike++;
 			}
 		}
+		
+		// Lopetus näkymä
+		piirraKokoTausta();
+		gc.strokeText(lopetusViesti, 32, 32);
 	}
 
 	// Baari
@@ -186,6 +207,10 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	public void setBaariPalveltavienMaara(int maara) {
 		baariPalveltavat = maara;
 	}
+	@Override
+	public void setBaariTyontekijoidenMaara(int maara) {
+		baariTyontekijat = maara;
+	}
 
 	// Blackjack
 	@Override
@@ -195,6 +220,10 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	@Override
 	public void setBlackjackPalveltavienMaara(int maara) {
 		blackjackPalveltavat = maara;
+	}
+	@Override
+	public void setBlackjackTyontekijoidenMaara(int maara) {
+		blackjackTyontekijat = maara;
 	}
 
 	// Sisäänkäynti
@@ -206,6 +235,10 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	public void setSisaankayntiPalveltavienMaara(int maara) {
 		sisaankayntiPalveltavat = maara;
 	}
+	@Override
+	public void setSisaankayntiTyontekijoidenMaara(int maara) {
+		sisaankayntiTyontekijat = maara;
+	}
 
 	// Uloskäynti
 	@Override
@@ -215,6 +248,10 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	@Override
 	public void setUloskayntiJononPituus(int pituus) {
 		uloskayntiJono = pituus;
+	}
+	@Override
+	public void setUloskayntiTyontekijoidenMaara(int maara) {
+		uloskayntiTyontekijat = maara;
 	}
 	
 	// Animointi

@@ -104,6 +104,7 @@ public abstract class Moottori extends Thread implements IMoottori {
 
 		}
 		tulokset();
+		kontrolleri.lopetaVisualisointi("Simulaatio päättyi");
 	}
 
 	// Abstraktit metodit
