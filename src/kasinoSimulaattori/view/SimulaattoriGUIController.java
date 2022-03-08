@@ -2,10 +2,12 @@ package kasinoSimulaattori.view;
 
 import javafx.scene.canvas.Canvas;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +15,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import kasinoSimulaattori.MainApp;
 import kasinoSimulaattori.controller.IKontrolleriVtoM;
+import kasinoSimulaattori.simu.model.Kasino;
+import kasinoSimulaattori.util.AudioPlayer;
 
 public class SimulaattoriGUIController {
 
@@ -71,17 +75,20 @@ public class SimulaattoriGUIController {
 	private TextField sisaankaynnitTF;
 	@FXML
 	private TextField uloskaynnitTF;
-	
+	@FXML
+	private Button pauseBTN;
+
 	private MainApp mainApp;
 
 	private static IKontrolleriVtoM kontrolleri;
-	
-	public SimulaattoriGUIController(){}
-	
+
+	public SimulaattoriGUIController() {
+	}
+
 	public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-    }
-	
+		this.mainApp = mainApp;
+	}
+
 	public void setVisualisaattori(Canvas visualisaattori) {
 		canvas.setCenter(visualisaattori);
 	}
@@ -107,7 +114,6 @@ public class SimulaattoriGUIController {
 
 	@FXML
 	public void handleStart() {
-		System.out.println("TESTI");
 		kontrolleri = mainApp.getController();
 		double aika = Double.parseDouble(aikaTF.getText());
 		long viive = Long.parseLong(viiveTF.getText());
@@ -121,12 +127,24 @@ public class SimulaattoriGUIController {
 		int baarit = Integer.parseInt(baaritTF.getText());
 		int sisaankaynnit = Integer.parseInt(sisaankaynnitTF.getText());
 		int uloskaynnit = Integer.parseInt(uloskaynnitTF.getText());
-		kontrolleri.kaynnistaSimulointi(aika, viive, mainostus, max, min, yllapito, 
-				tasapeli, voitto, pelit, baarit, sisaankaynnit, uloskaynnit);
+		try {
+			AudioPlayer.playMusic();
+		} catch (UnsupportedAudioFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		kontrolleri.kaynnistaSimulointi(aika, viive, mainostus, max, min, yllapito, tasapeli, voitto, pelit, baarit,
+				sisaankaynnit, uloskaynnit);
 		System.out.println(aika + " " + viive);
 		naytaTulokset();
 	}
-	
+
 	@FXML
 	public void handleReset() {
 		aikaID.setText("");
@@ -147,49 +165,123 @@ public class SimulaattoriGUIController {
 		 * visualisointi.start();
 		 */
 	}
-	
+
 	@FXML
-	public void handlePause() {
-		
+	public synchronized void handlePause() {
+		if(!Kasino.isPause()) {
+			Kasino.setPause(true);
+			pauseBTN.setText("RESUME");
+		} else {
+			Kasino.setPause(false);
+			kontrolleri.continueSim();
+			pauseBTN.setText("PAUSE");
+		}
 	}
-	
+
 	@FXML
 	public void handleNopeuta() {
 		kontrolleri = mainApp.getController();
 		kontrolleri.nopeuta();
 	}
-	
+
 	@FXML
 	public void handleHidasta() {
 		kontrolleri = mainApp.getController();
 		kontrolleri.hidasta();
 	}
-	
+
 	// Setterit tekstikentille
-	public void setAikaTF(String value)      { aikaTF.setText(value);      }
-	public void setViiveTF(String value)     { viiveTF.setText(value);     }
-	public void setMainostusTF(String value) { mainostusTF.setText(value); }
-	public void setMaxTF(String value)       { maxTF.setText(value);       }
-	public void setMinTF(String value)       { minTF.setText(value);       }
-	public void setYllapitoTF(String value)  { yllapitoTF.setText(value);  }
-	public void setTasapeliTF(String value)  { tasapeliTF.setText(value);  }
-	public void setVoittoTF(String value)    { voittoTF.setText(value);    }
-	public void setPelitTF(String value)    { pelitTF.setText(value);    }
-	public void setBaaritTF(String value)    { baaritTF.setText(value);    }
-	public void setSisaankaynnitTF(String value)    { sisaankaynnitTF.setText(value);    }
-	public void setUloskaynnitTF(String value)    { uloskaynnitTF.setText(value);    }
-	
+	public void setAikaTF(String value) {
+		aikaTF.setText(value);
+	}
+
+	public void setViiveTF(String value) {
+		viiveTF.setText(value);
+	}
+
+	public void setMainostusTF(String value) {
+		mainostusTF.setText(value);
+	}
+
+	public void setMaxTF(String value) {
+		maxTF.setText(value);
+	}
+
+	public void setMinTF(String value) {
+		minTF.setText(value);
+	}
+
+	public void setYllapitoTF(String value) {
+		yllapitoTF.setText(value);
+	}
+
+	public void setTasapeliTF(String value) {
+		tasapeliTF.setText(value);
+	}
+
+	public void setVoittoTF(String value) {
+		voittoTF.setText(value);
+	}
+
+	public void setPelitTF(String value) {
+		pelitTF.setText(value);
+	}
+
+	public void setBaaritTF(String value) {
+		baaritTF.setText(value);
+	}
+
+	public void setSisaankaynnitTF(String value) {
+		sisaankaynnitTF.setText(value);
+	}
+
+	public void setUloskaynnitTF(String value) {
+		uloskaynnitTF.setText(value);
+	}
+
 	// Setterit labelelille
-	public void setAika(String value)             { aikaID.setText(value);             }
-	// public void setPaiva(String value)            { paivaID.setText(value);            }
-	public void setRahat(String value)            { rahatID.setText(value);            }
-	public void setVoitot(String value)           { voitotID.setText(value);           }
-	public void setSaapuneet(String value)        { saapuneetID.setText(value);        }
-	public void setPalvellut(String value)        { palvellutID.setText(value);        }
-	public void setAvgJono(String value)          { avgJonoID.setText(value);          }
-	public void setKokonaisoleskelu(String value) { kokonaisoleskeluID.setText(value); }
-	public void setAvgOnnellisuus(String value)   { avgOnnellisuusID.setText(value);   }
-	public void setAvgPaihtymys(String value)     { avgPaihtymysID.setText(value);     }
-	public void setAvgVarallisuus(String value)   { avgVarallisuusID.setText(value);   }
-	public void setAvgLapimeno(String value)      { avgLapimenoID.setText(value);      }
+	public void setAika(String value) {
+		aikaID.setText(value);
+	}
+
+	// public void setPaiva(String value) { paivaID.setText(value); }
+	public void setRahat(String value) {
+		rahatID.setText(value);
+	}
+
+	public void setVoitot(String value) {
+		voitotID.setText(value);
+	}
+
+	public void setSaapuneet(String value) {
+		saapuneetID.setText(value);
+	}
+
+	public void setPalvellut(String value) {
+		palvellutID.setText(value);
+	}
+
+	public void setAvgJono(String value) {
+		avgJonoID.setText(value);
+	}
+
+	public void setKokonaisoleskelu(String value) {
+		kokonaisoleskeluID.setText(value);
+	}
+
+	public void setAvgOnnellisuus(String value) {
+		avgOnnellisuusID.setText(value);
+	}
+
+	public void setAvgPaihtymys(String value) {
+		avgPaihtymysID.setText(value);
+	}
+
+	public void setAvgVarallisuus(String value) {
+		avgVarallisuusID.setText(value);
+	}
+
+	public void setAvgLapimeno(String value) {
+		avgLapimenoID.setText(value);
+	}
 }

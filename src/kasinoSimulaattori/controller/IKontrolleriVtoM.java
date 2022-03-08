@@ -19,4 +19,6 @@ public interface IKontrolleriVtoM {
 	public double[] haeTulokset();
 
 	public LinkedList<Palvelupiste> haePalvelupisteet(int palvelu);
+	
+	public void continueSim();
 }

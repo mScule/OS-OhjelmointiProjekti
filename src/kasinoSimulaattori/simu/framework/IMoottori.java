@@ -16,4 +16,5 @@ public interface IMoottori { // UUSI
 	public void setBlackjackTasapeliprosentti(double tasapeli);
 	public void setBlackjackVoittoprosentti(double voitto);
 	public void lisaaPalvelupisteita(TapahtumanTyyppi palvelupisteTyyppi, int maara);
+	public void notifyThis();
 }
