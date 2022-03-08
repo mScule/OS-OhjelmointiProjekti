@@ -46,6 +46,7 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	private double
 		asiakkaidenNopeus = 2,
 	
+		taustaLiukuNopeus = 0,
 	    taustaLiukuX = 0, taustaLiukuY = 0;
 		
 	public KasinoVisualisointi() throws FileNotFoundException {
@@ -207,8 +208,8 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 			if(fps >= paivitysVali) {
 				alkuAika = System.currentTimeMillis();
 				
-				taustaLiukuX++;
-				taustaLiukuY++;
+				taustaLiukuX += taustaLiukuNopeus;
+				taustaLiukuY += taustaLiukuNopeus;
 				
 				if(taustaLiukuY >= 128 && taustaLiukuX >= 128)
 				{
@@ -293,4 +294,12 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	public void setAsiakasNopeus(double nopeus) {
 		asiakkaidenNopeus = nopeus;
 	}
+	@Override
+	public double getAsiakasNopeus() { return asiakkaidenNopeus; }
+	@Override
+	public void setTaustaLiukuNopeus(double nopeus) {
+		taustaLiukuNopeus = nopeus;
+	}
+	@Override
+	public double getTaustaLiukuNopeus() { return taustaLiukuNopeus; }
 }

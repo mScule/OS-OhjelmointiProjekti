@@ -142,18 +142,30 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 		moottori.lisaaPalvelupisteita(TapahtumanTyyppi.SISAANKAYNTI, sisaankaynnit);
 		moottori.lisaaPalvelupisteita(TapahtumanTyyppi.ULOSKAYNTI, uloskaynnit);
 		((Thread)moottori).start();
+		ui.getVisualisointi().setTaustaLiukuNopeus(1);
+		ui.getVisualisointi().setAsiakasNopeus(1);
 	}
 
 	@Override
 	public void nopeuta() {
 		moottori.setViive((long)(moottori.getViive() * 0.9));
-		//ui.getVisualisointi().setAsiakasNopeus(moottori.getViive());
+		ui.getVisualisointi().setAsiakasNopeus(
+			ui.getVisualisointi().getAsiakasNopeus() * 1.1
+		);
+		ui.getVisualisointi().setTaustaLiukuNopeus(
+			ui.getVisualisointi().getTaustaLiukuNopeus() * 1.1
+		);
 	}
 
 	@Override
 	public void hidasta() {
 		moottori.setViive((long)(moottori.getViive() * 1.1));
-		//ui.getVisualisointi().setAsiakasNopeus(moottori.getViive());
+		ui.getVisualisointi().setAsiakasNopeus(
+			ui.getVisualisointi().getAsiakasNopeus() * 0.9
+		);
+		ui.getVisualisointi().setTaustaLiukuNopeus(
+			ui.getVisualisointi().getTaustaLiukuNopeus() * 0.9
+		);
 	}
 
 	@Override

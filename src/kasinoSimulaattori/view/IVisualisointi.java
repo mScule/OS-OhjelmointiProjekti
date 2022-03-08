@@ -31,4 +31,7 @@ public interface IVisualisointi {
 	
 	// Animointi
 	public void setAsiakasNopeus(double nopeus);
+	public double getAsiakasNopeus();
+	public void setTaustaLiukuNopeus(double nopeus);
+	public double getTaustaLiukuNopeus();
 }
