@@ -106,6 +106,7 @@ public abstract class Moottori extends Thread implements IMoottori {
 
 		}
 		tulokset();
+		kontrolleri.lopetaVisualisointi("Simulaatio päättyi");
 	}
 
 	public void tarkistaDoubleProsenttiluku(double luku) {

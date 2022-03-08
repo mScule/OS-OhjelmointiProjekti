@@ -3,6 +3,7 @@ package kasinoSimulaattori;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -43,6 +44,18 @@ public class MainApp extends Application implements ISimulaattorinUI {
         
         gui.setVisualisaattori(visualisointi.getCanvas());
         visualisointi.start();
+        
+        // Valmiit arvot
+        Platform.runLater(() -> {
+        	gui.setMainostusTF("1");
+        	gui.setMaxTF("100");
+        	gui.setMinTF("50");
+        	gui.setYllapitoTF("1000");
+        	gui.setTasapeliTF("0.8");
+        	
+        	gui.setAikaTF("1000");
+        	gui.setViiveTF("250");
+        });
     }
     
     public IKontrolleriVtoM getController() {
@@ -127,5 +140,10 @@ public class MainApp extends Application implements ISimulaattorinUI {
 	@Override
 	public IVisualisointi getVisualisointi() {
 		return visualisointi;
+	}
+
+	@Override
+	public SimulaattoriGUIController getGui() {
+		return gui;
 	}
 }

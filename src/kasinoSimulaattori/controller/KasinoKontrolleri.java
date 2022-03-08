@@ -19,11 +19,18 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	
 	// IKontrolleriMtoV:
 	
+	// Visualisointi
+	@Override
+	public void lopetaVisualisointi(String viesti) {
+		ui.getVisualisointi().lopetaVisualisointi(viesti);
+	}
+	
 	@Override
 	public void naytaLoppuaika(double aika) {
 		Platform.runLater(() -> ui.setLoppuaika(aika));
 	}
 
+	// Animointi
 	@Override
 	public void visualisoiAsiakas(int x1, int y1, int x2, int y2) {
 		Platform.runLater(() -> 
@@ -40,6 +47,10 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	public void baariJonossa(int maara) {
 		this.ui.getVisualisointi().setBaariJononPituus(maara);
 	}
+	@Override
+	public void baariTyontekijat(int maara) {
+		this.ui.getVisualisointi().setBaariTyontekijoidenMaara(maara);
+	}
 	
 	// Blackjack
 	@Override
@@ -49,6 +60,10 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	@Override
 	public void blackjackJonossa(int maara) {
 		this.ui.getVisualisointi().setBlackjackJononPituus(maara);
+	}
+	@Override
+	public void blackjackTyontekijat(int maara) {
+		this.ui.getVisualisointi().setBlackjackTyontekijoidenMaara(maara);
 	}
 	
 	// Sisäänkäynti
@@ -60,6 +75,10 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	public void sisaankayntiJonossa(int maara) {
 		this.ui.getVisualisointi().setSisaankayntiJononPituus(maara);
 	}
+	@Override
+	public void sisaankayntiTyontekijat(int maara) {
+		this.ui.getVisualisointi().setSisaankayntiTyontekijoidenMaara(maara);
+	}
 	
 	// Uloskäynti
 	@Override
@@ -70,6 +89,37 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	public void uloskayntiJonossa(int maara) {
 		this.ui.getVisualisointi().setUloskayntiJononPituus(maara);
 	}
+	@Override
+	public void uloskayntiTyontekijat(int maara) {
+		this.ui.getVisualisointi().setUloskayntiTyontekijoidenMaara(maara);
+	}
+	
+	// UI
+	
+	@Override
+	public void setAika(String value)             { this.ui.getGui().setAika(value);             }
+	@Override
+	public void setPaiva(String value)            { this.ui.getGui().setPaiva(value);            }
+	@Override
+	public void setRahat(String value)            { this.ui.getGui().setRahat(value);            }
+	@Override
+	public void setVoitot(String value)           { this.ui.getGui().setVoitot(value);           }
+	@Override
+	public void setSaapuneet(String value)        { this.ui.getGui().setSaapuneet(value);        }
+	@Override
+	public void setPalvellut(String value)        { this.ui.getGui().setPalvellut(value);        }
+	@Override
+	public void setAvgJono(String value)          { this.ui.getGui().setAvgJono(value);          }
+	@Override
+	public void setKokonaisoleskelu(String value) { this.ui.getGui().setKokonaisoleskelu(value); }
+	@Override
+	public void setAvgOnnellisuus(String value)      { this.ui.getGui().setAvgOnnellisuus(value);   }
+	@Override
+	public void setAvgPaihtymys(String value)        { this.ui.getGui().setAvgPaihtymys(value);     }
+	@Override
+	public void setAvgVarallisuus(String value)      { this.ui.getGui().setAvgVarallisuus(value);   }
+	@Override
+	public void setAvgLapimeno(String value)         { this.ui.getGui().setAvgLapimeno(value);      }
 
 	// IKontrolleriVtoM:
 	
@@ -89,11 +139,13 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	@Override
 	public void nopeuta() {
 		moottori.setViive((long)(moottori.getViive() * 0.9));
+		//ui.getVisualisointi().setAsiakasNopeus(moottori.getViive());
 	}
 
 	@Override
 	public void hidasta() {
 		moottori.setViive((long)(moottori.getViive() * 1.1));
+		//ui.getVisualisointi().setAsiakasNopeus(moottori.getViive());
 	}
 
 	@Override
@@ -106,5 +158,4 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	public LinkedList<Palvelupiste> haePalvelupisteet(int palvelu) {
 		return moottori.getPalvelupisteet(palvelu);
 	}
-
 }
