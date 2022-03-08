@@ -128,7 +128,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 					palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI)
 							.add(new Uloskaynti(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()),
-									tapahtumalista, uloskayntiSijainti, new Uniform(1, 1, Kasino.getSeed())));
+									tapahtumalista, uloskayntiSijainti, new Uniform(1, 2, Kasino.getSeed())));
 				}
 				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.uloskaynninHinta * maara));
 				break;

@@ -63,6 +63,14 @@ public class SimulaattoriGUIController {
 	private TextField tasapeliTF;
 	@FXML
 	private TextField voittoTF;
+	@FXML
+	private TextField pelitTF;
+	@FXML
+	private TextField baaritTF;
+	@FXML
+	private TextField sisaankaynnitTF;
+	@FXML
+	private TextField uloskaynnitTF;
 	
 	private MainApp mainApp;
 
@@ -109,7 +117,12 @@ public class SimulaattoriGUIController {
 		double yllapito = Double.parseDouble(yllapitoTF.getText());
 		double tasapeli = Double.parseDouble(tasapeliTF.getText());
 		double voitto = Double.parseDouble(voittoTF.getText());
-		kontrolleri.kaynnistaSimulointi(aika, viive, mainostus, max, min, yllapito, tasapeli, voitto);
+		int pelit = Integer.parseInt(pelitTF.getText());
+		int baarit = Integer.parseInt(baaritTF.getText());
+		int sisaankaynnit = Integer.parseInt(sisaankaynnitTF.getText());
+		int uloskaynnit = Integer.parseInt(uloskaynnitTF.getText());
+		kontrolleri.kaynnistaSimulointi(aika, viive, mainostus, max, min, yllapito, 
+				tasapeli, voitto, pelit, baarit, sisaankaynnit, uloskaynnit);
 		System.out.println(aika + " " + viive);
 		naytaTulokset();
 	}
@@ -161,6 +174,10 @@ public class SimulaattoriGUIController {
 	public void setYllapitoTF(String value)  { yllapitoTF.setText(value);  }
 	public void setTasapeliTF(String value)  { tasapeliTF.setText(value);  }
 	public void setVoittoTF(String value)    { voittoTF.setText(value);    }
+	public void setPelitTF(String value)    { pelitTF.setText(value);    }
+	public void setBaaritTF(String value)    { baaritTF.setText(value);    }
+	public void setSisaankaynnitTF(String value)    { sisaankaynnitTF.setText(value);    }
+	public void setUloskaynnitTF(String value)    { uloskaynnitTF.setText(value);    }
 	
 	// Setterit labelelille
 	public void setAika(String value)             { aikaID.setText(value);             }

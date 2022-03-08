@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import kasinoSimulaattori.simu.model.IOmaMoottori;
 import kasinoSimulaattori.simu.model.OmaMoottori;
 import kasinoSimulaattori.simu.model.Palvelupiste;
+import kasinoSimulaattori.simu.model.TapahtumanTyyppi;
 import kasinoSimulaattori.view.ISimulaattorinUI;
 
 public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
@@ -124,7 +125,9 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	// IKontrolleriVtoM:
 	
 	@Override
-	public void kaynnistaSimulointi(double aika, long viive, double mainostus, int max, int min, double yllapito, double tasapeli, double voitto) {
+	public void kaynnistaSimulointi(double aika, long viive, double mainostus, int max, int min, 
+			double yllapito, double tasapeli, double voitto, int pelit, int baarit, 
+			int sisaankaynnit, int uloskaynnit) {
 		moottori = new OmaMoottori(this);
 		moottori.setSimulointiaika(aika);
 		moottori.setViive(viive);
@@ -134,6 +137,10 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 		moottori.setYllapitoRahamaara(yllapito);
 		moottori.setBlackjackTasapeliprosentti(tasapeli);
 		moottori.setBlackjackVoittoprosentti(voitto);
+		moottori.lisaaPalvelupisteita(TapahtumanTyyppi.PELI, pelit);
+		moottori.lisaaPalvelupisteita(TapahtumanTyyppi.BAARI, baarit);
+		moottori.lisaaPalvelupisteita(TapahtumanTyyppi.SISAANKAYNTI, sisaankaynnit);
+		moottori.lisaaPalvelupisteita(TapahtumanTyyppi.ULOSKAYNTI, uloskaynnit);
 		((Thread)moottori).start();
 	}
 

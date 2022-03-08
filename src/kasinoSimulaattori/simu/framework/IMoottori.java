@@ -1,5 +1,7 @@
 package kasinoSimulaattori.simu.framework;
 
+import kasinoSimulaattori.simu.model.TapahtumanTyyppi;
+
 public interface IMoottori { // UUSI
 		
 	// Kontrolleri käyttää tätä rajapintaa
@@ -13,4 +15,5 @@ public interface IMoottori { // UUSI
 	public void setYllapitoRahamaara(double yllapito);
 	public void setBlackjackTasapeliprosentti(double tasapeli);
 	public void setBlackjackVoittoprosentti(double voitto);
+	public void lisaaPalvelupisteita(TapahtumanTyyppi palvelupisteTyyppi, int maara);
 }
