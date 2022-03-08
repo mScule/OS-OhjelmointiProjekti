@@ -96,11 +96,10 @@
             </AnchorPane>
           <AnchorPane fx:id="alapaneelit" minHeight="0.0" minWidth="0.0" prefHeight="164.0" prefWidth="1161.0" styleClass="background" stylesheets="@Teema.css">
                <children>
-                  <ButtonBar layoutX="25.0" layoutY="179.0" prefHeight="40.0" prefWidth="353.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="25.0">
+                  <ButtonBar layoutX="11.0" layoutY="179.0" prefHeight="72.0" prefWidth="249.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="11.0">
                     <buttons>
                       <Button mnemonicParsing="false" onAction="#handleStart" prefHeight="25.0" prefWidth="88.0" stylesheets="@Teema.css" text="START" />
-                        <Button fx:id="pauseBTN" mnemonicParsing="false" onAction="#handlePause" prefHeight="33.0" prefWidth="106.0" stylesheets="@Teema.css" text="PAUSE" />
-                        <Button mnemonicParsing="false" onAction="#handleReset" stylesheets="@Teema.css" text="RESET" />
+                        <Button fx:id="pauseBTN" minWidth="73.0" mnemonicParsing="false" onAction="#handlePause" prefHeight="33.0" prefWidth="106.0" stylesheets="@Teema.css" text="PAUSE" />
                     </buttons>
                   </ButtonBar>
                   <GridPane layoutX="423.0" layoutY="14.0" prefHeight="264.0" prefWidth="814.0" AnchorPane.bottomAnchor="23.0">
