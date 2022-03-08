@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -74,6 +75,8 @@ public class SimulaattoriGUIController {
 	private TextField sisaankaynnitTF;
 	@FXML
 	private TextField uloskaynnitTF;
+	@FXML
+	private Button pauseBTN;
 
 	private MainApp mainApp;
 
@@ -111,7 +114,6 @@ public class SimulaattoriGUIController {
 
 	@FXML
 	public void handleStart() {
-		System.out.println("TESTI");
 		kontrolleri = mainApp.getController();
 		double aika = Double.parseDouble(aikaTF.getText());
 		long viive = Long.parseLong(viiveTF.getText());
@@ -168,9 +170,11 @@ public class SimulaattoriGUIController {
 	public synchronized void handlePause() {
 		if(!Kasino.isPause()) {
 			Kasino.setPause(true);
+			pauseBTN.setText("RESUME");
 		} else {
 			Kasino.setPause(false);
 			kontrolleri.continueSim();
+			pauseBTN.setText("PAUSE");
 		}
 	}
 
