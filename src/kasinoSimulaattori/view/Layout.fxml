@@ -99,7 +99,7 @@
                   <ButtonBar layoutX="25.0" layoutY="179.0" prefHeight="40.0" prefWidth="316.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="25.0">
                     <buttons>
                       <Button mnemonicParsing="false" onAction="#handleStart" prefHeight="25.0" prefWidth="88.0" stylesheets="@Teema.css" text="START" />
-                        <Button mnemonicParsing="false" stylesheets="@Teema.css" text="PAUSE" />
+                        <Button mnemonicParsing="false" onAction="#handlePause" stylesheets="@Teema.css" text="PAUSE" />
                         <Button mnemonicParsing="false" onAction="#handleReset" stylesheets="@Teema.css" text="RESET" />
                     </buttons>
                   </ButtonBar>

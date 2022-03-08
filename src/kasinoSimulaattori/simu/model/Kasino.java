@@ -39,8 +39,18 @@ public final class Kasino {
     private static double blackjackVoittoprosentti = 0.4222;
     private static double blackjackTasapeliprosentti = 0.0848;
 
+    private static boolean pause;
+
     private Kasino() {
 
+    }
+
+    public static boolean isPause() {
+        return pause;
+    }
+
+    public static void setPause(boolean pause) {
+        Kasino.pause = pause;
     }
 
     public static void resetKasino() {

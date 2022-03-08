@@ -53,7 +53,7 @@ public abstract class Moottori extends Thread implements IMoottori {
 
 	private boolean simuloidaan() {
 		if (Kasino.isVararikko()) {
-			Trace.out(Trace.Level.INFO,"Kasino meni vararikkoon!!!");
+			Trace.out(Trace.Level.INFO, "Kasino meni vararikkoon!!!");
 			return false;
 		}
 		return kello.getAika() < simulointiaika;
@@ -93,6 +93,10 @@ public abstract class Moottori extends Thread implements IMoottori {
 	public void run() {
 		alustukset(); // luodaan mm. ensimmäinen tapahtuma
 		while (simuloidaan()) {
+			if (Kasino.isPause()) {
+				pause();
+			}
+
 			viive();
 
 			Trace.out(Trace.Level.INFO, "\nA-vaihe: kello on " + nykyaika());
@@ -130,6 +134,18 @@ public abstract class Moottori extends Thread implements IMoottori {
 		if (luku < 0) {
 			throw new IllegalArgumentException("Valitse joku positiivinen long luku.");
 		}
+	}
+
+	public synchronized void pause() {
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public synchronized void notifyThis() {
+		notify();
 	}
 
 	// Abstraktit metodit

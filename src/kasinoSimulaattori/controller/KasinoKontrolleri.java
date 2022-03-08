@@ -178,4 +178,8 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	public LinkedList<Palvelupiste> haePalvelupisteet(int palvelu) {
 		return moottori.getPalvelupisteet(palvelu);
 	}
+	
+	public void continueSim() {
+		moottori.notifyThis();
+	}
 }

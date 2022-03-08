@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import kasinoSimulaattori.MainApp;
 import kasinoSimulaattori.controller.IKontrolleriVtoM;
+import kasinoSimulaattori.simu.model.Kasino;
 import kasinoSimulaattori.util.AudioPlayer;
 
 public class SimulaattoriGUIController {
@@ -164,8 +165,13 @@ public class SimulaattoriGUIController {
 	}
 
 	@FXML
-	public void handlePause() {
-
+	public synchronized void handlePause() {
+		if(!Kasino.isPause()) {
+			Kasino.setPause(true);
+		} else {
+			Kasino.setPause(false);
+			kontrolleri.continueSim();
+		}
 	}
 
 	@FXML
