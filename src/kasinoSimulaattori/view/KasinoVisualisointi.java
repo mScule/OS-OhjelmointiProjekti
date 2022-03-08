@@ -44,7 +44,10 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	    ruudunLiike = 0;
 	
 	private double
-		asiakkaidenNopeus = 2;
+		asiakkaidenNopeus = 2,
+	
+		taustaLiukuNopeus = 0,
+	    taustaLiukuX = 0, taustaLiukuY = 0;
 		
 	public KasinoVisualisointi() throws FileNotFoundException {
 		kuvaTausta            = new Image(new FileInputStream("images\\background.png"     ));
@@ -68,17 +71,30 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	}
 	
 	private void piirraInfo(int x, int y, int jononPituus, int palveltavienMaara, int tyontekijoidenMaara) {
-		gc.drawImage(kuvaJonossa   , x * 128         , y * 128);
-		gc.drawImage(kuvaPalvelussa, x * 128 + 64    , y * 128);
-		gc.drawImage(kuvaTyontekija, x * 128 + 64 * 2, y * 128);
+		int offsetKorkeus = -32, offsetLeveys = -16;
 		
-		gc.strokeText(jononPituus + ""        , x * 128         , y * 128);
-		gc.strokeText(palveltavienMaara + ""  , x * 128 + 64    , y * 128);
-		gc.strokeText(tyontekijoidenMaara + "", x * 128 + 64 * 2, y * 128);
+		// Harmaa läpikuultava tausta
+
+		gc.setFill(new Color(0,0,0,0.5));
+		gc.setStroke(Color.RED);
+
+		gc.fillRect(x * 128 + offsetLeveys - 10, (y * 128) + offsetKorkeus - 16 - 4, 128 + 32 + 16, 64);
+		gc.strokeRect(x * 128 + offsetLeveys - 10, (y * 128) + offsetKorkeus - 16 - 4, 128 + 32 + 16, 64);
+		
+		gc.setFill(Color.WHITE);
+		gc.setStroke(Color.WHITE);
+		
+		gc.drawImage(kuvaJonossa   , (x * 128         ) + offsetLeveys, (y * 128) + offsetKorkeus);
+		gc.drawImage(kuvaPalvelussa, (x * 128 + 64    ) + offsetLeveys, (y * 128) + offsetKorkeus);
+		gc.drawImage(kuvaTyontekija, (x * 128 + 64 * 2) + offsetLeveys, (y * 128) + offsetKorkeus);
+		
+		gc.strokeText(jononPituus + ""        , (x * 128         ) + offsetLeveys, (y * 128) + offsetKorkeus);
+		gc.strokeText(palveltavienMaara + ""  , (x * 128 + 64    ) + offsetLeveys, (y * 128) + offsetKorkeus);
+		gc.strokeText(tyontekijoidenMaara + "", (x * 128 + 64 * 2) + offsetLeveys, (y * 128) + offsetKorkeus);
 	}
 	
 	private void piirraTausta(int x, int y) {
-		gc.drawImage(kuvaTausta, x * 128, y * 128);
+		gc.drawImage(kuvaTausta, x * 128 + taustaLiukuX, y * 128 + taustaLiukuY);
 	}
 	
 	private void piirraPalvelu(Image kuva, int x, int y) {
@@ -107,8 +123,8 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	}
 	
 	private void piirraKokoTausta() {
-		for(int x = 0; x < 7; x++)
-			for(int y = 0; y < 6; y++)
+		for(int x = -1; x <= 7; x++)
+			for(int y = -1; y <= 6; y++)
 				piirraTausta(x, y);
 	}
 	
@@ -118,6 +134,7 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		piirraKokoTausta();
 		
 		// Lattia
+		
 		piirraLattia(1,1);
 		piirraLattia(2,1);
 		piirraLattia(3,1);
@@ -146,21 +163,19 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		
 		// Baari
 		piirraPalvelu(kuvaBar, 1,1);
-		piirraInfo(1,1, baariJono, baariPalveltavat, baariTyontekijat);
 
 		// Blackjack
 		piirraPalvelu(kuvaBlackjack, 5,1);
-		piirraInfo(5,1, blackjackJono, blackjackPalveltavat, blackjackTyontekijat);
 		
 		// Sisäänkäynti
 		piirraPalvelu(kuvaSisaankaynti, 2,4);
 		piirraPalvelu(kuvaHakkiSisaankaynti, 1,4);
-		piirraInfo(2,4, sisaankayntiJono, sisaankayntiPalveltavat, sisaankayntiTyontekijat);
 		
 		// Uloskäynti
 		piirraPalvelu(kuvaUloskaynti, 4,4);
 		piirraPalvelu(kuvaHakkiUloskaynti, 5,4);
-		piirraInfo(4,4, uloskayntiJono, uloskayntiPalveltavat, uloskayntiTyontekijat);
+
+		// Asiakkaat
 		
 		// Asiakkaiden liikkeet
 		for(Liikkuja l : liikkujat)
@@ -170,6 +185,13 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		for(int i = liikkujat.size() - 1; i >= 0; i--)
 			if(liikkujat.get(i).getKohteessa())
 				liikkujat.remove(i);
+		
+		// Infot
+		
+		piirraInfo(1,1, baariJono, baariPalveltavat, baariTyontekijat);                      // Baari
+		piirraInfo(5,1, blackjackJono, blackjackPalveltavat, blackjackTyontekijat);          // Blackjack
+		piirraInfo(2,4, sisaankayntiJono, sisaankayntiPalveltavat, sisaankayntiTyontekijat); // Sisäänkäynti
+		piirraInfo(4,4, uloskayntiJono, uloskayntiPalveltavat, uloskayntiTyontekijat);       // Uloskäynti
 	}
 	
 	public Canvas getCanvas() {
@@ -181,20 +203,33 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		double alkuAika = System.currentTimeMillis();
 		double paivitysVali = 1000/33.33334; // 30 fps
 
-		while(visualisointiPaalla) {
+		while(true) {
 			double fps = System.currentTimeMillis() - alkuAika;
 			if(fps >= paivitysVali) {
 				alkuAika = System.currentTimeMillis();
+				
+				taustaLiukuX += taustaLiukuNopeus;
+				taustaLiukuY += taustaLiukuNopeus;
+				
+				if(taustaLiukuY >= 128 && taustaLiukuX >= 128)
+				{
+					taustaLiukuX = 0;
+					taustaLiukuY = 0;
+				}
+				
 				paivita();
+				
+				ruudunLiike++;
+				
+				if(!visualisointiPaalla && liikkujat.isEmpty())
+					break;
 				
 				// Ruudun liike päivitys
 				gc.strokeText("Fps: " + fps + "\n" + "Frame: " + ruudunLiike, 32, 32);
-				ruudunLiike++;
 			}
 		}
 		
 		// Lopetus näkymä
-		piirraKokoTausta();
 		gc.strokeText(lopetusViesti, 32, 32);
 	}
 
@@ -259,4 +294,12 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 	public void setAsiakasNopeus(double nopeus) {
 		asiakkaidenNopeus = nopeus;
 	}
+	@Override
+	public double getAsiakasNopeus() { return asiakkaidenNopeus; }
+	@Override
+	public void setTaustaLiukuNopeus(double nopeus) {
+		taustaLiukuNopeus = nopeus;
+	}
+	@Override
+	public double getTaustaLiukuNopeus() { return taustaLiukuNopeus; }
 }
