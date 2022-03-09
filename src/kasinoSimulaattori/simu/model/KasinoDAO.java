@@ -15,7 +15,6 @@ public class KasinoDAO {
 			URL      = "jdbc:mariadb://localhost/kasino",
 			USER     = "root",
 			PASSWORD = "olso";
-		
 		try {
 			connection = DriverManager.getConnection(
 				URL + "?user=" + USER + "&password=" + PASSWORD
