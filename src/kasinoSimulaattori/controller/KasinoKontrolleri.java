@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import javafx.application.Platform;
 import kasinoSimulaattori.simu.model.IOmaMoottori;
+import kasinoSimulaattori.simu.model.KasinoTulokset;
 import kasinoSimulaattori.simu.model.OmaMoottori;
 import kasinoSimulaattori.simu.model.Palvelupiste;
 import kasinoSimulaattori.simu.model.TapahtumanTyyppi;
@@ -181,5 +182,10 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	
 	public void continueSim() {
 		moottori.notifyThis();
+	}
+	
+	@Override
+	public void naytaTulokset(KasinoTulokset tulokset) {
+		ui.naytaTulokset(tulokset);
 	}
 }
