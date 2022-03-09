@@ -90,7 +90,6 @@ public class SimulaattoriGUIController {
 		double tulokset[] = kontrolleri.haeTulokset();
 		System.out.println(tulokset[0]);
 		aikaID.setText(Double.toString(tulokset[0]));
-		// paivaID.setText(Double.toString(tulokset[0]));
 		rahatID.setText(Double.toString(tulokset[6]));
 		voitotID.setText(Double.toString(tulokset[7]));
 
@@ -130,7 +129,6 @@ public class SimulaattoriGUIController {
 	@FXML
 	public void handleReset() {
 		aikaID.setText("");
-		// paivaID.setText("");
 		rahatID.setText("");
 		voitotID.setText("");
 		saapuneetID.setText("");
@@ -166,22 +164,21 @@ public class SimulaattoriGUIController {
 	}
 	
 	// Setterit tekstikentille
-	public void setAikaTF(String value)      { aikaTF.setText(value);      }
-	public void setViiveTF(String value)     { viiveTF.setText(value);     }
-	public void setMainostusTF(String value) { mainostusTF.setText(value); }
-	public void setMaxTF(String value)       { maxTF.setText(value);       }
-	public void setMinTF(String value)       { minTF.setText(value);       }
-	public void setYllapitoTF(String value)  { yllapitoTF.setText(value);  }
-	public void setTasapeliTF(String value)  { tasapeliTF.setText(value);  }
-	public void setVoittoTF(String value)    { voittoTF.setText(value);    }
-	public void setPelitTF(String value)    { pelitTF.setText(value);    }
-	public void setBaaritTF(String value)    { baaritTF.setText(value);    }
-	public void setSisaankaynnitTF(String value)    { sisaankaynnitTF.setText(value);    }
-	public void setUloskaynnitTF(String value)    { uloskaynnitTF.setText(value);    }
+	public void setAikaTF(String value)          { aikaTF.setText(value);          }
+	public void setViiveTF(String value)         { viiveTF.setText(value);         }
+	public void setMainostusTF(String value)     { mainostusTF.setText(value);     }
+	public void setMaxTF(String value)           { maxTF.setText(value);           }
+	public void setMinTF(String value)           { minTF.setText(value);           }
+	public void setYllapitoTF(String value)      { yllapitoTF.setText(value);      }
+	public void setTasapeliTF(String value)      { tasapeliTF.setText(value);      }
+	public void setVoittoTF(String value)        { voittoTF.setText(value);        }
+	public void setPelitTF(String value)         { pelitTF.setText(value);         }
+	public void setBaaritTF(String value)        { baaritTF.setText(value);        }
+	public void setSisaankaynnitTF(String value) { sisaankaynnitTF.setText(value); }
+	public void setUloskaynnitTF(String value)   { uloskaynnitTF.setText(value);   }
 	
 	// Setterit labelelille
 	public void setAika(String value)             { aikaID.setText(value);             }
-	// public void setPaiva(String value)            { paivaID.setText(value);            }
 	public void setRahat(String value)            { rahatID.setText(value);            }
 	public void setVoitot(String value)           { voitotID.setText(value);           }
 	public void setSaapuneet(String value)        { saapuneetID.setText(value);        }

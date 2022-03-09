@@ -106,7 +106,7 @@ public abstract class Moottori extends Thread implements IMoottori {
 
 		}
 		tulokset();
-		kontrolleri.lopetaVisualisointi("Simulaatio päättyi");
+		lopetus();
 	}
 
 	public void tarkistaDoubleProsenttiluku(double luku) {
@@ -133,8 +133,10 @@ public abstract class Moottori extends Thread implements IMoottori {
 	}
 
 	// Abstraktit metodit
-
+	
 	protected abstract void alustukset(); // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
+	
+	protected abstract void lopetus();
 
 	protected abstract void suoritaTapahtuma(Tapahtuma t); // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
 

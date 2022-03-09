@@ -8,15 +8,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import kasinoSimulaattori.controller.IKontrolleriVtoM;
 import kasinoSimulaattori.controller.KasinoKontrolleri;
 import kasinoSimulaattori.simu.framework.Trace;
 import kasinoSimulaattori.simu.framework.Trace.Level;
+import kasinoSimulaattori.simu.model.KasinoTulokset;
 import kasinoSimulaattori.view.ISimulaattorinUI;
 import kasinoSimulaattori.view.IVisualisointi;
 import kasinoSimulaattori.view.KasinoVisualisointi;
 import kasinoSimulaattori.view.SimulaattoriGUIController;
+import kasinoSimulaattori.view.TuloksetGUIController;
 
 public class MainApp extends Application implements ISimulaattorinUI {
 
@@ -150,5 +153,29 @@ public class MainApp extends Application implements ISimulaattorinUI {
 	@Override
 	public SimulaattoriGUIController getGui() {
 		return gui;
+	}
+
+	@Override
+	public void naytaTulokset(KasinoTulokset tulokset) {
+	/*
+		try {
+			TuloksetGUIController tuloksetGUI = null;
+			
+	        FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(MainApp.class.getResource("view/TuloksetGUI.fxml"));
+			VBox  vbox = loader.load();
+			Scene scene = new Scene(vbox);
+			
+			tuloksetGUI = loader.getController();
+	        tuloksetGUI.nayta(tulokset);
+	        
+	        Stage tuloksetStage = new Stage();
+	        tuloksetStage.setScene(scene);
+	        tuloksetStage.show();
+	        
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 	}
 }

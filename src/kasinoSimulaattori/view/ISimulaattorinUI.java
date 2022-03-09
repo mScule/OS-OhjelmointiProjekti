@@ -1,5 +1,7 @@
 package kasinoSimulaattori.view;
 
+import kasinoSimulaattori.simu.model.KasinoTulokset;
+
 public interface ISimulaattorinUI {
 	
 	// Kontrolleri tarvitsee syötteitä, jotka se välittää Moottorille
@@ -13,4 +15,6 @@ public interface ISimulaattorinUI {
 	public IVisualisointi getVisualisointi();
 	
 	public SimulaattoriGUIController getGui();
+	
+	public void naytaTulokset(KasinoTulokset tulokset);
 }
