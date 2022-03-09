@@ -40,7 +40,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Kasino simulaattori");
         
-        Trace.setTraceLevel(Level.ERR);
+        Trace.setTraceLevel(Level.INFO);
     	
         initMainLayout();
         showAlapaneelit();
