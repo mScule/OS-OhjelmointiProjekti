@@ -11,12 +11,14 @@ import kasinoSimulaattori.simu.framework.Trace;
 import kasinoSimulaattori.simu.framework.Trace.Level;
 import kasinoSimulaattori.simu.model.Asiakas.Ominaisuus;
 import kasinoSimulaattori.util.Sijainti;
+import kasinoSimulaattori.view.TuloksetGUIController;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
 import javafx.application.Platform;
+import javafx.stage.Stage;
 
 public class OmaMoottori extends Moottori implements IOmaMoottori {
 
@@ -348,7 +350,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			kontrolleri.setRahat(getTulokset()[IOmaMoottori.TULOS_RAHA] + "");
 			kontrolleri.setVoitot(getTulokset()[IOmaMoottori.TULOS_VOITTO] + "");
 			kontrolleri.setSaapuneet(getTulokset()[IOmaMoottori.TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA] + "");
-			kontrolleri.setPalvellut(getTulokset()[IOmaMoottori.TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA] + "");
+			kontrolleri.setPalvellut(getTulokset()[IOmaMoottori.TULOS_POISTUNEIDEN_ASIAKKAIDEN_MAARA] + "");
 			kontrolleri.setAvgJono(getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_JONONPITUUS] + "");
 			kontrolleri.setKokonaisoleskelu(getTulokset()[IOmaMoottori.TULOS_KOKONAISOLESKELUAIKA] + "");
 			
@@ -358,61 +360,55 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			kontrolleri.setAvgLapimeno(getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_LAPIMENOAIKA] + "");
 		});
 	}
+	
+	@Override
+	protected void lopetus() {
+		kontrolleri.lopetaVisualisointi("Simulaatio päättyi");
+	}
 
 	@Override
 	protected void tulokset() {
-		Trace.out(Trace.Level.INFO,
-				"\nTulokset:\n\n" +
-						"Simulointi päättyi kello " + kello.getAika() + "\n" +
-						"Saapuneiden asiakkaiden määrä: " + saapuneidenAsiakkaidenMaara + "\n" +
-						"Poistuneiden asiakkaiden määrä: " + poistuneidenAsiakkaidenMaara + "\n" +
-						"Keskimääräinen läpimenoaika: " + poistumisajatSummattuna / poistuneidenAsiakkaidenMaara);
-
-		Palvelupiste sisaankaynti = palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI).get(0);
-		Palvelupiste uloskaynti = palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI).get(0);
-		Palvelupiste baari = palvelupisteet.get(TapahtumanTyyppi.BAARI).get(0);
-		Peli peli = (Peli) palvelupisteet.get(TapahtumanTyyppi.PELI).get(0);
-
-		double kokonaisoleskeluaika = sisaankaynti.getPalveluaika() +
-				uloskaynti.getPalveluaika() +
-				baari.getPalveluaika() +
-				peli.getPalveluaika();
-
-		double kokonaisjononpituus = sisaankaynti.getPalveluaika() +
-				uloskaynti.getPalveluaika() +
-				baari.getPalveluaika() +
-				peli.getJononpituus();
-
-		Trace.out(Trace.Level.INFO,
-				"Kokonaisoleskeluaika: " + kokonaisoleskeluaika + "\n" +
-						"Keskimääräinen jononpituus: " + kokonaisjononpituus / Kello.getInstance().getAika());
-
-		Trace.out(Trace.Level.INFO,
-				"Palveluajat:\n" +
-						"\tSisäänkäynti: " + sisaankaynti.getPalveluaika() + "\n" +
-						"\tUloskäynti: " + uloskaynti.getPalveluaika() + "\n" +
-						"\tBaari: " + baari.getPalveluaika() + "\n" +
-						"\tPeli: " + peli.getPalveluaika() + "\n" +
-
-						"Käyttöaste:\n" +
-						"\tSisäänkäynti: " + sisaankaynti.getPalveluaika() / kello.getAika() + "\n" +
-						"\tUloskäynti: " + uloskaynti.getPalveluaika() / kello.getAika() + "\n" +
-						"\tBaari: " + baari.getPalveluaika() / kello.getAika() + "\n" +
-						"\tPeli: " + peli.getPalveluaika() / kello.getAika() + "\n" +
-
-						"Suoritusteho:\n" +
-						"\tSisäänkäynti: " + sisaankaynti.getPalvellutAsiakkaat() / kello.getAika() + "\n" +
-						"\tUloskäynti: " + uloskaynti.getPalvellutAsiakkaat() / kello.getAika() + "\n" +
-						"\tBaari: " + baari.getPalvellutAsiakkaat() / kello.getAika() + "\n" +
-						"\tPeli: " + peli.getPalvellutAsiakkaat() / kello.getAika() + "\n" +
-
-						"Keskimääräinen palveluaika:\n" +
-						"\tSisäänkäynti: " + sisaankaynti.getPalveluaika() / sisaankaynti.getPalvellutAsiakkaat() + "\n"
-						+
-						"\tUloskäynti: " + uloskaynti.getPalveluaika() / uloskaynti.getPalvellutAsiakkaat() + "\n" +
-						"\tBaari: " + baari.getPalveluaika() / baari.getPalvellutAsiakkaat() + "\n" +
-						"\tPeli: " + peli.getPalveluaika() / peli.getPalvellutAsiakkaat());
-		Trace.out(Trace.Level.INFO, "Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
+		// Lisätään uusimmat tulokset tietokantaan
+		KasinoTulokset uudetTulokset = new KasinoTulokset(
+			getTulokset()[IOmaMoottori.TULOS_AIKA],
+			Kasino.getMainoskulut(),
+			Kasino.getMaxBet(),
+			Kasino.getMinBet(),
+			Kasino.getYllapitohinta(),
+			Kasino.getBlackjackTasapeliprosentti(),
+			Kasino.getBlackjackVoittoprosentti(),
+			
+			palvelupisteet.get(TapahtumanTyyppi.PELI).size(),
+			palvelupisteet.get(TapahtumanTyyppi.BAARI).size(),
+			palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI).size(),
+			palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI).size(),
+			
+			Kasino.getKasinonRahat(),
+			Kasino.getKasinonVoitto(),
+			
+			(int)getTulokset()[IOmaMoottori.TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA],
+			(int)getTulokset()[IOmaMoottori.TULOS_POISTUNEIDEN_ASIAKKAIDEN_MAARA],
+			
+			getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_JONONPITUUS],
+			getTulokset()[IOmaMoottori.TULOS_KOKONAISOLESKELUAIKA],
+			
+			getTulokset()[IOmaMoottori.TULOS_KESKIM_MIELENTILA],
+			getTulokset()[IOmaMoottori.TULOS_KESKIM_PAIHTYNEISYYS],
+			getTulokset()[IOmaMoottori.TULOS_KESKIM_VARAKKUUS],
+			getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_LAPIMENOAIKA]
+		);
+		
+		KasinoDAO.lisaaTulokset(uudetTulokset);
+		
+		// Haetaan kaikki mitatut tulokset tietokannasta
+		KasinoTulokset[] kaikkiTulokset = KasinoDAO.haeTulokset();
+		int i = 1;
+		for(KasinoTulokset t : kaikkiTulokset) {
+			Trace.out(Trace.Level.INFO, "Ajo (" + i++ + ")\n" + t + "\n");
+		}
+		
+		// Avataan uusimmat tulokset ikkunassa
+		Platform.runLater(() -> kontrolleri.naytaTulokset(uudetTulokset));
 	}
 
 	// IOmaMoottori

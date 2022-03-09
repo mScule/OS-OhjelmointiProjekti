@@ -1,5 +1,7 @@
 package kasinoSimulaattori.controller;
 
+import kasinoSimulaattori.simu.model.KasinoTulokset;
+
 public interface IKontrolleriMtoV {
 	
 		// Visualisointi
@@ -41,4 +43,6 @@ public interface IKontrolleriMtoV {
 		public void setAvgPaihtymys(String value);
 		public void setAvgVarallisuus(String value);
 		public void setAvgLapimeno(String value);
+		
+		public void naytaTulokset(KasinoTulokset tulokset);
 }
