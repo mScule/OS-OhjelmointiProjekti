@@ -308,98 +308,29 @@ public class SimulaattoriGUIController {
 		kontrolleri.hidasta();
 	}
 
-	// Setterit tekstikentille
-	public void setAikaTF(String value) {
-		aikaTF.setText(value);
-	}
-
-	public void setViiveTF(String value) {
-		viiveTF.setText(value);
-	}
-
-	public void setMainostusTF(String value) {
-		mainostusTF.setText(value);
-	}
-
-	public void setMaxTF(String value) {
-		maxTF.setText(value);
-	}
-
-	public void setMinTF(String value) {
-		minTF.setText(value);
-	}
-
-	public void setYllapitoTF(String value) {
-		yllapitoTF.setText(value);
-	}
-
-	public void setTasapeliTF(String value) {
-		tasapeliTF.setText(value);
-	}
-
-	public void setVoittoTF(String value) {
-		voittoTF.setText(value);
-	}
-
-	public void setPelitTF(String value) {
-		pelitTF.setText(value);
-	}
-
-	public void setBaaritTF(String value) {
-		baaritTF.setText(value);
-	}
-
-	public void setSisaankaynnitTF(String value) {
-		sisaankaynnitTF.setText(value);
-	}
-
-	public void setUloskaynnitTF(String value) {
-		uloskaynnitTF.setText(value);
-	}
-
+	public void setAikaTF(String value)          { aikaTF.setText(value);          }
+	public void setViiveTF(String value)         { viiveTF.setText(value);         }
+	public void setMainostusTF(String value)     { mainostusTF.setText(value);     }
+	public void setMaxTF(String value)           { maxTF.setText(value);           }
+	public void setMinTF(String value)           { minTF.setText(value);           }
+	public void setYllapitoTF(String value)      { yllapitoTF.setText(value);      }
+	public void setTasapeliTF(String value)      { tasapeliTF.setText(value);      }
+	public void setVoittoTF(String value)        { voittoTF.setText(value);        }
+	public void setPelitTF(String value)         { pelitTF.setText(value);         }
+	public void setBaaritTF(String value)        { baaritTF.setText(value);        }
+	public void setSisaankaynnitTF(String value) { sisaankaynnitTF.setText(value); }
+	public void setUloskaynnitTF(String value)   { uloskaynnitTF.setText(value);   }
+	
 	// Setterit labelelille
-	public void setAika(String value) {
-		aikaID.setText(value);
-	}
-
-	// public void setPaiva(String value) { paivaID.setText(value); }
-	public void setRahat(String value) {
-		rahatID.setText(value);
-	}
-
-	public void setVoitot(String value) {
-		voitotID.setText(value);
-	}
-
-	public void setSaapuneet(String value) {
-		saapuneetID.setText(value);
-	}
-
-	public void setPalvellut(String value) {
-		palvellutID.setText(value);
-	}
-
-	public void setAvgJono(String value) {
-		avgJonoID.setText(value);
-	}
-
-	public void setKokonaisoleskelu(String value) {
-		kokonaisoleskeluID.setText(value);
-	}
-
-	public void setAvgOnnellisuus(String value) {
-		avgOnnellisuusID.setText(value);
-	}
-
-	public void setAvgPaihtymys(String value) {
-		avgPaihtymysID.setText(value);
-	}
-
-	public void setAvgVarallisuus(String value) {
-		avgVarallisuusID.setText(value);
-	}
-
-	public void setAvgLapimeno(String value) {
-		avgLapimenoID.setText(value);
-	}
+	public void setAika(String value)             { aikaID.setText(value);             }
+	public void setRahat(String value)            { rahatID.setText(value);            }
+	public void setVoitot(String value)           { voitotID.setText(value);           }
+	public void setSaapuneet(String value)        { saapuneetID.setText(value);        }
+	public void setPalvellut(String value)        { palvellutID.setText(value);        }
+	public void setAvgJono(String value)          { avgJonoID.setText(value);          }
+	public void setKokonaisoleskelu(String value) { kokonaisoleskeluID.setText(value); }
+	public void setAvgOnnellisuus(String value)   { avgOnnellisuusID.setText(value);   }
+	public void setAvgPaihtymys(String value)     { avgPaihtymysID.setText(value);     }
+	public void setAvgVarallisuus(String value)   { avgVarallisuusID.setText(value);   }
+	public void setAvgLapimeno(String value)      { avgLapimenoID.setText(value);      }
 }
