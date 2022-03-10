@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import kasinoSimulaattori.util.AudioPlayer;
 import kasinoSimulaattori.view.animated.Liikkuja;
 
 public class KasinoVisualisointi extends Thread implements IVisualisointi{
@@ -221,8 +222,10 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 				
 				ruudunLiike++;
 				
-				if(!visualisointiPaalla && liikkujat.isEmpty())
+				if(!visualisointiPaalla && liikkujat.isEmpty()) {
+					AudioPlayer.stopMusic(); 
 					break;
+				}
 				
 				// Ruudun liike päivitys
 				gc.strokeText("Fps: " + fps + "\n" + "Frame: " + ruudunLiike, 32, 32);

@@ -101,7 +101,7 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	@Override
 	public void setAika(String value)             { this.ui.getGui().setAika(value);             }
 	// @Override
-	// public void setPaiva(String value)         { this.ui.getGui().setPaiva(value);            }
+	// public void setPaiva(String value)            { this.ui.getGui().setPaiva(value);            }
 	@Override
 	public void setRahat(String value)            { this.ui.getGui().setRahat(value);            }
 	@Override
@@ -113,15 +113,15 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	@Override
 	public void setAvgJono(String value)          { this.ui.getGui().setAvgJono(value);          }
 	@Override
-	public void setKokonaisoleskelu(String value) { this.ui.getGui().setKokonaisoleskelu(value); }
+	public void setKokonaisoleskelu(String value)	 { this.ui.getGui().setKokonaisoleskelu(value); }
 	@Override
-	public void setAvgOnnellisuus(String value)   { this.ui.getGui().setAvgOnnellisuus(value);   }
+	public void setAvgOnnellisuus(String value)      { this.ui.getGui().setAvgOnnellisuus(value);   }
 	@Override
-	public void setAvgPaihtymys(String value)     { this.ui.getGui().setAvgPaihtymys(value);     }
+	public void setAvgPaihtymys(String value)        { this.ui.getGui().setAvgPaihtymys(value);     }
 	@Override
-	public void setAvgVarallisuus(String value)   { this.ui.getGui().setAvgVarallisuus(value);   }
+	public void setAvgVarallisuus(String value)      { this.ui.getGui().setAvgVarallisuus(value);   }
 	@Override
-	public void setAvgLapimeno(String value)      { this.ui.getGui().setAvgLapimeno(value);      }
+	public void setAvgLapimeno(String value)         { this.ui.getGui().setAvgLapimeno(value);      }
 
 	// IKontrolleriVtoM:
 	
@@ -179,7 +179,11 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	public LinkedList<Palvelupiste> haePalvelupisteet(int palvelu) {
 		return moottori.getPalvelupisteet(palvelu);
 	}
-
+	
+	public void continueSim() {
+		moottori.notifyThis();
+	}
+	
 	@Override
 	public void naytaTulokset(KasinoTulokset tulokset) {
 		ui.naytaTulokset(tulokset);

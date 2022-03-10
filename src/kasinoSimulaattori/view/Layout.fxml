@@ -96,11 +96,10 @@
             </AnchorPane>
           <AnchorPane fx:id="alapaneelit" minHeight="0.0" minWidth="0.0" prefHeight="164.0" prefWidth="1161.0" styleClass="background" stylesheets="@Teema.css">
                <children>
-                  <ButtonBar layoutX="25.0" layoutY="179.0" prefHeight="40.0" prefWidth="316.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="25.0">
+                  <ButtonBar layoutX="29.0" layoutY="238.0" prefHeight="40.0" prefWidth="262.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="29.0">
                     <buttons>
-                      <Button mnemonicParsing="false" onAction="#handleStart" prefHeight="25.0" prefWidth="88.0" stylesheets="@Teema.css" text="START" />
-                        <Button mnemonicParsing="false" stylesheets="@Teema.css" text="PAUSE" />
-                        <Button mnemonicParsing="false" onAction="#handleReset" stylesheets="@Teema.css" text="RESET" />
+                      <Button minWidth="34.0" mnemonicParsing="false" onAction="#handleStart" prefHeight="34.0" prefWidth="137.0" stylesheets="@Teema.css" text="START" />
+                        <Button fx:id="pauseBTN" mnemonicParsing="false" onAction="#handlePause" stylesheets="@Teema.css" text="PAUSE" />
                     </buttons>
                   </ButtonBar>
                   <GridPane layoutX="423.0" layoutY="14.0" prefHeight="264.0" prefWidth="814.0" AnchorPane.bottomAnchor="23.0">
@@ -111,10 +110,10 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.0" minWidth="10.0" prefWidth="111.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="49.0" minHeight="8.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="89.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="73.0" minHeight="8.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label text="Saapuneet asiakkaat:" />
@@ -141,8 +140,8 @@
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.0" minWidth="10.0" prefWidth="211.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="38.0" minHeight="0.0" prefHeight="38.0" vgrow="SOMETIMES" />
                     </rowConstraints>
