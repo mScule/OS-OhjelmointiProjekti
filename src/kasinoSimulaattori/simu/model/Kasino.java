@@ -3,6 +3,7 @@ package kasinoSimulaattori.simu.model;
 import kasinoSimulaattori.eduni.distributions.Negexp;
 import kasinoSimulaattori.eduni.distributions.Normal;
 import kasinoSimulaattori.eduni.distributions.Uniform;
+import kasinoSimulaattori.simu.framework.Kello;
 
 public final class Kasino {
     public final static int kasinonLahtoRahat = 1000000;
@@ -87,6 +88,10 @@ public final class Kasino {
         Asiakas.sum = 0;
 
         Palvelupiste.palveluid = 0;
+        
+        // Resetoi kellonaika
+        
+        Kello.getInstance().setAika(0);
     }
 
     public static double getBlackjackVoittoprosentti() {

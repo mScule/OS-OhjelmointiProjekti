@@ -40,7 +40,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Kasino simulaattori");
         
-        Trace.setTraceLevel(Level.INFO);
+        Trace.setTraceLevel(Level.ERR);
     	
         initMainLayout();
         showAlapaneelit();
@@ -62,7 +62,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
         	gui.setUloskaynnitTF("0");
         	
         	gui.setAikaTF("1000");
-        	gui.setViiveTF("250");
+        	gui.setViiveTF("100");
         });
     }
     
@@ -178,4 +178,15 @@ public class MainApp extends Application implements ISimulaattorinUI {
 			e.printStackTrace();
 		}*/
 	}
+
+    public void resetVisualisointi(){
+        try {
+			visualisointi = new KasinoVisualisointi();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        gui.setVisualisaattori(visualisointi.getCanvas());
+        visualisointi.start();
+    }
 }

@@ -17,4 +17,5 @@ public interface ISimulaattorinUI {
 	public SimulaattoriGUIController getGui();
 	
 	public void naytaTulokset(KasinoTulokset tulokset);
+    public void resetVisualisointi();
 }

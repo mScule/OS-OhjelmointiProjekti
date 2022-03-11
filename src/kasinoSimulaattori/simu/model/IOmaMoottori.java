@@ -31,4 +31,6 @@ public interface IOmaMoottori extends IMoottori {
 		PALVELUJEN_MAARA           = 4;
 	
 	public LinkedList<Palvelupiste> getPalvelupisteet(int palvelu);
+
+    public boolean simuloidaan();
 }
