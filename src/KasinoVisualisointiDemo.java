@@ -5,7 +5,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import kasinoSimulaattori.view.KasinoVisualisointi;
 
-// KasinoVisualisointi DEMO
+/**
+ * Kasinovisualisaattorin demonstrointiohjelma.
+ * @author Vilhe
+ */
 public class KasinoVisualisointiDemo extends Application {
 	
 	private Stage stage;

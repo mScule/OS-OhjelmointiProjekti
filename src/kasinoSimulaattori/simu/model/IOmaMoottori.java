@@ -1,7 +1,6 @@
 package kasinoSimulaattori.simu.model;
 
 import java.util.LinkedList;
-
 import kasinoSimulaattori.simu.framework.IMoottori;
 
 public interface IOmaMoottori extends IMoottori {

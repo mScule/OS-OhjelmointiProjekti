@@ -11,19 +11,17 @@ import kasinoSimulaattori.simu.framework.Trace;
 import kasinoSimulaattori.simu.framework.Trace.Level;
 import kasinoSimulaattori.simu.model.Asiakas.Ominaisuus;
 import kasinoSimulaattori.util.Sijainti;
-import kasinoSimulaattori.view.TuloksetGUIController;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
 import javafx.application.Platform;
-import javafx.stage.Stage;
 
 public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 	private Kello kello = Kello.getInstance();
-
+	
 	private Saapumisprosessi saapumisprosessi;
 
 	private int saapuneidenAsiakkaidenMaara = 0, poistuneidenAsiakkaidenMaara = 0;
@@ -45,6 +43,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			blackjackSijainti = new Sijainti(5 * 128, 1 * 128),
 			sisaankayntiSijainti = new Sijainti(2 * 128, 4 * 128),
 			uloskayntiSijainti = new Sijainti(4 * 128, 4 * 128);
+	
+	private KasinoDAO kasinoDAO = KasinoDAO.getInstanssi();
 
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
 		super(kontrolleri);
@@ -348,7 +348,6 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 		Platform.runLater(() -> {
 			kontrolleri.setAika(kello.getAika() + "");
-			// kontrolleri.setPaiva(1 + "");
 			kontrolleri.setRahat(getTulokset()[IOmaMoottori.TULOS_RAHA] + "");
 			kontrolleri.setVoitot(getTulokset()[IOmaMoottori.TULOS_VOITTO] + "");
 			kontrolleri.setSaapuneet(getTulokset()[IOmaMoottori.TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA] + "");
@@ -399,19 +398,23 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				getTulokset()[IOmaMoottori.TULOS_KESKIM_VARAKKUUS],
 				getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_LAPIMENOAIKA]);
 
-		if (KasinoDAO.getConnection() != null) {
-
-			KasinoDAO.lisaaTulokset(uudetTulokset);
-
+		if(kasinoDAO.lisaaTulokset(uudetTulokset)) {
 			// Haetaan kaikki mitatut tulokset tietokannasta
-			KasinoTulokset[] kaikkiTulokset = KasinoDAO.haeTulokset();
-			int i = 1;
-			for (KasinoTulokset t : kaikkiTulokset) {
-				Trace.out(Trace.Level.INFO, "Ajo (" + i++ + ")\n" + t + "\n");
-			}
+			KasinoTulokset[] kaikkiTulokset = kasinoDAO.haeTulokset();
+			
+			if(kaikkiTulokset == null) {
+				kontrolleri.virheilmoitusDialogi("Tulosten hakeminen tietokannasta epäonnistui.");
+			} else { 
+				// Infotasolla tulostetaan kaikki tulokset konsoliin
+				int i = 1;
+				for (KasinoTulokset t : kaikkiTulokset)
+					Trace.out(Trace.Level.INFO, "Ajo (" + i++ + ")\n" + t + "\n");
 
-			// Avataan uusimmat tulokset ikkunassa
-			Platform.runLater(() -> kontrolleri.naytaTulokset(uudetTulokset));
+				// Avataan uusimmat tulokset ikkunassa
+				kontrolleri.naytaTulokset(kaikkiTulokset);
+			}
+		} else {
+			kontrolleri.virheilmoitusDialogi("Tulosten lisäys tietokantaan epäonnistui.");
 		}
 	}
 

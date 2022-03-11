@@ -1,13 +1,24 @@
 import kasinoSimulaattori.view.KasinoVisualisointi;
 
-// KasinoVisualisointi DEMO
+/**
+ * Luokkaa käytetään kasinovisualisaattorin Liikkujen lisäämiseen demonstrointi mielessä. 
+ * @author Vilhelm
+ */
 public class AsiakasSpawner extends Thread {
 	private KasinoVisualisointi visulaattori;
 	
+	/**
+	 * Asiakas spawnerin konstruktori.
+	 * @param visulaattori Kasinon visualisaattori johon asiakkaita halutaan lisätä.
+	 */
 	public AsiakasSpawner(KasinoVisualisointi visulaattori) {
 		this.visulaattori = visulaattori;
 	}
 	
+	/**
+	 * Luo asiakkaita tietyin aikavälein.
+	 * @throws InterruptedException
+	 */
 	public void luoAsiakkaita() throws InterruptedException
 	{
 		while(true) {

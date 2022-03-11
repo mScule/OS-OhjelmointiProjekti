@@ -84,9 +84,9 @@ public class SimulaattoriGUIController {
 
 	private static IKontrolleriVtoM kontrolleri;
 
-	public SimulaattoriGUIController() {
-	}
+	public SimulaattoriGUIController() {}
 
+	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
@@ -298,7 +298,7 @@ public class SimulaattoriGUIController {
 			startBTN.setText("RESUME");
 		} else {
 			Kasino.setPause(false);
-			kontrolleri.continueSim();
+			kontrolleri.jatkaSimulointia();
 			startBTN.setText("PAUSE");
 		}
 	}
@@ -410,5 +410,13 @@ public class SimulaattoriGUIController {
 	
 	public void resetStartButton() {
 		startBTN.setText("START");
+	}
+	
+	public void virheilmoitusDialogi(String viesti) {
+		Alert ilmoitus = new Alert(AlertType.ERROR);
+		ilmoitus.setTitle("Virhe");
+		ilmoitus.setHeaderText("Virhe");
+		ilmoitus.setContentText(viesti);
+		ilmoitus.show();
 	}
 }

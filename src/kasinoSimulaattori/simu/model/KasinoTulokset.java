@@ -1,5 +1,9 @@
 package kasinoSimulaattori.simu.model;
 
+/**
+ * KasinoDAON käyttämä DTO olio tiedon esittämiseen tietokannasta, ja sinne viemiseen.
+ * @author Vilhelm
+ */
 public class KasinoTulokset {
 	private double
 		aika,
@@ -26,6 +30,30 @@ public class KasinoTulokset {
 		saapuneetAsiakkaat,
 		palvellutAsiakkaat;
 	
+	/**
+	 * KasinonTulokset olion konstruktori.
+	 * @param aika Simulaation aika.
+	 * @param mainostus Mainostukseen käytetty summa.
+	 * @param maksimiPanos Pelien maksimipanos.
+	 * @param minimiPanos Pelien minimipanos.
+	 * @param yllapito Ylläpitoon varattu summa.
+	 * @param tasapeliProsentti Pelien tasapeliprosentti.
+	 * @param voittoProsentti Pelien voittoprosentti.
+	 * @param blackjackPoydat Pelien määrä.
+	 * @param baarit Baarien määrä.
+	 * @param sisaankaynnit Sisäänkäyntien määrä.
+	 * @param uloskaynnit Uloskäyntien määrä.
+	 * @param rahat Kasinon varojen määrä.
+	 * @param voitot Kasinon simulaation aikana tuotettujen voittojen määrä.
+	 * @param saapuneetAsiakkaat Simulaation aikana saapuneet asiakkaat. 
+	 * @param palvellutAsiakkaat Simulaation aikana poistuneet asiakkaat.
+	 * @param keskJonotusaika Keskimääräinen jonotusaika.
+	 * @param kokonaisoleskeluaika Asiakkaiden kokonaisoleskeluaika.
+	 * @param keskOnnellisuus Asiakkaiden keskimääräinen onnellisuus.
+	 * @param keskPaihtymys Asiakkaiden keskimääräinen päihtymys.
+	 * @param keskVarallisuus Asiakkaiden keskimääräinen varallisuus.
+	 * @param keskLapimenoaika Asiakkaiden keskimääräinen läpimenoaika.
+	 */
 	public KasinoTulokset(
 		double aika,
 		double mainostus,

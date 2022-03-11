@@ -3,6 +3,10 @@ package kasinoSimulaattori.view.animated;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+/**
+ * Sprite joka liikkuu aloitussijainnista lopetussijaintiin.
+ * @author Vilhelm
+ */
 public class Liikkuja {
 	private int
 		aloitusX, aloitusY,
@@ -15,6 +19,16 @@ public class Liikkuja {
 	private Image kuva;
 	private boolean kohteessa;
 	
+	/**
+	 * Liikkujan konstruktori
+	 * @param kuva Sprite joka piirrettään.
+	 * @param gc Canvaksen GraphicalContext johon liikkuja halutaan piirtää.
+	 * @param aloitusX Aloitussijainnin x-koordinaatti.
+	 * @param aloitusY Aloitussijainnin y-koordinaatti.
+	 * @param lopetusX Lopetussijainnin x-koordinaatti.
+	 * @param lopetusY Lopetussijainnin y-koordinaatti.
+	 * @param lopetusEtaisyys Lopetusetäisyyden testialue lopetuskoordinaateista.
+	 */
 	public Liikkuja(Image kuva, GraphicsContext gc, int aloitusX, int aloitusY, int lopetusX, int lopetusY, int lopetusEtaisyys) {
 
 		this.kuva = kuva;
@@ -32,6 +46,10 @@ public class Liikkuja {
 		kohteessa = false;
 	}
 	
+	/**
+	 * Liikuttaa liikkujan lähemmäksi määränpäätään annetulla nopeudella.
+	 * @param nopeus Matka jonka liikkuja liikkuu yhden metodikutsun aikana.
+	 */
 	public void liikuta(double nopeus) {
 		
 		x += (lopetusX - aloitusX) * nopeus;
@@ -47,6 +65,9 @@ public class Liikkuja {
 			kohteessa = true;
 	}
 	
+	/**
+	 * @return true Jos liikkuja on kohteessa. false Muissa tapauksissa.
+	 */
 	public boolean getKohteessa() {
 		return kohteessa;
 	}

@@ -2,31 +2,53 @@ package kasinoSimulaattori.simu.model;
 
 import java.sql.*;
 import java.util.ArrayList;
-import kasinoSimulaattori.simu.framework.Trace;
 
+/**
+ * Kasinosimulaattorin tulosten käsittelyyn tarkoitettu dao luokka.
+ * @author Vilhelm
+ */
 public class KasinoDAO {
 	
+	// Luokka on singleton
+	
+	private static KasinoDAO instanssi;
+	
 	private KasinoDAO() {}
-	private static Connection connection = null;
+	
+	public static KasinoDAO getInstanssi() {
+		if(instanssi == null)
+			instanssi = new KasinoDAO();
+		
+		return instanssi;
+	}
 
-	private static Connection luoYhteys() {
+	/**
+	 * Yrittää luoda yhteyden kasinon tuloksia ylläpitävään relaatiotietokantaan.
+	 * @return Palauttaa tietokantaan yhteyden luoneen yhteysolion jos yhteys onnistuu.
+	 *         Yhteyden luonnin epäonnistuessa palautuu null pointteri.
+	 */
+	private Connection luoYhteys() throws SQLException {
+		
+		Connection yhteys;
 		
 		final String
 			URL      = "jdbc:mariadb://localhost/kasino",
-			USER     = "root",
-			PASSWORD = "olso";
-		try {
-			connection = DriverManager.getConnection(
-				URL + "?user=" + USER + "&password=" + PASSWORD
-			);
-		} catch (SQLException e) {
-			Trace.out(Trace.Level.ERR, e.getMessage());
-		}
-		
-		return connection;
+			KAYTTAJA = "root",
+			SALASANA = "41115dc5-b149-4753-9894-e7b08764ed2b";
+
+		yhteys = DriverManager.getConnection(
+			URL + "?user=" + KAYTTAJA + "&password=" + SALASANA
+		);
+
+		return yhteys;
 	}
 	
-	public static void lisaaTulokset(KasinoTulokset tulokset) {
+	/**
+	 * Yrittää lisätä annetut tulokset tietokantaan.
+	 * @param tulokset Lisättävät tulokset.
+	 * @return true Jos lisäys onnistuu. false Jos lisäys epäonnistuu.
+	 */
+	public boolean lisaaTulokset(KasinoTulokset tulokset) {
 		try(
 			Connection connection = luoYhteys();
 			Statement  statement  = connection.createStatement();
@@ -91,11 +113,17 @@ public class KasinoDAO {
 				tulokset.getKeskLapimenoaika() + ")"
 			);
 		} catch (SQLException e) {
-			Trace.out(Trace.Level.ERR, e.getMessage());
+			return false;
 		}
+		return true;
 	}
 	
-	public static KasinoTulokset[] haeTulokset() {
+	/**
+	 * Yrittää hakea jokaisen tulos tietueen tietokannasta.
+	 * @return Haun onnistuessa tulokset palautetaan taulukkomuodossa indeksinä ensimmäisestä viimeiseen.
+	 *         Epäonnistuessa metodi palauttaa null pointteri.
+	 */
+	public KasinoTulokset[] haeTulokset() {
 		ArrayList<KasinoTulokset> haetut = new ArrayList<KasinoTulokset>();
 		
 		try(
@@ -134,7 +162,7 @@ public class KasinoDAO {
 				));
 			}
 		} catch (SQLException e){
-			Trace.out(Trace.Level.ERR, e.getMessage());
+			return null;
 		}
 		
 		KasinoTulokset[] tulokset = new KasinoTulokset[haetut.size()];
@@ -143,9 +171,5 @@ public class KasinoDAO {
 			tulokset[i] = haetut.get(i);
 		
 		return tulokset;
-	}
-
-	public static Connection getConnection() {
-		return connection;
 	}
 }

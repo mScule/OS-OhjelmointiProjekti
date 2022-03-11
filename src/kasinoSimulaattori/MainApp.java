@@ -2,19 +2,27 @@ package kasinoSimulaattori;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.application.Platform;
+
 import javafx.fxml.FXMLLoader;
+
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+
 import javafx.stage.Stage;
+
 import kasinoSimulaattori.controller.IKontrolleriVtoM;
 import kasinoSimulaattori.controller.KasinoKontrolleri;
+
 import kasinoSimulaattori.simu.framework.Trace;
 import kasinoSimulaattori.simu.framework.Trace.Level;
 import kasinoSimulaattori.simu.model.KasinoTulokset;
+
 import kasinoSimulaattori.view.ISimulaattorinUI;
 import kasinoSimulaattori.view.IVisualisointi;
 import kasinoSimulaattori.view.KasinoVisualisointi;
@@ -28,7 +36,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
     private IKontrolleriVtoM kontrolleri;
     private SimulaattoriGUIController gui;
     private KasinoVisualisointi visualisointi;
-	
+    
     public MainApp() throws FileNotFoundException {
         kontrolleri   = new KasinoKontrolleri(this);
     	gui           = new SimulaattoriGUIController();
@@ -39,7 +47,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Kasino simulaattori");
-        
+        this.primaryStage.setResizable(false);
         Trace.setTraceLevel(Level.ERR);
     	
         initMainLayout();
@@ -60,7 +68,6 @@ public class MainApp extends Application implements ISimulaattorinUI {
         	gui.setBaaritTF("0");
         	gui.setSisaankaynnitTF("0");
         	gui.setUloskaynnitTF("0");
-        	
         	gui.setAikaTF("1000");
         	gui.setViiveTF("100");
         });
@@ -156,27 +163,24 @@ public class MainApp extends Application implements ISimulaattorinUI {
 	}
 
 	@Override
-	public void naytaTulokset(KasinoTulokset tulokset) {
-	/*
+	public void naytaTulokset(KasinoTulokset[] tulokset) {
 		try {
-			TuloksetGUIController tuloksetGUI = null;
-			
 	        FXMLLoader loader = new FXMLLoader();
+	        
 	        loader.setLocation(MainApp.class.getResource("view/TuloksetGUI.fxml"));
-			VBox  vbox = loader.load();
-			Scene scene = new Scene(vbox);
+			Scene scene = new Scene(loader.load());
 			
-			tuloksetGUI = loader.getController();
-	        tuloksetGUI.nayta(tulokset);
+			TuloksetGUIController tuloksetKontrolleri = loader.getController();
 	        
 	        Stage tuloksetStage = new Stage();
 	        tuloksetStage.setScene(scene);
+	        tuloksetStage.setResizable(false);
+	        tuloksetStage.setTitle("Ajot");
+	        tuloksetKontrolleri.avaa(tulokset);
 	        tuloksetStage.show();
-	        
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+			Trace.out(Trace.Level.ERR, "Virhe tulosten näyttämisessä");
+		}
 	}
 
     public void resetVisualisointi(){
@@ -188,5 +192,10 @@ public class MainApp extends Application implements ISimulaattorinUI {
 		}
         gui.setVisualisaattori(visualisointi.getCanvas());
         visualisointi.start();
+    }
+    
+    @Override
+    public void virheilmoitusDialogi(String viesti) {
+    	gui.virheilmoitusDialogi(viesti);
     }
 }
