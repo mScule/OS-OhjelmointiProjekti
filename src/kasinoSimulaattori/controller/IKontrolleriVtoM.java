@@ -21,4 +21,6 @@ public interface IKontrolleriVtoM {
 	public LinkedList<Palvelupiste> haePalvelupisteet(int palvelu);
 	
 	public void continueSim();
+
+	public boolean simuloidaan();
 }

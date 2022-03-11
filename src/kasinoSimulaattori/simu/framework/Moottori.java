@@ -51,7 +51,7 @@ public abstract class Moottori extends Thread implements IMoottori {
 		return tapahtumalista.getSeuraavanAika();
 	}
 
-	private boolean simuloidaan() {
+	public boolean simuloidaan() {
 		if (Kasino.isVararikko()) {
 			Trace.out(Trace.Level.INFO, "Kasino meni vararikkoon!!!");
 			return false;

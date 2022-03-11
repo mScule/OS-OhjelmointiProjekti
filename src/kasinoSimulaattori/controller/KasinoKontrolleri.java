@@ -188,4 +188,10 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	public void naytaTulokset(KasinoTulokset tulokset) {
 		ui.naytaTulokset(tulokset);
 	}
+
+	public boolean simuloidaan(){
+		if(moottori == null)
+			return false;
+		return moottori.simuloidaan();
+	}
 }

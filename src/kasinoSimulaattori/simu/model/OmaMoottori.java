@@ -271,11 +271,11 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			saapuneidenAsiakkaidenMaara++;
 			saapumisprosessi.generoiSeuraava();
 		}
-		
+
 		// Luodaan mahdollinen asiakkaan liikkumisanimaatio
-		if( nykysijainti != null && loppusijainti != null && 
-			nykysijainti.getX() != loppusijainti.getX() &&
-			nykysijainti.getY() != loppusijainti.getY()) {
+		if (nykysijainti != null && loppusijainti != null &&
+				nykysijainti.getX() != loppusijainti.getX() &&
+				nykysijainti.getY() != loppusijainti.getY()) {
 			Trace.out(Trace.Level.INFO, "Asiakas animaatio " + nykysijainti + " : " + loppusijainti);
 			kontrolleri.visualisoiAsiakas(
 					nykysijainti.getX(),
@@ -283,84 +283,86 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 					loppusijainti.getX(),
 					loppusijainti.getY());
 		}
-		
+
 		// Päivitetään luvut visualisoinnissa
-		
-		int
-		baariJono        = 0, baariPalveltavat        = 0, baariTyontekijat        = palvelupisteet.get(TapahtumanTyyppi.BAARI).size(),
-		blackjackJono    = 0, blackjackPalveltavat    = 0, blackjackTyontekijat    = palvelupisteet.get(TapahtumanTyyppi.PELI).size(),
-		sisaankayntiJono = 0, sisaankayntiPalveltavat = 0, sisaankayntiTyontekijat = palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI).size(),
-		uloskayntiJono   = 0, uloskayntiPalveltavat   = 0, uloskayntiTyontekijat   = palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI).size();
-		
-		for(Map.Entry<TapahtumanTyyppi, LinkedList<Palvelupiste>> pisteet : palvelupisteet.entrySet())
-		{
-			
-			for(Palvelupiste piste : pisteet.getValue()) {
-				switch(pisteet.getKey()) {
-				case SISAANKAYNTI:
-					Sisaankaynti sisaankaynti = (Sisaankaynti) piste;
-					sisaankayntiJono += sisaankaynti.jono.size();
-					sisaankayntiPalveltavat += sisaankaynti.onVarattu() ? 1 : 0;
-					break;
-					
-				case ULOSKAYNTI:
-					Uloskaynti uloskaynti = (Uloskaynti) piste;
-					uloskayntiJono += uloskaynti.jono.size();
-					uloskayntiPalveltavat += uloskaynti.onVarattu() ? 1 : 0;
-					break;
-					
-				case BAARI:
-					Baari baari = (Baari) piste;
-					baariJono += baari.jono.size();
-					baariPalveltavat += baari.onVarattu() ? 1 : 0;
-					break;
-					
-				case PELI:
-					Peli peli = (Peli) piste;
-					blackjackJono += peli.getJononpituus();
-					blackjackPalveltavat += peli.getPelaajatPoydassa();
-					break;
-					
-				default:
-					break;
+
+		int baariJono = 0, baariPalveltavat = 0, baariTyontekijat = palvelupisteet.get(TapahtumanTyyppi.BAARI).size(),
+				blackjackJono = 0, blackjackPalveltavat = 0,
+				blackjackTyontekijat = palvelupisteet.get(TapahtumanTyyppi.PELI).size(),
+				sisaankayntiJono = 0, sisaankayntiPalveltavat = 0,
+				sisaankayntiTyontekijat = palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI).size(),
+				uloskayntiJono = 0, uloskayntiPalveltavat = 0,
+				uloskayntiTyontekijat = palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI).size();
+
+		for (Map.Entry<TapahtumanTyyppi, LinkedList<Palvelupiste>> pisteet : palvelupisteet.entrySet()) {
+
+			for (Palvelupiste piste : pisteet.getValue()) {
+				switch (pisteet.getKey()) {
+					case SISAANKAYNTI:
+						Sisaankaynti sisaankaynti = (Sisaankaynti) piste;
+						sisaankayntiJono += sisaankaynti.jono.size();
+						sisaankayntiPalveltavat += sisaankaynti.onVarattu() ? 1 : 0;
+						break;
+
+					case ULOSKAYNTI:
+						Uloskaynti uloskaynti = (Uloskaynti) piste;
+						uloskayntiJono += uloskaynti.jono.size();
+						uloskayntiPalveltavat += uloskaynti.onVarattu() ? 1 : 0;
+						break;
+
+					case BAARI:
+						Baari baari = (Baari) piste;
+						baariJono += baari.jono.size();
+						baariPalveltavat += baari.onVarattu() ? 1 : 0;
+						break;
+
+					case PELI:
+						Peli peli = (Peli) piste;
+						blackjackJono += peli.getJononpituus();
+						blackjackPalveltavat += peli.getPelaajatPoydassa();
+						break;
+
+					default:
+						break;
 				}
 			}
 
 			kontrolleri.baariJonossa(baariJono);
 			kontrolleri.baariPalveltavat(baariPalveltavat);
 			kontrolleri.baariTyontekijat(baariTyontekijat);
-			
+
 			kontrolleri.blackjackJonossa(blackjackJono);
 			kontrolleri.blackjackPalveltavat(blackjackPalveltavat);
 			kontrolleri.blackjackTyontekijat(blackjackTyontekijat);
-			
+
 			kontrolleri.uloskayntiJonossa(uloskayntiJono);
 			kontrolleri.uloskayntiPalveltavat(uloskayntiPalveltavat);
 			kontrolleri.uloskayntiTyontekijat(uloskayntiTyontekijat);
-			
+
 			kontrolleri.sisaankayntiJonossa(sisaankayntiJono);
 			kontrolleri.sisaankayntiPalveltavat(sisaankayntiPalveltavat);
 			kontrolleri.sisaankayntiTyontekijat(sisaankayntiTyontekijat);
 		}
-		
+
 		// Päivitetään tulokset GUI:hin
-		
-		Platform.runLater(() -> { kontrolleri.setAika(kello.getAika() + "");
-			//kontrolleri.setPaiva(1 + "");
+
+		Platform.runLater(() -> {
+			kontrolleri.setAika(kello.getAika() + "");
+			// kontrolleri.setPaiva(1 + "");
 			kontrolleri.setRahat(getTulokset()[IOmaMoottori.TULOS_RAHA] + "");
 			kontrolleri.setVoitot(getTulokset()[IOmaMoottori.TULOS_VOITTO] + "");
 			kontrolleri.setSaapuneet(getTulokset()[IOmaMoottori.TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA] + "");
 			kontrolleri.setPalvellut(getTulokset()[IOmaMoottori.TULOS_POISTUNEIDEN_ASIAKKAIDEN_MAARA] + "");
 			kontrolleri.setAvgJono(getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_JONONPITUUS] + "");
 			kontrolleri.setKokonaisoleskelu(getTulokset()[IOmaMoottori.TULOS_KOKONAISOLESKELUAIKA] + "");
-			
+
 			kontrolleri.setAvgOnnellisuus(getTulokset()[IOmaMoottori.TULOS_KESKIM_MIELENTILA] + "");
 			kontrolleri.setAvgPaihtymys(getTulokset()[IOmaMoottori.TULOS_KESKIM_PAIHTYNEISYYS] + "");
 			kontrolleri.setAvgVarallisuus(getTulokset()[IOmaMoottori.TULOS_KESKIM_VARAKKUUS] + "");
 			kontrolleri.setAvgLapimeno(getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_LAPIMENOAIKA] + "");
 		});
 	}
-	
+
 	@Override
 	protected void lopetus() {
 		kontrolleri.lopetaVisualisointi("Simulaatio päättyi");
@@ -370,45 +372,47 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	protected void tulokset() {
 		// Lisätään uusimmat tulokset tietokantaan
 		KasinoTulokset uudetTulokset = new KasinoTulokset(
-			getTulokset()[IOmaMoottori.TULOS_AIKA],
-			Kasino.getMainoskulut(),
-			Kasino.getMaxBet(),
-			Kasino.getMinBet(),
-			Kasino.getYllapitohinta(),
-			Kasino.getBlackjackTasapeliprosentti(),
-			Kasino.getBlackjackVoittoprosentti(),
-			
-			palvelupisteet.get(TapahtumanTyyppi.PELI).size(),
-			palvelupisteet.get(TapahtumanTyyppi.BAARI).size(),
-			palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI).size(),
-			palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI).size(),
-			
-			Kasino.getKasinonRahat(),
-			Kasino.getKasinonVoitto(),
-			
-			(int)getTulokset()[IOmaMoottori.TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA],
-			(int)getTulokset()[IOmaMoottori.TULOS_POISTUNEIDEN_ASIAKKAIDEN_MAARA],
-			
-			getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_JONONPITUUS],
-			getTulokset()[IOmaMoottori.TULOS_KOKONAISOLESKELUAIKA],
-			
-			getTulokset()[IOmaMoottori.TULOS_KESKIM_MIELENTILA],
-			getTulokset()[IOmaMoottori.TULOS_KESKIM_PAIHTYNEISYYS],
-			getTulokset()[IOmaMoottori.TULOS_KESKIM_VARAKKUUS],
-			getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_LAPIMENOAIKA]
-		);
-		
-		KasinoDAO.lisaaTulokset(uudetTulokset);
-		
-		// Haetaan kaikki mitatut tulokset tietokannasta
-		KasinoTulokset[] kaikkiTulokset = KasinoDAO.haeTulokset();
-		int i = 1;
-		for(KasinoTulokset t : kaikkiTulokset) {
-			Trace.out(Trace.Level.INFO, "Ajo (" + i++ + ")\n" + t + "\n");
+				getTulokset()[IOmaMoottori.TULOS_AIKA],
+				Kasino.getMainoskulut(),
+				Kasino.getMaxBet(),
+				Kasino.getMinBet(),
+				Kasino.getYllapitohinta(),
+				Kasino.getBlackjackTasapeliprosentti(),
+				Kasino.getBlackjackVoittoprosentti(),
+
+				palvelupisteet.get(TapahtumanTyyppi.PELI).size(),
+				palvelupisteet.get(TapahtumanTyyppi.BAARI).size(),
+				palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI).size(),
+				palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI).size(),
+
+				Kasino.getKasinonRahat(),
+				Kasino.getKasinonVoitto(),
+
+				(int) getTulokset()[IOmaMoottori.TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA],
+				(int) getTulokset()[IOmaMoottori.TULOS_POISTUNEIDEN_ASIAKKAIDEN_MAARA],
+
+				getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_JONONPITUUS],
+				getTulokset()[IOmaMoottori.TULOS_KOKONAISOLESKELUAIKA],
+
+				getTulokset()[IOmaMoottori.TULOS_KESKIM_MIELENTILA],
+				getTulokset()[IOmaMoottori.TULOS_KESKIM_PAIHTYNEISYYS],
+				getTulokset()[IOmaMoottori.TULOS_KESKIM_VARAKKUUS],
+				getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_LAPIMENOAIKA]);
+
+		if (KasinoDAO.getConnection() != null) {
+
+			KasinoDAO.lisaaTulokset(uudetTulokset);
+
+			// Haetaan kaikki mitatut tulokset tietokannasta
+			KasinoTulokset[] kaikkiTulokset = KasinoDAO.haeTulokset();
+			int i = 1;
+			for (KasinoTulokset t : kaikkiTulokset) {
+				Trace.out(Trace.Level.INFO, "Ajo (" + i++ + ")\n" + t + "\n");
+			}
+
+			// Avataan uusimmat tulokset ikkunassa
+			Platform.runLater(() -> kontrolleri.naytaTulokset(uudetTulokset));
 		}
-		
-		// Avataan uusimmat tulokset ikkunassa
-		Platform.runLater(() -> kontrolleri.naytaTulokset(uudetTulokset));
 	}
 
 	// IOmaMoottori

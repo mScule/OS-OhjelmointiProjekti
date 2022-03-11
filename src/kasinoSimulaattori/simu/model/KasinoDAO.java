@@ -7,9 +7,9 @@ import kasinoSimulaattori.simu.framework.Trace;
 public class KasinoDAO {
 	
 	private KasinoDAO() {}
+	private static Connection connection = null;
 
 	private static Connection luoYhteys() {
-		Connection connection = null;
 		
 		final String
 			URL      = "jdbc:mariadb://localhost/kasino",
@@ -143,5 +143,9 @@ public class KasinoDAO {
 			tulokset[i] = haetut.get(i);
 		
 		return tulokset;
+	}
+
+	public static Connection getConnection() {
+		return connection;
 	}
 }
