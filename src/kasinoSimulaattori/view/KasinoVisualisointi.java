@@ -64,7 +64,7 @@ public class KasinoVisualisointi extends Thread implements IVisualisointi{
 		asiakkaidenNopeus = 2,
 	
 		// Taustan animaatio
-		taustaLiukuNopeus = 0,
+		taustaLiukuNopeus = 1,
 	    taustaLiukuX = 0, taustaLiukuY = 0;
 		
 	/**

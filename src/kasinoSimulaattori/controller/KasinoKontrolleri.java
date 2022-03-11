@@ -203,8 +203,6 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 		moottori.lisaaPalvelupisteita(TapahtumanTyyppi.SISAANKAYNTI, sisaankaynnit);
 		moottori.lisaaPalvelupisteita(TapahtumanTyyppi.ULOSKAYNTI, uloskaynnit);
 		((Thread) moottori).start();
-		ui.getVisualisointi().setTaustaLiukuNopeus(1);
-		ui.getVisualisointi().setAsiakasNopeus(1);
 	}
 
 	@Override
