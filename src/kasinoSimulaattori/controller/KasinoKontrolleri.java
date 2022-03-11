@@ -24,6 +24,7 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	// Visualisointi
 	@Override
 	public void lopetaVisualisointi(String viesti) {
+		Platform.runLater(() -> ui.getGui().resetStartButton());
 		ui.getVisualisointi().lopetaVisualisointi(viesti);
 	}
 	

@@ -406,4 +406,8 @@ public class SimulaattoriGUIController {
 	public void setAvgLapimeno(String value) {
 		avgLapimenoID.setText(value);
 	}
+	
+	public void resetStartButton() {
+		startBTN.setText("START");
+	}
 }
