@@ -119,6 +119,7 @@ public class SimulaattoriGUIController {
 		if (isInputValid()) {
 			kontrolleri = mainApp.getController();
 			if (!kontrolleri.simuloidaan()) {
+				kontrolleri.resetVisualistointi();
 				double aika = Double.parseDouble(aikaTF.getText());
 				long viive = Long.parseLong(viiveTF.getText());
 				double mainostus = Double.parseDouble(mainostusTF.getText());

@@ -23,4 +23,6 @@ public interface IKontrolleriVtoM {
 	public void continueSim();
 
 	public boolean simuloidaan();
+
+	public void resetVisualistointi();
 }

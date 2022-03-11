@@ -195,4 +195,8 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 			return false;
 		return moottori.simuloidaan();
 	}
+
+	public void resetVisualistointi(){
+		Platform.runLater(() -> ui.resetVisualisointi());
+	}
 }
