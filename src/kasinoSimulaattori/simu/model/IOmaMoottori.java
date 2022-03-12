@@ -5,6 +5,9 @@ import kasinoSimulaattori.simu.framework.IMoottori;
 
 public interface IOmaMoottori extends IMoottori {
 
+	/**
+	 * Kasinon tietyn tyyppistä tulosta vastaava muuttumaton kokonaisluku.
+	 */
 	public static final int TULOS_AIKA = 0,
 			TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA = 1,
 			TULOS_POISTUNEIDEN_ASIAKKAIDEN_MAARA = 2,
@@ -19,6 +22,9 @@ public interface IOmaMoottori extends IMoottori {
 			TULOS_KESKIM_PAIHTYNEISYYS = 11,
 			TULOSTEN_MAARA = 12; // Käytetään vain arrayn luomisessa.
 
+	/**
+	 * Palvelupisteen tyyppiä vastaava muuttumaton kokonaisluku.
+	 */
 	public static final int PALVELUTYYPPI_SISAANKAYNTI = 0,
 			PALVELUTYYPPI_ULOSKAYNTI = 1,
 			PALVELUTYYPPI_BAARI = 2,
