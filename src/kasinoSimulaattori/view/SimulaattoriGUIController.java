@@ -84,9 +84,9 @@ public class SimulaattoriGUIController {
 
 	private static IKontrolleriVtoM kontrolleri;
 
-	public SimulaattoriGUIController() {}
+	public SimulaattoriGUIController() {
+	}
 
-	
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
@@ -116,9 +116,9 @@ public class SimulaattoriGUIController {
 
 	@FXML
 	public void handleStart() {
-		if (isInputValid()) {
-			kontrolleri = mainApp.getController();
-			if (!kontrolleri.simuloidaan()) {
+		kontrolleri = mainApp.getController();
+		if (!kontrolleri.simuloidaan()) {
+			try {
 				kontrolleri.resetVisualistointi();
 				double aika = Double.parseDouble(aikaTF.getText());
 				long viive = Long.parseLong(viiveTF.getText());
@@ -132,162 +132,38 @@ public class SimulaattoriGUIController {
 				int baarit = Integer.parseInt(baaritTF.getText());
 				int sisaankaynnit = Integer.parseInt(sisaankaynnitTF.getText());
 				int uloskaynnit = Integer.parseInt(uloskaynnitTF.getText());
-				try {
-					AudioPlayer.playMusic();
-				} catch (UnsupportedAudioFileException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (LineUnavailableException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				kontrolleri.kaynnistaSimulointi(aika, viive, mainostus, max, min, yllapito, tasapeli, voitto, pelit,
-						baarit,
-						sisaankaynnit, uloskaynnit);
-				startBTN.setText("PAUSE");
-				naytaTulokset();
-			} else {
-				handlePause();
+
+				kontrolleri.asetaSyotteetMoottoriin(aika, viive, mainostus, max, min, yllapito, tasapeli, voitto,
+						pelit, baarit, sisaankaynnit, uloskaynnit);
+			} catch (IllegalArgumentException e) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Syötteissä virheitä");
+				alert.setContentText(e.getMessage());
+
+				alert.showAndWait();
+				kontrolleri.resetoiSimulointi();
+				return;
 			}
-		}
-	}
 
-	private boolean isInputValid() {
-		String errorMessage = "";
-
-		if (aikaTF.getText() == null || aikaTF.getText().length() == 0) {
-			errorMessage += "Syötä simulaation aika.\n";
-		} else {
 			try {
-				Double.parseDouble(aikaTF.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "Syötteen pitää olla numero!\n";
+				AudioPlayer.playMusic();
+			} catch (UnsupportedAudioFileException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}
-		if (viiveTF.getText() == null || viiveTF.getText().length() == 0) {
-			errorMessage += "Syötä viive.\n";
+
+			kontrolleri.kaynnistaSimulointi();
+
+			startBTN.setText("PAUSE");
+			naytaTulokset();
 		} else {
-			try {
-				Long.parseLong(viiveTF.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "Syötteen pitää olla numero!\n";
-			}
-		}
-
-		if (mainostusTF.getText() == null || mainostusTF.getText().length() == 0) {
-			errorMessage += "Syötä mainostuksen määrä.\n";
-		} else {
-			try {
-				Double.parseDouble(mainostusTF.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "Syötteen pitää olla numero!\n";
-			}
-		}
-
-		if (maxTF.getText() == null || maxTF.getText().length() == 0) {
-			errorMessage += "Syötä maksimipanos\n";
-		} else {
-			try {
-				Integer.parseInt(maxTF.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "Syötteen pitää olla numero!\n";
-			}
-		}
-
-		if (minTF.getText() == null || minTF.getText().length() == 0) {
-			errorMessage += "Syötä minimipanos.\n";
-		} else {
-			try {
-				Integer.parseInt(minTF.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "Syötteen pitää olla numero!\n";
-			}
-		}
-
-		if (yllapitoTF.getText() == null || yllapitoTF.getText().length() == 0) {
-			errorMessage += "Syötä ylläpidon määrä.\n";
-		} else {
-			try {
-				Double.parseDouble(yllapitoTF.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "Syötteen pitää olla numero!\n";
-			}
-		}
-
-		if (tasapeliTF.getText() == null || tasapeliTF.getText().length() == 0) {
-			errorMessage += "Syötä tasapeli prosentti.\n";
-		} else {
-			try {
-				Double.parseDouble(tasapeliTF.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "Syötteen pitää olla numero!\n";
-			}
-		}
-
-		if (voittoTF.getText() == null || voittoTF.getText().length() == 0) {
-			errorMessage += "Syötä voittoprosentti.\n";
-		} else {
-			try {
-				Double.parseDouble(voittoTF.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "Syötteen pitää olla numero!\n";
-			}
-		}
-
-		if (pelitTF.getText() == null || pelitTF.getText().length() == 0) {
-			errorMessage += "Syötä pelien määrä.\n";
-		} else {
-			try {
-				Integer.parseInt(pelitTF.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "Syötteen pitää olla numero!\n";
-			}
-		}
-
-		if (baaritTF.getText() == null || baaritTF.getText().length() == 0) {
-			errorMessage += "Syötä baarien määrä.\n";
-		} else {
-			try {
-				Integer.parseInt(baaritTF.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "Syötteen pitää olla numero!\n";
-			}
-		}
-
-		if (sisaankaynnitTF.getText() == null || sisaankaynnitTF.getText().length() == 0) {
-			errorMessage += "Syötä sisäänkäyntien määrä.\n";
-		} else {
-			try {
-				Integer.parseInt(sisaankaynnitTF.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "Syötteen pitää olla numero!\n";
-			}
-		}
-
-		if (uloskaynnitTF.getText() == null || uloskaynnitTF.getText().length() == 0) {
-			errorMessage += "Syötä uloskäyntien määrä.\n";
-		} else {
-			try {
-				Integer.parseInt(uloskaynnitTF.getText());
-			} catch (NumberFormatException e) {
-				errorMessage += "Syötteen pitää olla numero!\n";
-			}
-		}
-
-		if (errorMessage.length() == 0) {
-			return true;
-		} else {
-			// Show the error message.
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Syötteissä virheitä");
-			alert.setContentText(errorMessage);
-
-			alert.showAndWait();
-
-			return false;
+			handlePause();
 		}
 	}
 
@@ -407,11 +283,11 @@ public class SimulaattoriGUIController {
 	public void setAvgLapimeno(String value) {
 		avgLapimenoID.setText(value);
 	}
-	
+
 	public void resetStartButton() {
 		startBTN.setText("START");
 	}
-	
+
 	public void virheilmoitusDialogi(String viesti) {
 		Alert ilmoitus = new Alert(AlertType.ERROR);
 		ilmoitus.setTitle("Virhe");

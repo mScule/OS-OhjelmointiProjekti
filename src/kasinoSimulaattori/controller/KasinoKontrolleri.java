@@ -187,7 +187,7 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	// IKontrolleriVtoM:
 
 	@Override
-	public void kaynnistaSimulointi(double aika, long viive, double mainostus, int max, int min, double yllapito,
+	public void asetaSyotteetMoottoriin(double aika, long viive, double mainostus, int max, int min, double yllapito,
 			double tasapeli, double voitto, int pelit, int baarit, int sisaankaynnit, int uloskaynnit) {
 		moottori = new OmaMoottori(this);
 		moottori.setSimulointiaika(aika);
@@ -202,7 +202,15 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 		moottori.lisaaPalvelupisteita(TapahtumanTyyppi.BAARI, baarit);
 		moottori.lisaaPalvelupisteita(TapahtumanTyyppi.SISAANKAYNTI, sisaankaynnit);
 		moottori.lisaaPalvelupisteita(TapahtumanTyyppi.ULOSKAYNTI, uloskaynnit);
+	}
+
+	@Override
+	public void kaynnistaSimulointi(){
 		((Thread) moottori).start();
+	}
+
+	public void resetoiSimulointi(){
+		moottori = new OmaMoottori(this);
 	}
 
 	@Override

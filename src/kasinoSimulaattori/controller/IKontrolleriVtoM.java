@@ -9,7 +9,7 @@ public interface IKontrolleriVtoM {
 	// Rajapinta, joka tarjotaan käyttöliittymälle:
 
 	/**
-	 * Simuloinnin moottorin instanssi luodaan ja alustetaan. Visualisointi käynnistetään.
+	 * Simuloinnin moottorin instanssi luodaan ja alustetaan.
 	 * @param aika Simulaation kesto.
 	 * @param viive Tapahtumalistan tapahtumien aikaväli simuloinnin aikana.
 	 * @param mainostus Mainostukseen käytetyt rahat.
@@ -23,9 +23,13 @@ public interface IKontrolleriVtoM {
 	 * @param sisaankaynnit Sisäänkäyntien määrä.
 	 * @param uloskaynnit Uloskäyntien määrä.
 	 */
-	public void kaynnistaSimulointi(double aika, long viive, double mainostus, int max, int min, 
+	public void asetaSyotteetMoottoriin(double aika, long viive, double mainostus, int max, int min, 
 			double yllapito, double tasapeli, double voitto, int pelit, int baarit, 
 			int sisaankaynnit, int uloskaynnit);
+	/**
+	 * Käynnistää moottorin.
+	 */
+	public void kaynnistaSimulointi();
 
 	/**
 	 * Pienentää viivettä tapahtumien simuloinnin välissä 10 prosentilla.
@@ -63,4 +67,8 @@ public interface IKontrolleriVtoM {
 	 * Käynnistää visualisoinnin uudestaan.
 	 */
 	public void resetVisualistointi();
+	/**
+	 * Luo uuden tyhjän instannsin moottorista.
+	 */
+	public void resetoiSimulointi();
 }
