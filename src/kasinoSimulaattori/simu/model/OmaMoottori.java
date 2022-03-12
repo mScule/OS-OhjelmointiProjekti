@@ -21,7 +21,7 @@ import javafx.application.Platform;
 public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 	private Kello kello = Kello.getInstance();
-	
+
 	private Saapumisprosessi saapumisprosessi;
 
 	private int saapuneidenAsiakkaidenMaara = 0, poistuneidenAsiakkaidenMaara = 0;
@@ -43,7 +43,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			blackjackSijainti = new Sijainti(5 * 128, 1 * 128),
 			sisaankayntiSijainti = new Sijainti(2 * 128, 4 * 128),
 			uloskayntiSijainti = new Sijainti(4 * 128, 4 * 128);
-	
+
 	private KasinoDAO kasinoDAO = KasinoDAO.getInstanssi();
 
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
@@ -277,11 +277,13 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				nykysijainti.getX() != loppusijainti.getX() &&
 				nykysijainti.getY() != loppusijainti.getY()) {
 			Trace.out(Trace.Level.INFO, "Asiakas animaatio " + nykysijainti + " : " + loppusijainti);
-			kontrolleri.visualisoiAsiakas(
-					nykysijainti.getX(),
-					nykysijainti.getY(),
-					loppusijainti.getX(),
-					loppusijainti.getY());
+			if (kontrolleri != null) {
+				kontrolleri.visualisoiAsiakas(
+						nykysijainti.getX(),
+						nykysijainti.getY(),
+						loppusijainti.getX(),
+						loppusijainti.getY());
+			}
 		}
 
 		// Päivitetään luvut visualisoinnissa
@@ -326,45 +328,49 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 						break;
 				}
 			}
+			if (kontrolleri != null) {
+				kontrolleri.baariJonossa(baariJono);
+				kontrolleri.baariPalveltavat(baariPalveltavat);
+				kontrolleri.baariTyontekijat(baariTyontekijat);
 
-			kontrolleri.baariJonossa(baariJono);
-			kontrolleri.baariPalveltavat(baariPalveltavat);
-			kontrolleri.baariTyontekijat(baariTyontekijat);
+				kontrolleri.blackjackJonossa(blackjackJono);
+				kontrolleri.blackjackPalveltavat(blackjackPalveltavat);
+				kontrolleri.blackjackTyontekijat(blackjackTyontekijat);
 
-			kontrolleri.blackjackJonossa(blackjackJono);
-			kontrolleri.blackjackPalveltavat(blackjackPalveltavat);
-			kontrolleri.blackjackTyontekijat(blackjackTyontekijat);
+				kontrolleri.uloskayntiJonossa(uloskayntiJono);
+				kontrolleri.uloskayntiPalveltavat(uloskayntiPalveltavat);
+				kontrolleri.uloskayntiTyontekijat(uloskayntiTyontekijat);
 
-			kontrolleri.uloskayntiJonossa(uloskayntiJono);
-			kontrolleri.uloskayntiPalveltavat(uloskayntiPalveltavat);
-			kontrolleri.uloskayntiTyontekijat(uloskayntiTyontekijat);
-
-			kontrolleri.sisaankayntiJonossa(sisaankayntiJono);
-			kontrolleri.sisaankayntiPalveltavat(sisaankayntiPalveltavat);
-			kontrolleri.sisaankayntiTyontekijat(sisaankayntiTyontekijat);
+				kontrolleri.sisaankayntiJonossa(sisaankayntiJono);
+				kontrolleri.sisaankayntiPalveltavat(sisaankayntiPalveltavat);
+				kontrolleri.sisaankayntiTyontekijat(sisaankayntiTyontekijat);
+			}
 		}
 
 		// Päivitetään tulokset GUI:hin
+		if (kontrolleri != null) {
+			Platform.runLater(() -> {
+				kontrolleri.setAika(kello.getAika() + "");
+				kontrolleri.setRahat(getTulokset()[IOmaMoottori.TULOS_RAHA] + "");
+				kontrolleri.setVoitot(getTulokset()[IOmaMoottori.TULOS_VOITTO] + "");
+				kontrolleri.setSaapuneet(getTulokset()[IOmaMoottori.TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA] + "");
+				kontrolleri.setPalvellut(getTulokset()[IOmaMoottori.TULOS_POISTUNEIDEN_ASIAKKAIDEN_MAARA] + "");
+				kontrolleri.setAvgJono(getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_JONONPITUUS] + "");
+				kontrolleri.setKokonaisoleskelu(getTulokset()[IOmaMoottori.TULOS_KOKONAISOLESKELUAIKA] + "");
 
-		Platform.runLater(() -> {
-			kontrolleri.setAika(kello.getAika() + "");
-			kontrolleri.setRahat(getTulokset()[IOmaMoottori.TULOS_RAHA] + "");
-			kontrolleri.setVoitot(getTulokset()[IOmaMoottori.TULOS_VOITTO] + "");
-			kontrolleri.setSaapuneet(getTulokset()[IOmaMoottori.TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA] + "");
-			kontrolleri.setPalvellut(getTulokset()[IOmaMoottori.TULOS_POISTUNEIDEN_ASIAKKAIDEN_MAARA] + "");
-			kontrolleri.setAvgJono(getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_JONONPITUUS] + "");
-			kontrolleri.setKokonaisoleskelu(getTulokset()[IOmaMoottori.TULOS_KOKONAISOLESKELUAIKA] + "");
-
-			kontrolleri.setAvgOnnellisuus(getTulokset()[IOmaMoottori.TULOS_KESKIM_MIELENTILA] + "");
-			kontrolleri.setAvgPaihtymys(getTulokset()[IOmaMoottori.TULOS_KESKIM_PAIHTYNEISYYS] + "");
-			kontrolleri.setAvgVarallisuus(getTulokset()[IOmaMoottori.TULOS_KESKIM_VARAKKUUS] + "");
-			kontrolleri.setAvgLapimeno(getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_LAPIMENOAIKA] + "");
-		});
+				kontrolleri.setAvgOnnellisuus(getTulokset()[IOmaMoottori.TULOS_KESKIM_MIELENTILA] + "");
+				kontrolleri.setAvgPaihtymys(getTulokset()[IOmaMoottori.TULOS_KESKIM_PAIHTYNEISYYS] + "");
+				kontrolleri.setAvgVarallisuus(getTulokset()[IOmaMoottori.TULOS_KESKIM_VARAKKUUS] + "");
+				kontrolleri.setAvgLapimeno(getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_LAPIMENOAIKA] + "");
+			});
+		}
 	}
 
 	@Override
 	protected void lopetus() {
-		kontrolleri.lopetaVisualisointi("Simulaatio päättyi");
+		if (kontrolleri != null) {
+			kontrolleri.lopetaVisualisointi("Simulaatio päättyi");
+		}
 	}
 
 	@Override
@@ -398,23 +404,29 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				getTulokset()[IOmaMoottori.TULOS_KESKIM_VARAKKUUS],
 				getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_LAPIMENOAIKA]);
 
-		if(kasinoDAO.lisaaTulokset(uudetTulokset)) {
+		if (kasinoDAO.lisaaTulokset(uudetTulokset)) {
 			// Haetaan kaikki mitatut tulokset tietokannasta
 			KasinoTulokset[] kaikkiTulokset = kasinoDAO.haeTulokset();
-			
-			if(kaikkiTulokset == null) {
-				kontrolleri.virheilmoitusDialogi("Tulosten hakeminen tietokannasta epäonnistui.");
-			} else { 
+
+			if (kaikkiTulokset == null) {
+				if (kontrolleri != null) {
+					kontrolleri.virheilmoitusDialogi("Tulosten hakeminen tietokannasta epäonnistui.");
+				}
+			} else {
 				// Infotasolla tulostetaan kaikki tulokset konsoliin
 				int i = 1;
 				for (KasinoTulokset t : kaikkiTulokset)
 					Trace.out(Trace.Level.INFO, "Ajo (" + i++ + ")\n" + t + "\n");
 
 				// Avataan uusimmat tulokset ikkunassa
-				kontrolleri.naytaTulokset(kaikkiTulokset);
+				if (kontrolleri != null) {
+					kontrolleri.naytaTulokset(kaikkiTulokset);
+				}
 			}
 		} else {
-			kontrolleri.virheilmoitusDialogi("Tulosten lisäys tietokantaan epäonnistui.");
+			if (kontrolleri != null) {
+				kontrolleri.virheilmoitusDialogi("Tulosten lisäys tietokantaan epäonnistui.");
+			}
 		}
 	}
 

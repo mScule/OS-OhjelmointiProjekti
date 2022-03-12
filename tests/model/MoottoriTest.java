@@ -32,8 +32,7 @@ class MoottoriTest {
 	}
 
 	@BeforeEach
-	public void nollaaKello() {
-		Kello.getInstance().setAika(0);
+	public void luoUusiMoottori() {
 		m = new OmaMoottori(null);
 	}
 
