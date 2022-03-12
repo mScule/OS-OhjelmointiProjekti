@@ -52,8 +52,7 @@ public class AsiakasSpawner extends Thread {
 		try {
 			luoAsiakkaita();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 }

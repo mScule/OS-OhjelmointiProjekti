@@ -150,11 +150,11 @@ public class SimulaattoriGUIController {
 			try {
 				AudioPlayer.playMusic();
 			} catch (UnsupportedAudioFileException e) {
-				Trace.out(Level.ERR, e.getMessage());
+				System.err.println(e.getMessage());
 			} catch (IOException e) {
-				Trace.out(Level.ERR, e.getMessage());
+				System.err.println(e.getMessage());
 			} catch (LineUnavailableException e) {
-				Trace.out(Level.ERR, e.getMessage());
+				System.err.println(e.getMessage());
 			}
 
 			kontrolleri.kaynnistaSimulointi();

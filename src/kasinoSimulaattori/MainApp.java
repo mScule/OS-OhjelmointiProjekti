@@ -98,7 +98,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
             
             primaryStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
     
@@ -119,7 +119,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
             // Asetetaan canvas
             gui.setVisualisaattori(visualisointi.getCanvas());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
     
@@ -179,7 +179,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
 	        tuloksetKontrolleri.avaa(tulokset);
 	        tuloksetStage.show();
 		} catch (IOException e) {
-			Trace.out(Trace.Level.ERR, "Virhe tulosten näyttämisessä");
+			System.err.println("Virhe tulosten näyttämisessä");
 		}
 	}
 
@@ -187,8 +187,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
         try {
 			visualisointi = new KasinoVisualisointi();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
         gui.setVisualisaattori(visualisointi.getCanvas());
         visualisointi.start();

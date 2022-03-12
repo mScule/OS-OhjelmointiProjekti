@@ -137,7 +137,7 @@ public class TuloksetGUIController {
 	 */
 	public void avaa(KasinoTulokset[] tulokset) {
 		if(tulokset.length <= 0)
-			Trace.out(Trace.Level.ERR, "Ei tuloksia");
+			System.err.println("Ei tuloksia");
 		else {
 			this.tulokset = tulokset;
 			naytettava = tulokset.length - 1;
