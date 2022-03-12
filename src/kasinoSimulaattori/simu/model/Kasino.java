@@ -85,7 +85,6 @@ public final class Kasino {
         // Resetoi asiakkaat
 
         Asiakas.i = 1;
-        Asiakas.sum = 0;
 
         Palvelupiste.palveluid = 0;
         

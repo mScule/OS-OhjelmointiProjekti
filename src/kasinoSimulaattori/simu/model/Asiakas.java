@@ -4,15 +4,21 @@ import kasinoSimulaattori.eduni.distributions.Normal;
 import kasinoSimulaattori.simu.framework.Kello;
 import kasinoSimulaattori.simu.framework.Trace;
 
-// Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
+/**
+ * Kasinon asiakasluokka.
+ * 
+ * @author Jonathan Methuen
+ */
 public class Asiakas implements IAsiakas {
 
 	private Kello kello = Kello.getInstance();
 	private double saapumisaika;
-	private double poistumisaika;
 	private int id;
+	/**
+	 * Numero, joka kasvaa koko ajan kun luokasta luodaan olioita. Käytetään
+	 * jokaisen olion oman id arvon asettamiseen.
+	 */
 	public static int i = 1;
-	public static long sum = 0;
 	private double[] ominaisuudet = new double[Ominaisuus.values().length];
 	private double asiakkaanLahtoVarat;
 	private Normal normal;
@@ -50,7 +56,7 @@ public class Asiakas implements IAsiakas {
 			} else {
 				// TODO lower varakkuus based on min bet
 				while (sample < 0) {
-					sample = (0.5 + normal.sample()) / (200 / (double)Kasino.getMinBet());
+					sample = (0.5 + normal.sample()) / (200 / (double) Kasino.getMinBet());
 				}
 			}
 			ominaisuudet[i] = sample;
@@ -88,16 +94,6 @@ public class Asiakas implements IAsiakas {
 
 	public int getId() {
 		return id;
-	}
-
-	public void raportti() {
-		Trace.out(Trace.Level.INFO, "\nAsiakas " + id + " valmis! ");
-		Trace.out(Trace.Level.INFO, "Asiakas " + id + " saapui: " + saapumisaika);
-		Trace.out(Trace.Level.INFO, "Asiakas " + id + " poistui: " + poistumisaika);
-		Trace.out(Trace.Level.INFO, "Asiakas " + id + " viipyi: " + (poistumisaika - saapumisaika));
-		sum += (poistumisaika - saapumisaika);
-		double keskiarvo = sum / id;
-		Trace.out(Trace.Level.INFO,"Asiakkaiden läpimenoaikojen keskiarvo tähän asti " + keskiarvo);
 	}
 
 	@Override
