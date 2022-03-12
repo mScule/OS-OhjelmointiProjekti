@@ -76,7 +76,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void setYllapitoRahamaara(double rahamaara) {
-		tarkistaDoubleLuku(rahamaara);
+		tarkistaDoubleLuku(rahamaara, "Valitse ylläpidon rahamääräksi joku positiivinen double luku.");
 
 		Kasino.setYllapitohinta(rahamaara);
 
@@ -95,7 +95,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void setMainostusRahamaara(double rahamaara) {
-		tarkistaDoubleLuku(rahamaara);
+		tarkistaDoubleLuku(rahamaara, "Valitse mainostuksen rahamääräksi joku positiivinen double luku.");
 
 		Kasino.setMainoskulut(rahamaara);
 
@@ -108,15 +108,14 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void lisaaPalvelupisteita(TapahtumanTyyppi palvelupisteTyyppi, int maara) {
-		tarkistaIntLuku(maara);
 
 		switch (palvelupisteTyyppi) {
 			case SISAANKAYNTI:
+				tarkistaIntLuku(maara,
+						"Valitse lisättävien sisäänkäyntien lukumääräksi nolla tai joku positiivinen int luku.");
+
 				for (int i = 0; i < maara; i++) {
-					// palvelupisteet.put(TapahtumanTyyppi.SISAANKAYNTI, new Sisaankaynti[] {
-					// new Sisaankaynti(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()),
-					// tapahtumalista)
-					// });
+
 					palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)
 							.add(new Sisaankaynti(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()),
 									tapahtumalista, sisaankayntiSijainti,
@@ -126,6 +125,9 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				break;
 
 			case ULOSKAYNTI:
+				tarkistaIntLuku(maara,
+						"Valitse lisättävien uloskäyntien lukumääräksi nolla tai joku positiivinen int luku.");
+
 				for (int i = 0; i < maara; i++) {
 
 					palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI)
@@ -136,6 +138,9 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				break;
 
 			case BAARI:
+				tarkistaIntLuku(maara,
+						"Valitse lisättävien baarien lukumääräksi nolla tai joku positiivinen int luku.");
+
 				for (int i = 0; i < maara; i++) {
 					palvelupisteet.get(TapahtumanTyyppi.BAARI)
 							.add(new Baari(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()),
@@ -146,6 +151,9 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				break;
 
 			case PELI:
+				tarkistaIntLuku(maara,
+						"Valitse lisättävien blackjack pöytien lukumääräksi nolla tai joku positiivinen int luku.");
+
 				for (int i = 0; i < maara; i++) {
 					palvelupisteet.get(TapahtumanTyyppi.PELI)
 							.add(new Peli(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()),
@@ -542,7 +550,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void setBlackjackVoittoprosentti(double blackjackVoittoprosentti) {
-		tarkistaDoubleProsenttiluku(blackjackVoittoprosentti);
+		tarkistaDoubleProsenttiluku(blackjackVoittoprosentti,
+				"Valitse voittoprosentiksi joku double luku 0-1 väliltä.");
 
 		Kasino.setBlackjackVoittoprosentti(blackjackVoittoprosentti);
 	}
@@ -552,11 +561,10 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void setBlackjackTasapeliprosentti(double blackjackTasapeliprosentti) {
-		if (blackjackTasapeliprosentti <= 1 && blackjackTasapeliprosentti > 0) {
-			Kasino.setBlackjackTasapeliprosentti(blackjackTasapeliprosentti);
-		} else {
-			throw new IllegalArgumentException("Valitse joku double luku 0-1 väliltä.");
-		}
+		tarkistaDoubleProsenttiluku(blackjackTasapeliprosentti,
+				"Valitse tasapeliprosentiksi joku double luku 0-1 väliltä.");
+
+		Kasino.setBlackjackTasapeliprosentti(blackjackTasapeliprosentti);
 	}
 
 	public double getMinBet() {
@@ -564,7 +572,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void setMinBet(double minBet) {
-		tarkistaDoubleLuku(minBet);
+		tarkistaDoubleLuku(minBet, "Valitse minimipanoksesksi joku positiivinen double luku.");
 		Kasino.setMinBet(minBet);
 	}
 
@@ -573,7 +581,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	public void setMaxBet(double maxBet) {
-		tarkistaDoubleLuku(maxBet);
+		tarkistaDoubleLuku(maxBet, "Valitse maksimipanoksesksi joku positiivinen double luku.");
 		Kasino.setMaxBet(maxBet);
 	}
 

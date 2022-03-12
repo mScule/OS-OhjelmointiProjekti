@@ -73,13 +73,13 @@ public abstract class Moottori extends Thread implements IMoottori {
 
 	@Override
 	public void setSimulointiaika(double aika) {
-		tarkistaDoubleLuku(aika);
+		tarkistaDoubleLuku(aika, "Valitse simulaation ajaksi joku positiivinen double luku.");
 		simulointiaika = aika;
 	}
 
 	@Override
 	public void setViive(long viive) {
-		tarkistaLongLuku(viive);
+		tarkistaLongLuku(viive, "Valitse simulaation viiveeksi joku positiivinen long luku.");
 		this.viive = viive;
 	}
 
@@ -114,26 +114,26 @@ public abstract class Moottori extends Thread implements IMoottori {
 		lopetus();
 	}
 
-	public void tarkistaDoubleProsenttiluku(double luku) {
+	public void tarkistaDoubleProsenttiluku(double luku, String message) {
 		if (!(luku <= 1) || !(luku > 0)) {
-			throw new IllegalArgumentException("Valitse joku double luku 0-1 väliltä.");
+			throw new IllegalArgumentException(message);
 		}
 	}
 
-	public void tarkistaDoubleLuku(double luku) {
+	public void tarkistaDoubleLuku(double luku, String message) {
 		if (luku < 0)
-			throw new IllegalArgumentException("Valitse joku positiivinen double luku.");
+			throw new IllegalArgumentException(message);
 	}
 
-	public void tarkistaIntLuku(int luku) {
+	public void tarkistaIntLuku(int luku, String message) {
 		if (luku < 0) {
-			throw new IllegalArgumentException("Valitse joku positiivinen int luku.");
+			throw new IllegalArgumentException(message);
 		}
 	}
 
-	public void tarkistaLongLuku(long luku) {
+	public void tarkistaLongLuku(long luku, String message) {
 		if (luku < 0) {
-			throw new IllegalArgumentException("Valitse joku positiivinen long luku.");
+			throw new IllegalArgumentException(message);
 		}
 	}
 

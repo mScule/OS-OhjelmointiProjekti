@@ -8,8 +8,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 import kasinoSimulaattori.simu.framework.Kello;
 import kasinoSimulaattori.simu.framework.Moottori;
@@ -36,9 +34,12 @@ class MoottoriTest {
 		m = new OmaMoottori(null);
 	}
 
-	@ParameterizedTest(name = "Tuleeko samat lopputulokset samoilla lähtöarvoilla")
-	@CsvSource({ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11" })
-	void testaaSamatLoppuarvot(int luku) throws InterruptedException {
+	// @ParameterizedTest(name = "Tuleeko samat lopputulokset samoilla
+	// lähtöarvoilla")
+	// @CsvSource({ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11" })
+	@Test
+	@DisplayName("Tuleeko samat lopputulokset samoilla lähtöarvoilla")
+	void testaaSamatLoppuarvot() throws InterruptedException {
 		m.setBlackjackTasapeliprosentti(0.08);
 		m.setMainostusRahamaara(4000);
 		m.setBlackjackVoittoprosentti(0.42);
@@ -53,7 +54,7 @@ class MoottoriTest {
 		m.start();
 		m.join();
 
-		double tulos1 = m.getTulokset()[luku];
+		double[] tuloskset1 = m.getTulokset();
 
 		Kello.getInstance().setAika(0);
 
@@ -72,12 +73,21 @@ class MoottoriTest {
 		m2.start();
 		m2.join();
 
-		double tulos2 = m2.getTulokset()[luku];
+		double[] tuloskset2 = m.getTulokset();
 
-		System.out.println("m.getTulokset()[" + luku + "]: " + tulos1);
-		System.out.println("m2.getTulokset()[" + luku + "]: " + tulos2);
+		int i = 0;
+		for (double d : tuloskset1) {
+			System.out.println("tulokset1: " + i + ": " + d);
+			i++;
+		}
 
-		assertEquals(tulos1, tulos2, DELTA, ("Eri tulos"));
+		i = 0;
+		for (double d : tuloskset2) {
+			System.out.println("tulokset2: " + i + ": " + d);
+			i++;
+		}
+
+		assertArrayEquals(tuloskset1, tuloskset2, DELTA, ("Eri tulos"));
 	}
 
 	@Test
@@ -85,7 +95,17 @@ class MoottoriTest {
 	void testaaSetSimulointiaika() {
 		IllegalArgumentException poikkeus = assertThrows(IllegalArgumentException.class,
 				() -> m.setSimulointiaika(-1), "Negatiivinen argumentti ei tuottanut poikkeusta.");
-		assertEquals("Valitse joku positiivinen double luku.", poikkeus.getMessage(), "Väärä virheilmoitus");
+		assertEquals("Valitse simulaation ajaksi joku positiivinen double luku.", poikkeus.getMessage(),
+				"Väärä virheilmoitus");
+	}
+
+	@Test
+	@DisplayName("Testaa setSimulointiaika() negatiivinen argumentti")
+	void testaaSetViive() {
+		IllegalArgumentException poikkeus = assertThrows(IllegalArgumentException.class,
+				() -> m.setViive(-1), "Negatiivinen argumentti ei tuottanut poikkeusta.");
+		assertEquals("Valitse simulaation viiveeksi joku positiivinen long luku.", poikkeus.getMessage(),
+				"Väärä virheilmoitus");
 	}
 
 	@Test
@@ -93,7 +113,8 @@ class MoottoriTest {
 	void testaaSetMainostusRahamaara() {
 		IllegalArgumentException poikkeus = assertThrows(IllegalArgumentException.class,
 				() -> m.setMainostusRahamaara(-1), "Negatiivinen argumentti ei tuottanut poikkeusta.");
-		assertEquals("Valitse joku positiivinen double luku.", poikkeus.getMessage(), "Väärä virheilmoitus");
+		assertEquals("Valitse mainostuksen rahamääräksi joku positiivinen double luku.", poikkeus.getMessage(),
+				"Väärä virheilmoitus");
 	}
 
 	@Test
@@ -109,7 +130,8 @@ class MoottoriTest {
 	void testaaSetYllapitoRahamaara() {
 		IllegalArgumentException poikkeus = assertThrows(IllegalArgumentException.class,
 				() -> m.setYllapitoRahamaara(-1), "Negatiivinen argumentti ei tuottanut poikkeusta.");
-		assertEquals("Valitse joku positiivinen double luku.", poikkeus.getMessage(), "Väärä virheilmoitus");
+		assertEquals("Valitse ylläpidon rahamääräksi joku positiivinen double luku.", poikkeus.getMessage(),
+				"Väärä virheilmoitus");
 	}
 
 	@Test
@@ -125,7 +147,8 @@ class MoottoriTest {
 	void testaaSetBlackjackVoittoprosentti() {
 		IllegalArgumentException poikkeus = assertThrows(IllegalArgumentException.class,
 				() -> m.setBlackjackVoittoprosentti(-1), "Negatiivinen argumentti ei tuottanut poikkeusta.");
-		assertEquals("Valitse joku double luku 0-1 väliltä.", poikkeus.getMessage(), "Väärä virheilmoitus");
+		assertEquals("Valitse voittoprosentiksi joku double luku 0-1 väliltä.", poikkeus.getMessage(),
+				"Väärä virheilmoitus");
 	}
 
 	@Test
@@ -133,7 +156,8 @@ class MoottoriTest {
 	void testaaSetBlackjackVoittoprosentti2() {
 		IllegalArgumentException poikkeus = assertThrows(IllegalArgumentException.class,
 				() -> m.setBlackjackVoittoprosentti(1.1), "Liian iso argumentti ei tuottanut poikkeusta.");
-		assertEquals("Valitse joku double luku 0-1 väliltä.", poikkeus.getMessage(), "Väärä virheilmoitus");
+		assertEquals("Valitse voittoprosentiksi joku double luku 0-1 väliltä.", poikkeus.getMessage(),
+				"Väärä virheilmoitus");
 	}
 
 	@Test
@@ -149,7 +173,8 @@ class MoottoriTest {
 	void testaaSetBlackjackTasapeliprosentti() {
 		IllegalArgumentException poikkeus = assertThrows(IllegalArgumentException.class,
 				() -> m.setBlackjackTasapeliprosentti(-1), "Negatiivinen argumentti ei tuottanut poikkeusta.");
-		assertEquals("Valitse joku double luku 0-1 väliltä.", poikkeus.getMessage(), "Väärä virheilmoitus");
+		assertEquals("Valitse tasapeliprosentiksi joku double luku 0-1 väliltä.", poikkeus.getMessage(),
+				"Väärä virheilmoitus");
 	}
 
 	@Test
@@ -157,7 +182,8 @@ class MoottoriTest {
 	void testaaSetBlackjackTasapeliprosentti2() {
 		IllegalArgumentException poikkeus = assertThrows(IllegalArgumentException.class,
 				() -> m.setBlackjackTasapeliprosentti(1.1), "Liian iso argumentti ei tuottanut poikkeusta.");
-		assertEquals("Valitse joku double luku 0-1 väliltä.", poikkeus.getMessage(), "Väärä virheilmoitus");
+		assertEquals("Valitse tasapeliprosentiksi joku double luku 0-1 väliltä.", poikkeus.getMessage(),
+				"Väärä virheilmoitus");
 	}
 
 	@Test
@@ -173,7 +199,8 @@ class MoottoriTest {
 	void testaaSetMaxBet() {
 		IllegalArgumentException poikkeus = assertThrows(IllegalArgumentException.class,
 				() -> m.setMaxBet(-1), "Negatiivinen argumentti ei tuottanut poikkeusta.");
-		assertEquals("Valitse joku positiivinen int luku.", poikkeus.getMessage(), "Väärä virheilmoitus");
+		assertEquals("Valitse maksimipanoksesksi joku positiivinen double luku.", poikkeus.getMessage(),
+				"Väärä virheilmoitus");
 	}
 
 	@Test
@@ -189,7 +216,8 @@ class MoottoriTest {
 	void testaaSetMinBet() {
 		IllegalArgumentException poikkeus = assertThrows(IllegalArgumentException.class,
 				() -> m.setMinBet(-1), "Negatiivinen argumentti ei tuottanut poikkeusta.");
-		assertEquals("Valitse joku positiivinen int luku.", poikkeus.getMessage(), "Väärä virheilmoitus");
+		assertEquals("Valitse minimipanoksesksi joku positiivinen double luku.", poikkeus.getMessage(),
+				"Väärä virheilmoitus");
 	}
 
 	@Test
@@ -206,7 +234,8 @@ class MoottoriTest {
 		IllegalArgumentException poikkeus = assertThrows(IllegalArgumentException.class,
 				() -> m.lisaaPalvelupisteita(TapahtumanTyyppi.PELI, -1),
 				"Negatiivinen argumentti ei tuottanut poikkeusta.");
-		assertEquals("Valitse joku positiivinen int luku.", poikkeus.getMessage(), "Väärä virheilmoitus");
+		assertEquals("Valitse lisättävien blackjack pöytien lukumääräksi nolla tai joku positiivinen int luku.",
+				poikkeus.getMessage(), "Väärä virheilmoitus");
 	}
 
 	@Test
