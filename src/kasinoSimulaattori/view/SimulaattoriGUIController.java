@@ -17,6 +17,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import kasinoSimulaattori.MainApp;
 import kasinoSimulaattori.controller.IKontrolleriVtoM;
+import kasinoSimulaattori.simu.framework.Trace;
+import kasinoSimulaattori.simu.framework.Trace.Level;
 import kasinoSimulaattori.simu.model.Kasino;
 import kasinoSimulaattori.util.AudioPlayer;
 
@@ -148,14 +150,11 @@ public class SimulaattoriGUIController {
 			try {
 				AudioPlayer.playMusic();
 			} catch (UnsupportedAudioFileException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Trace.out(Level.ERR, e.getMessage());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Trace.out(Level.ERR, e.getMessage());
 			} catch (LineUnavailableException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Trace.out(Level.ERR, e.getMessage());
 			}
 
 			kontrolleri.kaynnistaSimulointi();
