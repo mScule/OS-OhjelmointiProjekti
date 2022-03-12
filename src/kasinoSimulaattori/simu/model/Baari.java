@@ -27,7 +27,7 @@ public class Baari extends Palvelupiste {
 		lisaaPalveluAikaa(palveluaika);
 		Asiakas a = jono.peek();
 
-		a.setOminaisuus(Ominaisuus.PAIHTYMYS, a.getOminaisuudet(Ominaisuus.PAIHTYMYS)
+		a.setOminaisuus(Ominaisuus.PAIHTYMYS, a.getOminaisuus(Ominaisuus.PAIHTYMYS)
 				+ new Uniform(0, 0.2, 1337).sample());
 
 		// Arvotaan tapahtumantyyppi (Muu kuin sisäänkäynti)

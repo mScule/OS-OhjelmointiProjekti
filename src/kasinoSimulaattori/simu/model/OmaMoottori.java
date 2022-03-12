@@ -284,10 +284,10 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 					}
 				}
 
-				poistuneidenAsiakKokMielentila += a.getOminaisuudet(Ominaisuus.MIELIALA);
-				poistuneidenAsiakKokVarakkuus += a.getOminaisuudet(Ominaisuus.VARAKKUUS);
-				poistuneidenAsiakKokUhkarohkeus += a.getOminaisuudet(Ominaisuus.UHKAROHKEUS);
-				poistuneidenAsiakKokPaihtyneisyys += a.getOminaisuudet(Ominaisuus.PAIHTYMYS);
+				poistuneidenAsiakKokMielentila += a.getOminaisuus(Ominaisuus.MIELIALA);
+				poistuneidenAsiakKokVarakkuus += a.getOminaisuus(Ominaisuus.VARAKKUUS);
+				poistuneidenAsiakKokUhkarohkeus += a.getOminaisuus(Ominaisuus.UHKAROHKEUS);
+				poistuneidenAsiakKokPaihtyneisyys += a.getOminaisuus(Ominaisuus.PAIHTYMYS);
 
 				poistuneidenAsiakkaidenMaara++;
 				poistumisajatSummattuna += a.getPoistumisaika();
@@ -539,10 +539,10 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		synchronized (asiakkaatKasinolla) {
 			if (asiakkaatKasinolla != null && asiakkaatKasinolla.size() != 0) {
 				for (Asiakas asiakas : asiakkaatKasinolla) {
-					kokonaisMieliala += asiakas.getOminaisuudet(Ominaisuus.MIELIALA);
-					kokonaisVarakkuus += asiakas.getOminaisuudet(Ominaisuus.VARAKKUUS);
-					kokonaisUhkarohkeus += asiakas.getOminaisuudet(Ominaisuus.UHKAROHKEUS);
-					kokonaisPaihtymys += asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS);
+					kokonaisMieliala += asiakas.getOminaisuus(Ominaisuus.MIELIALA);
+					kokonaisVarakkuus += asiakas.getOminaisuus(Ominaisuus.VARAKKUUS);
+					kokonaisUhkarohkeus += asiakas.getOminaisuus(Ominaisuus.UHKAROHKEUS);
+					kokonaisPaihtymys += asiakas.getOminaisuus(Ominaisuus.PAIHTYMYS);
 				}
 			}
 		}

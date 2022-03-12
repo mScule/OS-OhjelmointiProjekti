@@ -89,13 +89,13 @@ public class Peli extends Palvelupiste {
 		while (jatkaa) {
 
 			// Alenna asiakkaan päihtyneisyyttä, kun hän pelaa
-			if ((asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS) - 0.005) > 0)
-				asiakas.setOminaisuus(Ominaisuus.PAIHTYMYS, (asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS) - 0.01));
+			if ((asiakas.getOminaisuus(Ominaisuus.PAIHTYMYS) - 0.005) > 0)
+				asiakas.setOminaisuus(Ominaisuus.PAIHTYMYS, (asiakas.getOminaisuus(Ominaisuus.PAIHTYMYS) - 0.01));
 
-			double asiakkaanMieliala = asiakas.getOminaisuudet(Ominaisuus.MIELIALA);
-			double asiakkaanVarakkuus = asiakas.getOminaisuudet(Ominaisuus.VARAKKUUS);
-			double asiakkaanUhkarohkeus = asiakas.getOminaisuudet(Ominaisuus.UHKAROHKEUS);
-			double asiakkaanPaihtymys = asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS);
+			double asiakkaanMieliala = asiakas.getOminaisuus(Ominaisuus.MIELIALA);
+			double asiakkaanVarakkuus = asiakas.getOminaisuus(Ominaisuus.VARAKKUUS);
+			double asiakkaanUhkarohkeus = asiakas.getOminaisuus(Ominaisuus.UHKAROHKEUS);
+			double asiakkaanPaihtymys = asiakas.getOminaisuus(Ominaisuus.PAIHTYMYS);
 
 			if (Kasino.getKasinonRahat() <= 0) {
 				// Lopeta simulointi.
@@ -159,10 +159,10 @@ public class Peli extends Palvelupiste {
 				Trace.out(Trace.Level.INFO, "Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 			}
 
-			asiakkaanMieliala = asiakas.getOminaisuudet(Ominaisuus.MIELIALA);
-			asiakkaanVarakkuus = asiakas.getOminaisuudet(Ominaisuus.VARAKKUUS);
-			asiakkaanUhkarohkeus = asiakas.getOminaisuudet(Ominaisuus.UHKAROHKEUS);
-			asiakkaanPaihtymys = asiakas.getOminaisuudet(Ominaisuus.PAIHTYMYS);
+			asiakkaanMieliala = asiakas.getOminaisuus(Ominaisuus.MIELIALA);
+			asiakkaanVarakkuus = asiakas.getOminaisuus(Ominaisuus.VARAKKUUS);
+			asiakkaanUhkarohkeus = asiakas.getOminaisuus(Ominaisuus.UHKAROHKEUS);
+			asiakkaanPaihtymys = asiakas.getOminaisuus(Ominaisuus.PAIHTYMYS);
 
 			asiakkaanKokOminaisuudet = asiakkaanMieliala * asiakkaanVarakkuus * asiakkaanUhkarohkeus
 					* asiakkaanPaihtymys;

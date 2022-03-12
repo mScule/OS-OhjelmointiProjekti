@@ -44,7 +44,7 @@ public class Asiakas implements IAsiakas {
 		this.status = status;
 	}
 
-	public double getOminaisuudet(Ominaisuus ominaisuus) {
+	public double getOminaisuus(Ominaisuus ominaisuus) {
 		return ominaisuudet[ominaisuus.ordinal()];
 	}
 
@@ -69,7 +69,7 @@ public class Asiakas implements IAsiakas {
 			}
 			ominaisuudet[i] = sample;
 		}
-		asiakkaanLahtoVarat = getOminaisuudet(Ominaisuus.VARAKKUUS);
+		asiakkaanLahtoVarat = getOminaisuus(Ominaisuus.VARAKKUUS);
 		saapumisaika = Kello.getInstance().getAika();
 		Trace.out(Trace.Level.INFO, "Uusi asiakas nro " + id + " saapui klo " + saapumisaika);
 	}
@@ -79,7 +79,7 @@ public class Asiakas implements IAsiakas {
 	}
 
 	public double getAsiakkaanVoitto() {
-		return getOminaisuudet(Ominaisuus.VARAKKUUS) - asiakkaanLahtoVarat;
+		return getOminaisuus(Ominaisuus.VARAKKUUS) - asiakkaanLahtoVarat;
 	}
 
 	public void setOminaisuus(Ominaisuus ominaisuus, Double arvo) {
