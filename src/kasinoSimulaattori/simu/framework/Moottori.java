@@ -173,13 +173,13 @@ public abstract class Moottori extends Thread implements IMoottori {
 
 	public abstract void setBlackjackTasapeliprosentti(double blackjackTasapeliprosentti);
 
-	public abstract int getMinBet();
+	public abstract double getMinBet();
 
-	public abstract void setMinBet(int minBet);
+	public abstract void setMinBet(double minBet);
 
-	public abstract int getMaxBet();
+	public abstract double getMaxBet();
 
-	public abstract void setMaxBet(int maxBet);
+	public abstract void setMaxBet(double maxBet);
 
 	public abstract double[] getTulokset();
 

@@ -73,8 +73,8 @@ public class Peli extends Palvelupiste {
 		double pelinVoittoprosentti = Kasino.getBlackjackVoittoprosentti();
 		Trace.out(Trace.Level.INFO, "pelinVoittoprosentti: " + pelinVoittoprosentti);
 		double pelinTasapeliprosentti = Kasino.getBlackjackTasapeliprosentti();
-		int minBet = Kasino.getMinBet();
-		int maxBet = Kasino.getMaxBet();
+		double minBet = Kasino.getMinBet();
+		double maxBet = Kasino.getMaxBet();
 
 		Trace.out(Trace.Level.INFO, "Kasino.getKasinonRahat(): " + Kasino.getKasinonRahat());
 		double varakkuusYksiDouble = Kasino.asiakkaanVarakkuus1Double;

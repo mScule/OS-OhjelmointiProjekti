@@ -125,8 +125,8 @@ public class SimulaattoriGUIController {
 				double aika = Double.parseDouble(aikaTF.getText());
 				long viive = Long.parseLong(viiveTF.getText());
 				double mainostus = Double.parseDouble(mainostusTF.getText());
-				int max = Integer.parseInt(maxTF.getText());
-				int min = Integer.parseInt(minTF.getText());
+				double max = Double.parseDouble(maxTF.getText());
+				double min = Double.parseDouble(minTF.getText());
 				double yllapito = Double.parseDouble(yllapitoTF.getText());
 				double tasapeli = Double.parseDouble(tasapeliTF.getText());
 				double voitto = Double.parseDouble(voittoTF.getText());

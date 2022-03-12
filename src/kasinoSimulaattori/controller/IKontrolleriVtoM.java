@@ -23,7 +23,7 @@ public interface IKontrolleriVtoM {
 	 * @param sisaankaynnit Sisäänkäyntien määrä.
 	 * @param uloskaynnit Uloskäyntien määrä.
 	 */
-	public void asetaSyotteetMoottoriin(double aika, long viive, double mainostus, int max, int min, 
+	public void asetaSyotteetMoottoriin(double aika, long viive, double mainostus, double max, double min, 
 			double yllapito, double tasapeli, double voitto, int pelit, int baarit, 
 			int sisaankaynnit, int uloskaynnit);
 	/**

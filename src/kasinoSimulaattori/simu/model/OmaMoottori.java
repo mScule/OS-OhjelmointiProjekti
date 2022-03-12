@@ -559,21 +559,21 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		}
 	}
 
-	public int getMinBet() {
+	public double getMinBet() {
 		return Kasino.getMinBet();
 	}
 
-	public void setMinBet(int minBet) {
-		tarkistaIntLuku(minBet);
+	public void setMinBet(double minBet) {
+		tarkistaDoubleLuku(minBet);
 		Kasino.setMinBet(minBet);
 	}
 
-	public int getMaxBet() {
+	public double getMaxBet() {
 		return Kasino.getMaxBet();
 	}
 
-	public void setMaxBet(int maxBet) {
-		tarkistaIntLuku(maxBet);
+	public void setMaxBet(double maxBet) {
+		tarkistaDoubleLuku(maxBet);
 		Kasino.setMaxBet(maxBet);
 	}
 
