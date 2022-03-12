@@ -21,14 +21,25 @@ public class Asiakas implements IAsiakas {
 	public static int i = 1;
 	private double[] ominaisuudet = new double[Ominaisuus.values().length];
 	private double asiakkaanLahtoVarat;
+	/**
+	 * Asiakkaan ominaisuuksien normaalijakauma.
+	 */
 	private Normal normal;
 	private TapahtumanTyyppi status;
 	private double[] tulokset = new double[IAsiakas.TULOSTEN_MAARA];
 
+	/**
+	 * Hae mihin palvelupisteelle asiakas on seuraavaksi menossa.
+	 * @return Palvelupisteen tyyppi, jonne asiakas on seuraavaksi menossa.
+	 */
 	public TapahtumanTyyppi getStatus() {
 		return status;
 	}
 
+	/**
+	 * Aseta mihin palvelupisteelle asiakas on seuraavaksi menossa.
+	 * @param status palvelupisteen tyyppi, jonne asiakas on seuraavaksi menossa.
+	 */
 	public void setStatus(TapahtumanTyyppi status) {
 		this.status = status;
 	}
@@ -44,25 +55,20 @@ public class Asiakas implements IAsiakas {
 	public Asiakas() {
 		normal = Kasino.getAsiakasOminNormal();
 		id = i++;
-
 		for (int i = 0; i < ominaisuudet.length; i++) {
-
 			Double sample = -1d;
 			if (i != Ominaisuus.VARAKKUUS.ordinal()) {
-				// Limit a customer's starting trait to be between 0 and 1.
+				// Rajoita asiakkaan lähtöominaisuus 0-1 väliin.
 				while (sample < 0 || sample >= 1) {
 					sample = 0.5 + normal.sample();
 				}
 			} else {
-				// TODO lower varakkuus based on min bet
 				while (sample < 0) {
 					sample = (0.5 + normal.sample()) / (200 / (double) Kasino.getMinBet());
 				}
 			}
 			ominaisuudet[i] = sample;
-
 		}
-
 		asiakkaanLahtoVarat = getOminaisuudet(Ominaisuus.VARAKKUUS);
 		saapumisaika = Kello.getInstance().getAika();
 		Trace.out(Trace.Level.INFO, "Uusi asiakas nro " + id + " saapui klo " + saapumisaika);
