@@ -576,4 +576,12 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		tarkistaIntLuku(maxBet);
 		Kasino.setMaxBet(maxBet);
 	}
+
+	public boolean getKasinoPause() {
+		return Kasino.isPause();
+	}
+
+	public void setKasinoPause(boolean pause) {
+		Kasino.setPause(pause);
+	}
 }

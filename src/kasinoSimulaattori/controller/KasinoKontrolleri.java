@@ -253,4 +253,14 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	public void resetVisualistointi() {
 		Platform.runLater(() -> ui.resetVisualisointi());
 	}
+
+	@Override
+	public boolean getKasinoPause() {
+		return moottori.getKasinoPause();
+	}
+
+	@Override
+	public void setKasinoPause(boolean pause) {
+		moottori.setKasinoPause(pause);
+	}
 }

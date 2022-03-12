@@ -17,4 +17,6 @@ public interface IMoottori { // UUSI
 	public void setBlackjackVoittoprosentti(double voitto);
 	public void lisaaPalvelupisteita(TapahtumanTyyppi palvelupisteTyyppi, int maara);
 	public void notifyThis();
+	public boolean getKasinoPause();
+	public void setKasinoPause(boolean pause);
 }

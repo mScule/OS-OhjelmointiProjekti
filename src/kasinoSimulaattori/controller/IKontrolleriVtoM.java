@@ -71,4 +71,12 @@ public interface IKontrolleriVtoM {
 	 * Luo uuden tyhjän instannsin moottorista.
 	 */
 	public void resetoiSimulointi();
+	/**
+	 * Hakee onko simulaatio tauolla vai ei.
+	 */
+	public boolean getKasinoPause();
+	/**
+	 * Asettaa simulaation tauolle tai pois tauolta.
+	 */
+	public void setKasinoPause(boolean pause);
 }

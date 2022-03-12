@@ -168,11 +168,11 @@ public class SimulaattoriGUIController {
 
 	@FXML
 	public synchronized void handlePause() {
-		if (!Kasino.isPause()) {
-			Kasino.setPause(true);
+		if (!kontrolleri.getKasinoPause()) {
+			kontrolleri.setKasinoPause(true);
 			startBTN.setText("RESUME");
 		} else {
-			Kasino.setPause(false);
+			kontrolleri.setKasinoPause(false);
 			kontrolleri.jatkaSimulointia();
 			startBTN.setText("PAUSE");
 		}

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import kasinoSimulaattori.controller.IKontrolleriMtoV;
+import kasinoSimulaattori.simu.framework.Trace.Level;
 import kasinoSimulaattori.simu.model.Kasino;
 import kasinoSimulaattori.simu.model.Palvelupiste;
 import kasinoSimulaattori.simu.model.TapahtumanTyyppi;
@@ -64,7 +65,7 @@ public abstract class Moottori extends Thread implements IMoottori {
 		try {
 			sleep(viive);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 	}
 
@@ -140,7 +141,7 @@ public abstract class Moottori extends Thread implements IMoottori {
 		try {
 			wait();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			Trace.out(Level.ERR, e.getMessage());
 		}
 	}
 
@@ -183,4 +184,8 @@ public abstract class Moottori extends Thread implements IMoottori {
 	public abstract double[] getTulokset();
 
 	public abstract LinkedList<Palvelupiste> getPalvelupisteet(int palvelu);
+
+	public abstract boolean getKasinoPause();
+
+	public abstract void setKasinoPause(boolean pause);
 }
