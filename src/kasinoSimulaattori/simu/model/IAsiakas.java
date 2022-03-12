@@ -8,7 +8,7 @@ package kasinoSimulaattori.simu.model;
 public interface IAsiakas {
     /**
      * Taulukossa asiakkaan tietyn tyyppisen datan indeksiä vastaava muuttumaton
-     * kokonaisluku.
+     * kokonaisluku
      */
     public static final int ID = 0,
             SAAPUMISAIKA = 1,

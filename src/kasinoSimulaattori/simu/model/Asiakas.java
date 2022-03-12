@@ -22,7 +22,7 @@ public class Asiakas implements IAsiakas {
 	private double[] ominaisuudet = new double[Ominaisuus.values().length];
 	private double asiakkaanLahtoVarat;
 	/**
-	 * Asiakkaan ominaisuuksien normaalijakauma.
+	 * Asiakkaan ominaisuuksien normaalijakauma
 	 */
 	private Normal normal;
 	private TapahtumanTyyppi status;
@@ -30,7 +30,7 @@ public class Asiakas implements IAsiakas {
 
 	/**
 	 * Hae mihin palvelupisteelle asiakas on seuraavaksi menossa.
-	 * @return Palvelupisteen tyyppi, jonne asiakas on seuraavaksi menossa.
+	 * @return Palvelupisteen tyyppi, jonne asiakas on seuraavaksi menossa
 	 */
 	public TapahtumanTyyppi getStatus() {
 		return status;
@@ -38,12 +38,16 @@ public class Asiakas implements IAsiakas {
 
 	/**
 	 * Aseta mihin palvelupisteelle asiakas on seuraavaksi menossa.
-	 * @param status palvelupisteen tyyppi, jonne asiakas on seuraavaksi menossa.
+	 * @param status palvelupisteen tyyppi, jonne asiakas on seuraavaksi menossa
 	 */
 	public void setStatus(TapahtumanTyyppi status) {
 		this.status = status;
 	}
 
+	/**
+	 * Hae asiakkaan tietyn ominaisuuden arvo.
+	 * @return Haettavan asiakkaan ominaisuuden arvo
+	 */
 	public double getOminaisuus(Ominaisuus ominaisuus) {
 		return ominaisuudet[ominaisuus.ordinal()];
 	}

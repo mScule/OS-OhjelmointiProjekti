@@ -52,9 +52,9 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	private KasinoDAO kasinoDAO = KasinoDAO.getInstanssi();
 
 	/**
-	 * OmaMoottori konstruktori metodi.
+	 * OmaMoottori konstruktori metodi
 	 * 
-	 * @param kontrolleri viite kontrolleriin.
+	 * @param kontrolleri viite kontrolleriin
 	 */
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
 		super(kontrolleri);
@@ -87,7 +87,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	 * luku. Se mitä isompi rahamäärä on, sitä lyhyemmät kasinon palvelupisteiden
 	 * keskimääräiset palveluajat ovat.
 	 * 
-	 * @param rahamaara kasinon ylläpitoon käytettävä rahamäärä.
+	 * @param rahamaara kasinon ylläpitoon käytettävä rahamäärä
 	 */
 	public void setYllapitoRahamaara(double rahamaara) {
 		tarkistaDoubleLuku(rahamaara, "Valitse ylläpidon rahamääräksi joku positiivinen double luku.");
@@ -113,7 +113,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	 * double luku. Se mitä isompi rahamäärä on, sitä tiheämpään tahtiin kasinolle
 	 * saapuu asiakkaita.
 	 * 
-	 * @param rahamaara kasinon mainostukseen käytettävä rahamäärä.
+	 * @param rahamaara kasinon mainostukseen käytettävä rahamäärä
 	 */
 	public void setMainostusRahamaara(double rahamaara) {
 		tarkistaDoubleLuku(rahamaara, "Valitse mainostuksen rahamääräksi joku positiivinen double luku.");
@@ -132,8 +132,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	 * Lisää kasinoon palvelupisteitä. Palvelupisteiden määrä ja tyypit kasvattavat
 	 * kasinon kuluja.
 	 * 
-	 * @param palvelupisteTyyppi lisättävän palvelupisteen tyyppi.
-	 * @param maara              lisättävien palvelupisteiden määrä.
+	 * @param palvelupisteTyyppi lisättävän palvelupisteen tyyppi
+	 * @param maara              lisättävien palvelupisteiden määrä
 	 */
 	public void lisaaPalvelupisteita(TapahtumanTyyppi palvelupisteTyyppi, int maara) {
 
@@ -421,7 +421,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	/**
-	 * Lisää uusimmat tulokset tietokantaan.
+	 * Lisää uusimmat tulokset tietokantaan
 	 */
 	@Override
 	protected void tulokset() {
@@ -583,7 +583,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	/**
 	 * Hakee blackjack pöydän voittoprosentin.
 	 * 
-	 * @return Blackjack pöydän voittoprosentti.
+	 * @return Blackjack pöydän voittoprosentti
 	 */
 	public double getBlackjackVoittoprosentti() {
 		return Kasino.getBlackjackVoittoprosentti();
@@ -592,7 +592,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	/**
 	 * Asettaa blackjack pöydän voittoprosentin.
 	 * 
-	 * @param blackjackVoittoprosentti blackjack pöydän uusi voittoprosentti.
+	 * @param blackjackVoittoprosentti blackjack pöydän uusi voittoprosentti
 	 */
 	public void setBlackjackVoittoprosentti(double blackjackVoittoprosentti) {
 		tarkistaDoubleProsenttiluku(blackjackVoittoprosentti,
@@ -604,7 +604,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	/**
 	 * Hakee blackjack pöydän tasapeliprosentin.
 	 * 
-	 * @return Blackjack pöydän tasapeliprosentti.
+	 * @return Blackjack pöydän tasapeliprosentti
 	 */
 	public double getBlackjackTasapeliprosentti() {
 		return Kasino.getBlackjackTasapeliprosentti();
@@ -613,7 +613,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	/**
 	 * Asettaa blackjack pöydän tasapeliprosentin.
 	 * 
-	 * @param blackjackVoittoprosentti blackjack pöydän uusi tasapeliprosentti.
+	 * @param blackjackVoittoprosentti blackjack pöydän uusi tasapeliprosentti
 	 */
 	public void setBlackjackTasapeliprosentti(double blackjackTasapeliprosentti) {
 		tarkistaDoubleProsenttiluku(blackjackTasapeliprosentti,
@@ -625,7 +625,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	/**
 	 * Hakee blackjack pöydän minimipanoksen.
 	 * 
-	 * @return Blackjack pöydän minimipanos.
+	 * @return Blackjack pöydän minimipanos
 	 */
 	public double getMinBet() {
 		return Kasino.getMinBet();
@@ -634,7 +634,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	/**
 	 * Asettaa blackjack pöydän minimipanoksen.
 	 * 
-	 * @param blackjackVoittoprosentti blackjack pöydän uusi minimipanos.
+	 * @param blackjackVoittoprosentti blackjack pöydän uusi minimipanos
 	 */
 	public void setMinBet(double minBet) {
 		tarkistaDoubleLuku(minBet, "Valitse minimipanoksesksi joku positiivinen double luku.");
@@ -644,7 +644,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	/**
 	 * Hakee blackjack pöydän maksimipanoksen.
 	 * 
-	 * @return Blackjack pöydän maksimipanos.
+	 * @return Blackjack pöydän maksimipanos
 	 */
 	public double getMaxBet() {
 		return Kasino.getMaxBet();
@@ -653,7 +653,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	/**
 	 * Asettaa blackjack pöydän maksimipanoksen.
 	 * 
-	 * @param blackjackVoittoprosentti blackjack pöydän uusi maksimipanos.
+	 * @param blackjackVoittoprosentti blackjack pöydän uusi maksimipanos
 	 */
 	public void setMaxBet(double maxBet) {
 		tarkistaDoubleLuku(maxBet, "Valitse maksimipanoksesksi joku positiivinen double luku.");
@@ -663,7 +663,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	/**
 	 * Hakee onko kasinosimulaatio taukotilassa vai ei.
 	 * 
-	 * @return False, jos simulaatio ei ole taukotilassa ja true jos on.
+	 * @return False, jos simulaatio ei ole taukotilassa ja true jos on
 	 */
 	public boolean getKasinoPause() {
 		return Kasino.isPause();
@@ -672,7 +672,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	/**
 	 * Asettaa simulaation taukotilaan tai lopettaa simulaation taukotilan.
 	 * 
-	 * @param pause true asettaa simulaation taukotilaan ja false lopettaa
+	 * @param pause True asettaa simulaation taukotilaan ja false lopettaa
 	 *              simulaation taukotilan.
 	 */
 	public void setKasinoPause(boolean pause) {

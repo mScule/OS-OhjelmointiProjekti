@@ -13,7 +13,7 @@ public interface IOmaMoottori extends IMoottori {
 
 	/**
 	 * Taulukossa kasinon tietyn tyyppisen tuloksen indeksiä vastaava muuttumaton
-	 * kokonaisluku.
+	 * kokonaisluku
 	 */
 	public static final int TULOS_AIKA = 0,
 			TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA = 1,
@@ -31,7 +31,7 @@ public interface IOmaMoottori extends IMoottori {
 
 	/**
 	 * Taulukossa tietyn palvelupistetyyppin indeksiä vastaava muuttumaton
-	 * kokonaisluku.
+	 * kokonaisluku
 	 */
 	public static final int PALVELUTYYPPI_SISAANKAYNTI = 0,
 			PALVELUTYYPPI_ULOSKAYNTI = 1,
@@ -42,7 +42,7 @@ public interface IOmaMoottori extends IMoottori {
 	/**
 	 * Laskee ja palauttaa kasinon nykyhetkiset tulokset.
 	 * 
-	 * @return Double taulukko kasinon tuloksista.
+	 * @return Double taulukko kasinon tuloksista
 	 */
 	public double[] getTulokset();
 
@@ -50,9 +50,9 @@ public interface IOmaMoottori extends IMoottori {
 	 * Hakee ja palauttaa kaikki olemassa olevat tietyn tyyppisen palvelupisteen
 	 * oliot.
 	 * 
-	 * @param palvelu palvelupistetyypin enumin numeerinen arvo.
+	 * @param palvelu palvelupistetyypin enumin numeerinen arvo
 	 * @return Kaikki haetun tyyppiset palvelupisteet LinkedList listana tai
-	 *         null, jos palvelupisteitä ei löyty.
+	 *         null, jos palvelupisteitä ei löyty
 	 */
 	public LinkedList<Palvelupiste> getPalvelupisteet(int palvelu);
 
