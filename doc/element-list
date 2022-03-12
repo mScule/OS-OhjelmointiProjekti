@@ -1,1 +1,9 @@
+unnamed package
+kasinoSimulaattori
 kasinoSimulaattori.controller
+kasinoSimulaattori.simu.framework
+kasinoSimulaattori.simu.model
+kasinoSimulaattori.util
+kasinoSimulaattori.view
+kasinoSimulaattori.view.animated
+model
