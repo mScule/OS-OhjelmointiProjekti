@@ -29,33 +29,8 @@ public class Asiakas implements IAsiakas {
 	private double[] tulokset = new double[IAsiakas.TULOSTEN_MAARA];
 
 	/**
-	 * Hae mihin palvelupisteelle asiakas on seuraavaksi menossa.
-	 * @return Palvelupisteen tyyppi, jonne asiakas on seuraavaksi menossa
+	 * Asiakkaan konstruktori. Arpoo asiakkaan ominaisuuksien arvot.
 	 */
-	public TapahtumanTyyppi getStatus() {
-		return status;
-	}
-
-	/**
-	 * Aseta mihin palvelupisteelle asiakas on seuraavaksi menossa.
-	 * @param status palvelupisteen tyyppi, jonne asiakas on seuraavaksi menossa
-	 */
-	public void setStatus(TapahtumanTyyppi status) {
-		this.status = status;
-	}
-
-	/**
-	 * Hae asiakkaan tietyn ominaisuuden arvo.
-	 * @return Haettavan asiakkaan ominaisuuden arvo
-	 */
-	public double getOminaisuus(Ominaisuus ominaisuus) {
-		return ominaisuudet[ominaisuus.ordinal()];
-	}
-
-	public enum Ominaisuus {
-		MIELIALA, VARAKKUUS, UHKAROHKEUS, PAIHTYMYS
-	};
-
 	public Asiakas() {
 		normal = Kasino.getAsiakasOminNormal();
 		id = i++;
@@ -78,16 +53,66 @@ public class Asiakas implements IAsiakas {
 		Trace.out(Trace.Level.INFO, "Uusi asiakas nro " + id + " saapui klo " + saapumisaika);
 	}
 
+	/**
+	 * Hakee mihin palvelupisteelle asiakas on seuraavaksi menossa.
+	 * 
+	 * @return Palvelupisteen tyyppi, jonne asiakas on seuraavaksi menossa
+	 */
+	public TapahtumanTyyppi getStatus() {
+		return status;
+	}
+
+	/**
+	 * Asettaa mihin palvelupisteelle asiakas on seuraavaksi menossa.
+	 * 
+	 * @param status palvelupisteen tyyppi, jonne asiakas on seuraavaksi menossa
+	 */
+	public void setStatus(TapahtumanTyyppi status) {
+		this.status = status;
+	}
+
+	/**
+	 * Asiakkaan ominaisuustyypit
+	 */
+	public enum Ominaisuus {
+		MIELIALA, VARAKKUUS, UHKAROHKEUS, PAIHTYMYS
+	};
+
+	/**
+	 * Asettaa tietyn asiakkaan ominaisuuden arvon.
+	 * 
+	 * @param ominaisuus asiakkaan ominaisuus, jonka arvo asetetaan
+	 * @param arvo asetettava arvo
+	 */
+	public void setOminaisuus(Ominaisuus ominaisuus, Double arvo) {
+		ominaisuudet[ominaisuus.ordinal()] = arvo;
+	}
+
+	/**
+	 * Hakee asiakkaan tietyn ominaisuuden arvo.
+	 * 
+	 * @return Haettavan asiakkaan ominaisuuden arvo
+	 */
+	public double getOminaisuus(Ominaisuus ominaisuus) {
+		return ominaisuudet[ominaisuus.ordinal()];
+	}
+
+	/**
+	 * Hakee asiakkaan lähtövarallisuuden.
+	 * 
+	 * @return Asiakkaan lähtövarallisuus
+	 */
 	public double getAsiakkaanLahtoVarallisuus() {
 		return asiakkaanLahtoVarat;
 	}
 
+	/**
+	 * Hakee asiakkaan varakkuuden muutoksen verrattuna asiakkaan lähtövarakkuuteen.
+	 * 
+	 * @return Asiakkaan varakkuuden muutos verrattuna asiakkaan lähtövarakkuuteen.
+	 */
 	public double getAsiakkaanVoitto() {
 		return getOminaisuus(Ominaisuus.VARAKKUUS) - asiakkaanLahtoVarat;
-	}
-
-	public void setOminaisuus(Ominaisuus ominaisuus, Double arvo) {
-		ominaisuudet[ominaisuus.ordinal()] = arvo;
 	}
 
 	public double getPoistumisaika() {

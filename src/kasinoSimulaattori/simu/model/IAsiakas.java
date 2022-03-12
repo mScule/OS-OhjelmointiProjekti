@@ -21,7 +21,7 @@ public interface IAsiakas {
             TULOSTEN_MAARA = 8;
 
     /**
-     * Hae asiakkaaseen liittyvä data.
+     * Hakee asiakkaaseen liittyvää dataa.
      */
     public double[] getTulokset();
 }
