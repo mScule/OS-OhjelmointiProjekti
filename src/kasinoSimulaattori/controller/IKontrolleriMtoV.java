@@ -2,6 +2,11 @@ package kasinoSimulaattori.controller;
 
 import kasinoSimulaattori.simu.model.KasinoTulokset;
 
+/**
+ * Kontrolleri rajapinta välittämään tietoa mallista näkymään.
+ * @author Vilhelm Niemi
+ */
+
 public interface IKontrolleriMtoV {
 
 	// Visualisointi
@@ -181,6 +186,7 @@ public interface IKontrolleriMtoV {
 
 	/**
 	 * Avaa ikkunan jossa näytetään viimeisimmän ajon suorituskykysuureet.
+	 * @param tulokset kasinon tulokset double taulukossa.
 	 */
 	public void naytaTulokset(KasinoTulokset[] tulokset);
 	
