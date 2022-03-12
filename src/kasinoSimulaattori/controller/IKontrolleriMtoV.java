@@ -35,19 +35,19 @@ public interface IKontrolleriMtoV {
 	
 	/**
 	 * Asettaa näkymään luvun joka kertoo käyttäjälle kuinka montaa asiakasta baarien palveltavana on.
-	 * @param value Asiakkaiden määrä.
+	 * @param maara Asiakkaiden määrä.
 	 */
 	public void baariPalveltavat(int maara);
 
 	/**
 	 * Asettaa näkymään luvun joka kertoo käyttäjälle kuinka monta asiakasta baarien jonoissa on.
-	 * @param value Asiakkaiden määrä.
+	 * @param maara Asiakkaiden määrä.
 	 */
 	public void baariJonossa(int maara);
 
 	/**
 	 * Asettaa näkymään luvun joka kertoo käyttäjälle kuinka monta työntekijää baareilla on.
-	 * @param value Työntekijöiden/palvelupisteiden määrä.
+	 * @param maara Työntekijöiden/palvelupisteiden määrä.
 	 */
 	public void baariTyontekijat(int maara);
 
@@ -55,19 +55,19 @@ public interface IKontrolleriMtoV {
 	
 	/**
 	 * Asettaa näkymään luvun joka kertoo käyttäjälle kuinka montaa asiakasta blackjackpöytien palveltavana on.
-	 * @param value Asiakkaiden määrä.
+	 * @param maara Asiakkaiden määrä.
 	 */
 	public void blackjackPalveltavat(int maara);
 	
 	/**
 	 * Asettaa näkymään luvun joka kertoo käyttäjälle kuinka monta asiakasta blackjackpöytien jonoissa on.
-	 * @param value Asiakkaiden määrä.
+	 * @param maara Asiakkaiden määrä.
 	 */
 	public void blackjackJonossa(int maara);
 
 	/**
 	 * Asettaa näkymään luvun joka kertoo käyttäjälle kuinka monta työntekijää blackjackpöydillä on.
-	 * @param value Työntekijöiden/palvelupisteiden määrä.
+	 * @param maara Työntekijöiden/palvelupisteiden määrä.
 	 */
 	public void blackjackTyontekijat(int maara);
 
@@ -75,19 +75,19 @@ public interface IKontrolleriMtoV {
 	
 	/**
 	 * Asettaa näkymään luvun joka kertoo käyttäjälle kuinka montaa asiakasta sisäänkäyntien palveltavana on.
-	 * @param value Asiakkaiden määrä.
+	 * @param maara Asiakkaiden määrä.
 	 */
 	public void sisaankayntiPalveltavat(int maara);
 
 	/**
 	 * Asettaa näkymään luvun joka kertoo käyttäjälle kuinka monta asiakasta sisäänkäyntien jonoissa on.
-	 * @param value Asiakkaiden määrä.
+	 * @param maara Asiakkaiden määrä.
 	 */
 	public void sisaankayntiJonossa(int maara);
 	
 	/**
 	 * Asettaa näkymään luvun joka kertoo käyttäjälle kuinka monta työntekijää sisäänkäynneillä on.
-	 * @param value Työntekijöiden/palvelupisteiden määrä.
+	 * @param maara Työntekijöiden/palvelupisteiden määrä.
 	 */
 	public void sisaankayntiTyontekijat(int maara);
 
@@ -95,19 +95,19 @@ public interface IKontrolleriMtoV {
 	
 	/**
 	 * Asettaa näkymään luvun joka kertoo käyttäjälle kuinka montaa asiakasta uloskäyntien palveltavana on.
-	 * @param value Asiakkaiden määrä.
+	 * @param maara Asiakkaiden määrä.
 	 */
 	public void uloskayntiPalveltavat(int maara);
 
 	/**
 	 * Asettaa näkymään luvun joka kertoo käyttäjälle kuinka monta asiakasta uloskäyntien jonoissa on.
-	 * @param value Asiakkaiden määrä.
+	 * @param maara Asiakkaiden määrä.
 	 */
 	public void uloskayntiJonossa(int maara);
 	
 	/**
 	 * Asettaa näkymään luvun joka kertoo käyttäjälle kuinka monta työntekijää uloskäynneillä on.
-	 * @param value Työntekijöiden/palvelupisteiden määrä.
+	 * @param maara Työntekijöiden/palvelupisteiden määrä.
 	 */
 	public void uloskayntiTyontekijat(int maara);
 
