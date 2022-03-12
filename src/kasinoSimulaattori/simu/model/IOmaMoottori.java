@@ -3,10 +3,17 @@ package kasinoSimulaattori.simu.model;
 import java.util.LinkedList;
 import kasinoSimulaattori.simu.framework.IMoottori;
 
+/**
+ * OmaMoottori.java luokan rajapinta. Perii IMoottori rajapinnan. Käytetään
+ * datan hakemiseen OmaMoottori luokasta.
+ * 
+ * @author Jonathan Methuen
+ */
 public interface IOmaMoottori extends IMoottori {
 
 	/**
-	 * Kasinon tietyn tyyppistä tulosta vastaava muuttumaton kokonaisluku.
+	 * Taulukossa kasinon tietyn tyyppisen tuloksen indeksiä vastaava muuttumaton
+	 * kokonaisluku.
 	 */
 	public static final int TULOS_AIKA = 0,
 			TULOS_SAAPUNEIDEN_ASIAKKAIDEN_MAARA = 1,
@@ -23,7 +30,8 @@ public interface IOmaMoottori extends IMoottori {
 			TULOSTEN_MAARA = 12; // Käytetään vain arrayn luomisessa.
 
 	/**
-	 * Palvelupisteen tyyppiä vastaava muuttumaton kokonaisluku.
+	 * Taulukossa tietyn palvelupistetyyppin indeksiä vastaava muuttumaton
+	 * kokonaisluku.
 	 */
 	public static final int PALVELUTYYPPI_SISAANKAYNTI = 0,
 			PALVELUTYYPPI_ULOSKAYNTI = 1,
