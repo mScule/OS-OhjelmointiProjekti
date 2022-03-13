@@ -4,7 +4,10 @@ import kasinoSimulaattori.simu.model.IOmaMoottori;
 import kasinoSimulaattori.simu.model.OmaMoottori;
 import kasinoSimulaattori.simu.model.TapahtumanTyyppi;
 
-public class MainTeksti { // Tekstipohjainen
+/**
+ * Tekstipohjainen simulaattorin pääluokka.
+ */
+public class MainTeksti {
 
 	public static void main(String[] args) throws InterruptedException {
 

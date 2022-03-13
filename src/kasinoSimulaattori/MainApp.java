@@ -38,6 +38,9 @@ import kasinoSimulaattori.view.KasinoVisualisointi;
 import kasinoSimulaattori.view.SimulaattoriGUIController;
 import kasinoSimulaattori.view.TuloksetGUIController;
 
+/**
+ * Simulaattorin päänäkymä
+ */
 public class MainApp extends Application implements ISimulaattorinUI {
 
     private Stage primaryStage;
@@ -45,50 +48,10 @@ public class MainApp extends Application implements ISimulaattorinUI {
     private IKontrolleriVtoM kontrolleri;
     private SimulaattoriGUIController gui;
     private KasinoVisualisointi visualisointi;
-    
-    public MainApp() throws FileNotFoundException {
-        kontrolleri   = new KasinoKontrolleri(this);
-    	gui           = new SimulaattoriGUIController();
-    	visualisointi = new KasinoVisualisointi();
-    }
 
-    @Override
-    public void start(Stage primaryStage) throws IOException {
-    	
-    	kirjautumisDialogi();
-    	
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Kasino simulaattori");
-        this.primaryStage.setResizable(false);
-        Trace.setTraceLevel(Level.ERR);
-    	
-        initMainLayout();
-        showAlapaneelit();
-        
-        gui.setVisualisaattori(visualisointi.getCanvas());
-        visualisointi.start();
-        
-        // Valmiit arvot
-        Platform.runLater(() -> {
-        	gui.setMainostusTF("1");
-        	gui.setMaxTF("10000");
-        	gui.setMinTF("200");
-        	gui.setYllapitoTF("50");
-        	gui.setTasapeliTF("0.08");
-        	gui.setVoittoTF("0.44");
-        	gui.setPelitTF("0");
-        	gui.setBaaritTF("0");
-        	gui.setSisaankaynnitTF("0");
-        	gui.setUloskaynnitTF("0");
-        	gui.setAikaTF("1000");
-        	gui.setViiveTF("100");
-        });
-    }
-    
-    public IKontrolleriVtoM getController() {
-    	return kontrolleri;
-    }
-
+    /**
+     * Alustaa päänäkymän.
+     */
     private void initMainLayout() {
         try {
             
@@ -106,6 +69,9 @@ public class MainApp extends Application implements ISimulaattorinUI {
         }
     }
     
+    /**
+     * Liittää alapaneelit näkymään.
+     */
     private void showAlapaneelit() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -180,17 +146,73 @@ public class MainApp extends Application implements ISimulaattorinUI {
     	ikkuna.showAndWait();
     }
     
+    /**
+     * Päämetodi.
+     * @param args
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    /**
+     * Näkymän parametriton konstruktori.
+     * @throws FileNotFoundException
+     */
+    public MainApp() throws FileNotFoundException {
+        kontrolleri   = new KasinoKontrolleri(this);
+    	gui           = new SimulaattoriGUIController();
+    	visualisointi = new KasinoVisualisointi();
+    }
+
+    /**
+     * Kutsutaan ohjelman alussa
+     */
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+    	
+    	kirjautumisDialogi();
+    	
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("Kasino simulaattori");
+        this.primaryStage.setResizable(false);
+        Trace.setTraceLevel(Level.ERR);
+    	
+        initMainLayout();
+        showAlapaneelit();
+        
+        gui.setVisualisaattori(visualisointi.getCanvas());
+        visualisointi.start();
+        
+        // Valmiit arvot
+        Platform.runLater(() -> {
+        	gui.setMainostusTF("1");
+        	gui.setMaxTF("10000");
+        	gui.setMinTF("200");
+        	gui.setYllapitoTF("50");
+        	gui.setTasapeliTF("0.08");
+        	gui.setVoittoTF("0.44");
+        	gui.setPelitTF("0");
+        	gui.setBaaritTF("0");
+        	gui.setSisaankaynnitTF("0");
+        	gui.setUloskaynnitTF("0");
+        	gui.setAikaTF("1000");
+        	gui.setViiveTF("100");
+        });
+    }
+    
+    /**
+     * @return Palauttaa viitteen kontrolleriin.
+     */
+    public IKontrolleriVtoM getController() {
+    	return kontrolleri;
+    }
+    
 	/**
-	 * Returns the main stage.
-	 * @return
+	 * @return Palauttaa viitteen pääikkunaan.
 	 */
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 
 	@Override
 	public double getAika() {
@@ -237,6 +259,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
 		}
 	}
 
+	@Override
     public void resetVisualisointi(){
         try {
 			visualisointi = new KasinoVisualisointi();

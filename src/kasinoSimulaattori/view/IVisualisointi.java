@@ -2,6 +2,10 @@ package kasinoSimulaattori.view;
 
 import javafx.scene.canvas.Canvas;
 
+/**
+ * Rajapinta visualisoinnille.
+ * @author Vilhelm
+ */
 public interface IVisualisointi {
 	
 	// Yleiset

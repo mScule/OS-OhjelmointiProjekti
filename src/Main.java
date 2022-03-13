@@ -1,9 +1,11 @@
 import kasinoSimulaattori.MainApp;
 
-public class Main { // Simulaattorin käynnistyspääohjelma
+/**
+ * Simulaattorin pääluokka.
+ */
+public class Main {
 	
 	public static void main(String args[]) {
-		
 		MainApp.main(args);
 	}
 }

@@ -7,7 +7,7 @@ import kasinoSimulaattori.view.KasinoVisualisointi;
 
 /**
  * Kasinovisualisaattorin demonstrointiohjelma.
- * @author Vilhe
+ * @author Vilhelm
  */
 public class KasinoVisualisointiDemo extends Application {
 	
@@ -16,6 +16,9 @@ public class KasinoVisualisointiDemo extends Application {
 	
 	private static KasinoVisualisointi visualisointi;
 	
+	/**
+	 * Metodi joka kutsutaan demon aloituksessa.
+	 */
 	@Override
 	public void start(Stage stage) throws Exception {
 		root = new BorderPane();

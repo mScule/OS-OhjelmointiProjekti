@@ -11,7 +11,7 @@ public class KasinoDAO {
 	
 	// Tietokannan yhteys tietoja
 	private final String
-		TIETOKANNAN_NIMI = "testi",
+		TIETOKANNAN_NIMI = "kasino",
 		URL = "jdbc:mariadb://localhost";
 	
 	private String

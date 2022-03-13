@@ -49,5 +49,4 @@ public class AudioPlayer {
 	public static void stopMusic() {
 		clip.stop();
 	}
-
 }

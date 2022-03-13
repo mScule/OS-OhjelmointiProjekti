@@ -4,6 +4,10 @@ import java.util.LinkedList;
 
 import kasinoSimulaattori.simu.model.Palvelupiste;
 
+/**
+ * Kontrollerirajapinta välittämään tietoa näkymästä malliin.
+ * @author Vilhelm
+ */
 public interface IKontrolleriVtoM {
 
 	// Rajapinta, joka tarjotaan käyttöliittymälle:

@@ -22,6 +22,10 @@ import kasinoSimulaattori.simu.framework.Trace.Level;
 import kasinoSimulaattori.simu.model.Kasino;
 import kasinoSimulaattori.util.AudioPlayer;
 
+/**
+ * Simulaattorin käyttöliittymän kontrolleri
+ * @author Johanna Lavikainen
+ */
 public class SimulaattoriGUIController {
 
 	private Stage stage;
@@ -29,8 +33,6 @@ public class SimulaattoriGUIController {
 
 	@FXML
 	private Label aikaID;
-	// @FXML
-	// private Label paivaID;
 	@FXML
 	private Label rahatID;
 	@FXML
@@ -86,17 +88,30 @@ public class SimulaattoriGUIController {
 
 	private static IKontrolleriVtoM kontrolleri;
 
-	public SimulaattoriGUIController() {
-	}
+	/**
+	 * Parametrion tyhjä konstruktori
+	 */
+	public SimulaattoriGUIController() {}
 
+	/**
+	 * Asettaa viittauksen päänäkymään
+	 * @param mainApp Päänäkymän viittaus
+	 */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
 
+	/**
+	 * Asettaa viittauksen visualisointiin
+	 * @param visualisaattori Visualisointi viittaus
+	 */
 	public void setVisualisaattori(Canvas visualisaattori) {
 		canvas.setCenter(visualisaattori);
 	}
 
+	/**
+	 * Näyttää tulokset
+	 */
 	public void naytaTulokset() {
 		double tulokset[] = kontrolleri.haeTulokset();
 		System.out.println(tulokset[0]);
@@ -116,6 +131,9 @@ public class SimulaattoriGUIController {
 		avgLapimenoID.setText(Double.toString(tulokset[3]));
 	}
 
+	/**
+	 * Käsittelee käyttöliittymän alustamisen
+	 */
 	@FXML
 	public void handleStart() {
 		kontrolleri = mainApp.getController();
@@ -166,6 +184,9 @@ public class SimulaattoriGUIController {
 		}
 	}
 
+	/**
+	 * Käsittelee simulaation hetkellisen keskeyttämisen
+	 */
 	@FXML
 	public synchronized void handlePause() {
 		if (!kontrolleri.getKasinoPause()) {
@@ -178,67 +199,110 @@ public class SimulaattoriGUIController {
 		}
 	}
 
+	/**
+	 * Käsittelee simulaation nopeuttamisnäppäimen painamisen
+	 */
 	@FXML
 	public void handleNopeuta() {
 		kontrolleri = mainApp.getController();
 		kontrolleri.nopeuta();
 	}
 
+	/**
+	 * Käsittelee simulaation hidastusnäppäimen painamisen
+	 */
 	@FXML
 	public void handleHidasta() {
 		kontrolleri = mainApp.getController();
 		kontrolleri.hidasta();
 	}
 
+	/**
+	 * Asettaa arvon tekstikenttään aika
+	 */
 	public void setAikaTF(String value) {
 		aikaTF.setText(value);
 	}
 
+	/**
+	 * Asettaa arvon tekstikenttään viive
+	 */
 	public void setViiveTF(String value) {
 		viiveTF.setText(value);
 	}
 
+	/**
+	 * Asettaa arvon tekstikenttään mainostus
+	 */
 	public void setMainostusTF(String value) {
 		mainostusTF.setText(value);
 	}
 
+	/**
+	 * Asettaa arvon tekstikenttään korkein panos
+	 */
 	public void setMaxTF(String value) {
 		maxTF.setText(value);
 	}
 
+	/**
+	 * Asettaa arvon tekstikenttään pienin panos
+	 */
 	public void setMinTF(String value) {
 		minTF.setText(value);
 	}
 
+	/**
+	 * Asettaa arvon tekstikenttään ylläpitokulut
+	 */
 	public void setYllapitoTF(String value) {
 		yllapitoTF.setText(value);
 	}
 
+	/**
+	 * Asettaa arvon tekstikenttään tasapeli
+	 */
 	public void setTasapeliTF(String value) {
 		tasapeliTF.setText(value);
 	}
 
+	/**
+	 * Asettaa arvon tekstikenttään voittoprosentti
+	 */
 	public void setVoittoTF(String value) {
 		voittoTF.setText(value);
 	}
 
+	/**
+	 * Asettaa arvon tekstikenttään pelien määrä
+	 */
 	public void setPelitTF(String value) {
 		pelitTF.setText(value);
 	}
 
+	/**
+	 * Asettaa arvon tekstikenttään baarien määrä
+	 */
 	public void setBaaritTF(String value) {
 		baaritTF.setText(value);
 	}
 
+	/**
+	 * Asettaa arvon tekstikenttään sisäänkäyntien määrä
+	 */
 	public void setSisaankaynnitTF(String value) {
 		sisaankaynnitTF.setText(value);
 	}
 
+	/**
+	 * Asettaa arvon tekstikenttään uloskäyntien määrä
+	 */
 	public void setUloskaynnitTF(String value) {
 		uloskaynnitTF.setText(value);
 	}
 
 	// Setterit labelelille
+
 	public void setAika(String value) {
 		aikaID.setText(value);
 	}
@@ -283,10 +347,17 @@ public class SimulaattoriGUIController {
 		avgLapimenoID.setText(value);
 	}
 
+	/**
+	 * uudelleen alustaa käynnistysnäppäimen
+	 */
 	public void resetStartButton() {
 		startBTN.setText("START");
 	}
 
+	/**
+	 * Avaa virheilmoitusdialogin
+	 * @param viesti Näytettävä viesti
+	 */
 	public void virheilmoitusDialogi(String viesti) {
 		Alert ilmoitus = new Alert(AlertType.ERROR);
 		ilmoitus.setTitle("Virhe");
