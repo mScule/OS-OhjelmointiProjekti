@@ -193,6 +193,7 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 	public boolean kyllaTaiEiDialogi(String viesti) {
 		return ui.kyllaTaiEiDialogi(viesti);
 	}
+	
 	// IKontrolleriVtoM:
 
 	@Override

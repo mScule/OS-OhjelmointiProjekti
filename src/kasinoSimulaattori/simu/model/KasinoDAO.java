@@ -11,10 +11,12 @@ public class KasinoDAO {
 	
 	// Tietokannan yhteys tietoja
 	private final String
-					 URL = "jdbc:mariadb://localhost",
 		TIETOKANNAN_NIMI = "testi",
-				KAYTTAJA = "root",
-				SALASANA = "41115dc5-b149-4753-9894-e7b08764ed2b";
+		URL = "jdbc:mariadb://localhost";
+	
+	private String
+		kayttaja = "root",
+		salasana = "41115dc5-b149-4753-9894-e7b08764ed2b";
 	
 	// Luokka on singleton
 	
@@ -27,6 +29,14 @@ public class KasinoDAO {
 			instanssi = new KasinoDAO();
 		
 		return instanssi;
+	}
+	
+	public void setKayttaja(String kayttaja) {
+		this.kayttaja = kayttaja;
+	}
+	
+	public void setSalasana(String salasana) {
+		this.salasana = salasana;
 	}
 
 	/**
@@ -44,7 +54,7 @@ public class KasinoDAO {
 		final String KOOTTU_URL = URL + tietokanta;
 
 		yhteys = DriverManager.getConnection(
-			KOOTTU_URL + "?user=" + KAYTTAJA + "&password=" + SALASANA
+			KOOTTU_URL + "?user=" + kayttaja + "&password=" + salasana
 		);
 
 		return yhteys;

@@ -6,16 +6,22 @@ import java.util.Optional;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import kasinoSimulaattori.controller.IKontrolleriVtoM;
@@ -23,6 +29,7 @@ import kasinoSimulaattori.controller.KasinoKontrolleri;
 
 import kasinoSimulaattori.simu.framework.Trace;
 import kasinoSimulaattori.simu.framework.Trace.Level;
+import kasinoSimulaattori.simu.model.KasinoDAO;
 import kasinoSimulaattori.simu.model.KasinoTulokset;
 
 import kasinoSimulaattori.view.ISimulaattorinUI;
@@ -47,6 +54,9 @@ public class MainApp extends Application implements ISimulaattorinUI {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+    	
+    	kirjautumisDialogi();
+    	
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Kasino simulaattori");
         this.primaryStage.setResizable(false);
@@ -123,6 +133,63 @@ public class MainApp extends Application implements ISimulaattorinUI {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+    
+    /**
+     * Kirjautumis dialogi mikä kysyy käyttäjänimen ja salasanan
+     * @param kayttaja Käyttäjä nimi
+     * @param salasana Salasana
+     */
+    private void kirjautumisDialogi() {
+    	Stage ikkuna = new Stage();
+    	BorderPane kirjautumisDialogi = new BorderPane();
+    	
+    	TextField kayttajaTF     = new TextField();
+    	PasswordField salasanaPF = new PasswordField();
+    	
+    	Label
+    		kayttajaLB = new Label(),
+    		salasanaLB = new Label();
+    	
+    	kayttajaLB.setText(" Käyttäjätunnus");
+    	salasanaLB.setText(" Salasana");
+    	
+    	HBox
+			kayttajaRivi = new HBox(),
+			salasanaRivi = new HBox();
+    	kayttajaRivi.setPadding(new Insets(8));
+    	salasanaRivi.setPadding(new Insets(8));
+    	
+    	kayttajaRivi.getChildren().addAll(kayttajaTF, kayttajaLB);
+    	salasanaRivi.getChildren().addAll(salasanaPF, salasanaLB);
+    	
+    	Button kirjauduButton = new Button();
+    	kirjauduButton.setText("Aseta kirjautumistiedot");
+    	kirjauduButton.setPadding(new Insets(8));
+    	kirjauduButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				KasinoDAO.getInstanssi().setKayttaja(kayttajaTF.getText());
+				KasinoDAO.getInstanssi().setSalasana(salasanaPF.getText());
+				
+				System.out.println(kayttajaTF.getText());
+				System.out.println(salasanaPF.getText());
+				ikkuna.close();
+			}
+    	});
+    	
+    	VBox rivit = new VBox();
+    	rivit.setPadding(new Insets(8,8,8,8));
+    	rivit.getChildren().addAll(kayttajaRivi, salasanaRivi, kirjauduButton);
+    	
+    	kirjautumisDialogi.setCenter(rivit);
+    	
+    	Scene scene = new Scene(kirjautumisDialogi);
+    	
+    	ikkuna.setTitle("Kirjautumistiedot");
+    	ikkuna.setScene(scene);
+    	ikkuna.showAndWait();
     }
     
 	/**
