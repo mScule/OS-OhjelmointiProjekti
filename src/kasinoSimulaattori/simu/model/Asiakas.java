@@ -7,7 +7,7 @@ import kasinoSimulaattori.simu.framework.Trace;
 /**
  * Kasinon asiakasluokka.
  * 
- * @author Jonathan Methuen
+ * @author Jonathan Methuen, Vilhelm Niemi
  */
 public class Asiakas implements IAsiakas {
 

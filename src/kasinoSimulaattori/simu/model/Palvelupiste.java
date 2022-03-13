@@ -11,7 +11,7 @@ import kasinoSimulaattori.util.Sijainti;
 /**
  * Kasinon palvelupisteiden yliluokka
  * 
- * @author Jonathan Methuen
+ * @author Jonathan Methuen, Vilhelm Niemi
  */
 public class Palvelupiste implements IPalvelupiste {
 

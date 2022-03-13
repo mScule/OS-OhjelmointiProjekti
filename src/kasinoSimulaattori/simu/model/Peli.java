@@ -15,7 +15,7 @@ import kasinoSimulaattori.util.Sijainti;
  * Kasinon blackjack pelin luokka. Seitsemän asiakasta voi pelata blackjack
  * pöydässä samaan aikaan. Asiakkaat voivat voittaa tai hävitä rahaa.
  * 
- * @author Jonathan Methuen
+ * @author Jonathan Methuen, Vilhelm Niemi
  */
 public class Peli extends Palvelupiste {
 

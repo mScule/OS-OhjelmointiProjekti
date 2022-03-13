@@ -9,14 +9,21 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * Musiikin hakeva ja käynnistävä apuluokka
+ * 
+ * @author Jonathan Methuen
+ */
 public class AudioPlayer {
 
 	private static File musicPath = new File("music\\gamecorner.wav");
 	private static Clip clip;
 	private static AudioInputStream audioInput;
-	
+
+	/**
+	 * Aloittaa musiikin soittamisen
+	 */
 	public static void playMusic() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-		//File musicPath = new File("music\\gamecorner.wav");
 
 		if (musicPath.exists()) {
 			audioInput = AudioSystem.getAudioInputStream(musicPath);
@@ -31,7 +38,10 @@ public class AudioPlayer {
 			System.out.println(clip.isOpen());
 		}
 	}
-	
+
+	/**
+	 * Lopettaa musiikin soittamisen
+	 */
 	public static void stopMusic() {
 		clip.stop();
 	}

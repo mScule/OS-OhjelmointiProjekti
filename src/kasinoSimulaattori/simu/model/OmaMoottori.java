@@ -23,7 +23,7 @@ import javafx.application.Platform;
 /**
  * Moottori, joka pyörittää simulaatiota kolmivaiheisesti.
  * 
- * @author Jonathan Methuen
+ * @author Jonathan Methuen, Vilhelm Niemi
  */
 public class OmaMoottori extends Moottori implements IOmaMoottori {
 

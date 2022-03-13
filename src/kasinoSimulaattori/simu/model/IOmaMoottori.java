@@ -7,7 +7,7 @@ import kasinoSimulaattori.simu.framework.IMoottori;
  * OmaMoottori luokan rajapinta. Perii IMoottori rajapinnan. Käytetään
  * datan hakemiseen OmaMoottori luokasta.
  * 
- * @author Jonathan Methuen
+ * @author Jonathan Methuen, Vilhelm Niemi
  */
 public interface IOmaMoottori extends IMoottori {
 

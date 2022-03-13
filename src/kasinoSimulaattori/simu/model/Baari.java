@@ -13,7 +13,7 @@ import kasinoSimulaattori.util.Sijainti;
  * Kasinon baari palvelupiste. Voi kasvattaa kasinon asiakkaan päihtyneisyys
  * arvoa, kun asiakas käy tällä palvelupisteellä.
  * 
- * @author Jonathan Methuen
+ * @author Jonathan Methuen, Vilhelm Niemi
  */
 public class Baari extends Palvelupiste {
 
