@@ -79,7 +79,7 @@ public class Asiakas implements IAsiakas {
 	};
 
 	/**
-	 * Asettaa tietyn asiakkaan ominaisuuden arvon.
+	 * Asettaa asiakkaan tietyn ominaisuuden arvon.
 	 * 
 	 * @param ominaisuus asiakkaan ominaisuus, jonka arvo asetetaan
 	 * @param arvo asetettava arvo
@@ -115,18 +115,38 @@ public class Asiakas implements IAsiakas {
 		return getOminaisuus(Ominaisuus.VARAKKUUS) - asiakkaanLahtoVarat;
 	}
 
-	public double getPoistumisaika() {
-		return kello.getAika() - getSaapumisaika();
-	}
-
+	/**
+	 * Hakee asiakkaan saapumisajan.
+	 * 
+	 * @return Asiakkaan saapumisaika
+	 */
 	public double getSaapumisaika() {
 		return saapumisaika;
 	}
 
+	/**
+	 * Laskee ja palauttaa asiakkaan viettämän ajan kasinolla.
+	 * 
+	 * @return Asiakkaan viettämä aika kasinolla
+	 */
+	public double getPoistumisaika() {
+		return kello.getAika() - getSaapumisaika();
+	}
+
+	/**
+	 * Asettaa asiakkaan saapumisajan.
+	 * 
+	 * @param saapumisaika Asetettava asiakkaan saapumisaika
+	 */
 	public void setSaapumisaika(double saapumisaika) {
 		this.saapumisaika = saapumisaika;
 	}
 
+	/**
+	 * Hakee asiakkaan id:n.
+	 * 
+	 * @return Asiakkaan id
+	 */
 	public int getId() {
 		return id;
 	}
