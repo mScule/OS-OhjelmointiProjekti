@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import kasinoSimulaattori.simu.framework.IMoottori;
 
 /**
- * OmaMoottori.java luokan rajapinta. Perii IMoottori rajapinnan. Käytetään
+ * OmaMoottori luokan rajapinta. Perii IMoottori rajapinnan. Käytetään
  * datan hakemiseen OmaMoottori luokasta.
  * 
  * @author Jonathan Methuen

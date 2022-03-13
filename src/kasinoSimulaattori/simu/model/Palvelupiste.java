@@ -9,7 +9,7 @@ import kasinoSimulaattori.simu.framework.Trace;
 import kasinoSimulaattori.util.Sijainti;
 
 /**
- * Kasinon palvelupisteiden yliluokka.
+ * Kasinon palvelupisteiden yliluokka
  * 
  * @author Jonathan Methuen
  */

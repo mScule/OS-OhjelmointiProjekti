@@ -2,7 +2,6 @@ package kasinoSimulaattori.simu.model;
 
 import java.util.PriorityQueue;
 
-import kasinoSimulaattori.eduni.distributions.ContinuousGenerator;
 import kasinoSimulaattori.eduni.distributions.Negexp;
 import kasinoSimulaattori.eduni.distributions.Uniform;
 import kasinoSimulaattori.simu.framework.Kello;
@@ -12,59 +11,77 @@ import kasinoSimulaattori.simu.framework.Trace;
 import kasinoSimulaattori.simu.model.Asiakas.Ominaisuus;
 import kasinoSimulaattori.util.Sijainti;
 
+/**
+ * Kasinon blackjack pelin luokka. Seitsemän asiakasta voi pelata blackjack
+ * pöydässä samaan aikaan. Asiakkaat voivat voittaa tai hävitä rahaa.
+ * 
+ * @author Jonathan Methuen
+ */
 public class Peli extends Palvelupiste {
 
+	/**
+	 * Määrittää yhden blackjack käden keston kymmeneksi simulaation aikayksiköksi
+	 */
 	private final double yhdenPelinKesto = 10;
-	private int pelaajatPoydassa;
-	private int pelipaikkojenMaara = 7;
+	/**
+	 * Määrittää blackjack pöydän pelipaikkojen määrän, joita on seitsemän
+	 */
+	private final int pelipaikkojenMaara = 7;
+	/**
+	 * Blackjack pöydän pelipistetaulukko
+	 */
 	private Asiakas[] pelipisteet = new Asiakas[pelipaikkojenMaara];
+	/**
+	 * Monta pelaajaa blackjack pöydässä on tällä hetkellä on pelaamassa
+	 */
+	private int pelaajatPoydassa;
+	/**
+	 * Kauan kasinon asiakkaat ovat jonottaneet blackjack pöydän jonossa
+	 */
 	private double jononpituus = 0;
+	/**
+	 * Kasino luokasta haettava blackjack pöydän pelien tuloksien arvonnassa
+	 * käytettävä Uniform jakauma
+	 */
 	private Uniform pelitUniform;
-	// Lista blackjack pöydästä poistuvien asiakkaiden poistumisajoista.
+	/**
+	 * Lista blackjack pöydästä poistuvien asiakkaiden poistumisajoista
+	 */
 	private PriorityQueue<Double> poistumisajatLista = new PriorityQueue<Double>();
 
+	/**
+	 * Peli palvelupisteen konstruktori. Hakee myös Kasino luokasta blackjack pöydän
+	 * pelien tuloksien arvonnassa käytetyn Uniform jakauman.
+	 * 
+	 * @param negexpGenerator      Palvelupisteen palveluaikojen arvontaan käytetty
+	 *                             Negexp jakauma
+	 * @param tapahtumalista       Viittaus simulaation tapahtumalistaan
+	 * @param sijainti             Palvelupisteen sijainti x- ja y-akselilla
+	 * @param nextTapahtumaUniform Seuraavan tapahtuman arvontaan käytetty Uniform
+	 *                             jakauma
+	 */
 	public Peli(Negexp generator, Tapahtumalista tapahtumalista, Sijainti sijainti, Uniform nextTapahtumaUniform) {
 		super(generator, tapahtumalista, sijainti, nextTapahtumaUniform);
 		pelitUniform = Kasino.getPelitUniform();
 	}
 
+	/**
+	 * Hakee monta pelaajaa blackjack pöydässä on tällä hetkellä on pelaamassa
+	 * 
+	 * @return Blackjack pöydässä pelaavien pelaajien määrä
+	 */
 	public int getPelaajatPoydassa() {
 		return pelaajatPoydassa;
 	}
 
-	// Pelikohtaiset säädöt:
-
-	// public int getMinBet() {
-	// return minBet;
-	// }
-
-	// public void setMinBet(int minBet) {
-	// this.minBet = minBet;
-	// }
-
-	// public int getMaxBet() {
-	// return maxBet;
-	// }
-
-	// public void setMaxBet(int maxBet) {
-	// this.maxBet = maxBet;
-	// }
-
-	// public double getPelinVoittoprosentti() {
-	// return pelinVoittoprosentti;
-	// }
-
-	// public void setPelinVoittoprosentti(double pelinVoittoprosentti) {
-	// this.pelinVoittoprosentti = pelinVoittoprosentti;
-	// }
-
-	// public double getPelinTasapeliprosentti() {
-	// return pelinTasapeliprosentti;
-	// }
-
-	// public void setPelinTasapeliprosentti(double pelinTasapeliprosentti) {
-	// this.pelinTasapeliprosentti = pelinTasapeliprosentti;
-	// }
+	/**
+	 * Hakee kauan kasinon asiakkaat ovat jonottaneet blackjack pöydän jonossa
+	 * 
+	 * @return Kauan kasinon asiakkaat ovat jonottaneet blackjack pöydän jonossa
+	 */
+	public double getJononpituus() {
+		return jononpituus;
+	}
 
 	@Override
 	public void aloitaPalvelu() {
@@ -86,6 +103,7 @@ public class Peli extends Palvelupiste {
 		boolean jatkaa = true;
 		boolean poistuu = false;
 
+		// Lasketaan palvelun kesto asiakkaan pelaamien pelien määrän avulla
 		while (jatkaa) {
 
 			// Alenna asiakkaan päihtyneisyyttä, kun hän pelaa
@@ -98,13 +116,13 @@ public class Peli extends Palvelupiste {
 			double asiakkaanPaihtymys = asiakas.getOminaisuus(Ominaisuus.PAIHTYMYS);
 
 			if (Kasino.getKasinonRahat() <= 0) {
-				// Lopeta simulointi.
+				// Lopeta simulointi, jos kasinon rahat loppuvat
 				Kasino.setVararikko(true);
 				break;
 			}
 
 			if (asiakkaanVarakkuus <= 0 || asiakkaanMieliala <= 0) {
-				// Asiakas poistuu kasinolta.
+				// Asiakas poistuu kasinolta
 				poistuu = true;
 				jatkaa = false;
 				break;
@@ -112,8 +130,6 @@ public class Peli extends Palvelupiste {
 
 			double asiakkaanKokOminaisuudet = asiakkaanMieliala * asiakkaanVarakkuus * asiakkaanUhkarohkeus
 					* asiakkaanPaihtymys;
-
-			// TODO pelaa peli:
 			double bet = pelitUniform.sample() * asiakkaanKokOminaisuudet;
 
 			if (bet * varakkuusYksiDouble > maxBet) {
@@ -184,15 +200,15 @@ public class Peli extends Palvelupiste {
 			}
 		}
 
+		// Aloitetaan palvelu ja määritetään mihin asiakas seuraavaksi siirtyy, jos
+		// kasino ei ole vararikossa
 		if (!Kasino.isVararikko()) {
 
-			// double palveluaika = generator.sample();
 			lisaaPalveluAikaa(palveluaika);
 
 			Trace.out(Trace.Level.INFO, "Aloitetaan pelipalvelu:" + " ["
 					+ this.getClass().toString() + " " + getId() + " ]");
 
-			// Asiakas otetaan sisään
 			TapahtumanTyyppi tyyppi;
 			if (!poistuu) {
 				tyyppi = arvoTapahtuma();
@@ -237,7 +253,6 @@ public class Peli extends Palvelupiste {
 		}
 	}
 
-	// Poistetaan palvelussa ollut asiakas asiakkaan ID:n mukaan
 	@Override
 	public Asiakas otaJonostaIDnMukaan(int poistettavanAsiakkaanID) {
 
@@ -256,9 +271,5 @@ public class Peli extends Palvelupiste {
 		}
 		System.err.println("Asiakasta " + poistettavanAsiakkaanID + "ei löytynyt jonosta.");
 		return null;
-	}
-
-	public double getJononpituus() {
-		return jononpituus;
 	}
 }

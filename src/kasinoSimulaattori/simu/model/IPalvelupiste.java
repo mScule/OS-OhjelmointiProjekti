@@ -1,10 +1,16 @@
 package kasinoSimulaattori.simu.model;
 
+/**
+ * Palvelupiste luokan rajapinta. Käytetään
+ * datan hakemiseen Palvelupiste luokasta.
+ * 
+ * @author Jonathan Methuen
+ */
 public interface IPalvelupiste {
 	/**
-     * Taulukossa palvelupisteen tietyntyyppisen datan indeksiä vastaava muuttumaton
-     * kokonaisluku
-     */
+	 * Taulukossa palvelupisteen tietyntyyppisen datan indeksiä vastaava muuttumaton
+	 * kokonaisluku
+	 */
 	public static final int ID = 0,
 			VARATTU = 1,
 			PALVELUAIKA = 2,
