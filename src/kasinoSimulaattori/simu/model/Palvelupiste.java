@@ -41,7 +41,7 @@ public class Palvelupiste implements IPalvelupiste {
 	/**
 	 * Palvelupisteen konstruktori
 	 * 
-	 * @param negexpGenerator      Palveulupisteen palveluaikojen arvontaan käytetty
+	 * @param negexpGenerator      Palvelupisteen palveluaikojen arvontaan käytetty
 	 *                             Negexp jakauma
 	 * @param tapahtumalista       Viittaus simulaation tapahtumalistaan
 	 * @param sijainti             Palvelupisteen sijainti x- ja y-akselilla
