@@ -142,6 +142,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
      */
     private void kirjautumisDialogi() {
     	Stage ikkuna = new Stage();
+    	ikkuna.setWidth(350);
     	BorderPane kirjautumisDialogi = new BorderPane();
     	
     	TextField kayttajaTF     = new TextField();
@@ -164,7 +165,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
     	salasanaRivi.getChildren().addAll(salasanaPF, salasanaLB);
     	
     	Button kirjauduButton = new Button();
-    	kirjauduButton.setText("Aseta kirjautumistiedot");
+    	kirjauduButton.setText("Aseta tietokannan kirjautumistiedot");
     	kirjauduButton.setPadding(new Insets(8));
     	kirjauduButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -187,7 +188,7 @@ public class MainApp extends Application implements ISimulaattorinUI {
     	
     	Scene scene = new Scene(kirjautumisDialogi);
     	
-    	ikkuna.setTitle("Kirjautumistiedot");
+    	ikkuna.setTitle("Tietokantaan kirjautumistiedot");
     	ikkuna.setScene(scene);
     	ikkuna.showAndWait();
     }
