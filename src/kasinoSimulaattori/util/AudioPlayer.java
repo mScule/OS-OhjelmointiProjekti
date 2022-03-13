@@ -25,6 +25,10 @@ public class AudioPlayer {
 	 */
 	public static void playMusic() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
+		if(clip != null && clip.isRunning()){
+			stopMusic();
+		}
+
 		if (musicPath.exists()) {
 			audioInput = AudioSystem.getAudioInputStream(musicPath);
 			clip = AudioSystem.getClip();
