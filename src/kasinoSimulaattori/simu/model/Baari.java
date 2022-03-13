@@ -1,6 +1,5 @@
 package kasinoSimulaattori.simu.model;
 
-import kasinoSimulaattori.eduni.distributions.ContinuousGenerator;
 import kasinoSimulaattori.eduni.distributions.Negexp;
 import kasinoSimulaattori.eduni.distributions.Uniform;
 import kasinoSimulaattori.simu.framework.Kello;
