@@ -60,7 +60,9 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
 		super(kontrolleri);
 
-		testaaTietokantaYhteys();
+		if (kontrolleri != null) {
+			testaaTietokantaYhteys();
+		}
 
 		Kasino.resetKasino();
 
@@ -413,25 +415,25 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	 * niin metodi kysyy käyttäjältä halutaanko uusi tietokanta luoda.
 	 */
 	private void testaaTietokantaYhteys() {
-		if(!kasinoDAO.yhteysOnnistuu()) {
-			boolean yritetaanLuodaanTietokanta = kontrolleri.kyllaTaiEiDialogi(
-				"Tietokantaan yhdistäminen epäonnistui. " +
-				"Syynä voi olla, ettei tietokantaa ole tai kirjautuminen tietokantaan annetuilla kirjautumistiedoilla ei onnistunut. " +
-				"Yritetäänkö luoda uusi tietokanta?"
-			);
-			
-			if(yritetaanLuodaanTietokanta) {
-				if(kasinoDAO.yritaLuodaTietokanta()) {
+		if (!kasinoDAO.yhteysOnnistuu()) {
+			boolean yritetaanLuodaanTietokanta = kontrolleri.kyllaTaiEiDialogi("Tietokantaan yhdistäminen epäonnistui. "
+					+ "Syynä voi olla, ettei tietokantaa ole tai kirjautuminen tietokantaan annetuilla kirjautumistiedoilla ei onnistunut. "
+					+ "Yritetäänkö luoda uusi tietokanta?");
+
+			if (yritetaanLuodaanTietokanta) {
+				if (kasinoDAO.yritaLuodaTietokanta()) {
 					kontrolleri.ilmoitusDialogi("Tietokannan luonti onnistui!");
 					tietokantayhteys = true;
 				} else
-					kontrolleri.virheilmoitusDialogi("Tietokannan luonti epäonnistui. Tarkista annetut tietokannan kirjautumistiedot.");
+					kontrolleri.virheilmoitusDialogi(
+							"Tietokannan luonti epäonnistui. Tarkista annetut tietokannan kirjautumistiedot.");
 			}
 		} else
 			tietokantayhteys = true;
-		
-		if(!tietokantayhteys)
-			kontrolleri.ilmoitusDialogi("Tietokanta yhteyttä ei luotu joten simulaation ajoja ei tallenneta tietokantaan.");
+
+		if (!tietokantayhteys)
+			kontrolleri.ilmoitusDialogi(
+					"Tietokanta yhteyttä ei luotu joten simulaation ajoja ei tallenneta tietokantaan.");
 	}
 
 	/**
