@@ -2,6 +2,7 @@ package kasinoSimulaattori;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -11,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -196,5 +198,37 @@ public class MainApp extends Application implements ISimulaattorinUI {
     @Override
     public void virheilmoitusDialogi(String viesti) {
     	gui.virheilmoitusDialogi(viesti);
+    }
+    
+    @Override
+    public void ilmoitusDialogi(String viesti) {
+    	Alert ilmoitus = new Alert(AlertType.INFORMATION);
+    	ilmoitus.setTitle("Ilmoitus");
+    	ilmoitus.setHeaderText("Ilmoitus");
+    	ilmoitus.setContentText(viesti);
+    	ilmoitus.show();
+    }
+    
+    @Override
+    public boolean kyllaTaiEiDialogi(String viesti) {
+    	Alert ilmoitus = new Alert(AlertType.CONFIRMATION);
+    	ilmoitus.setTitle("Varmistus");
+    	ilmoitus.setHeaderText("Varmistus:");
+    	ilmoitus.setContentText(viesti);
+    	
+    	ButtonType
+    		kyllaButton = new ButtonType("Kylla"),
+    		eiButton    = new ButtonType("Ei");
+    	
+    	ilmoitus.getButtonTypes().setAll(kyllaButton, eiButton);
+    	
+    	Optional<ButtonType> vastaus = ilmoitus.showAndWait();
+
+    	if (vastaus.get() == kyllaButton)
+    		return true;
+    	else if (vastaus.get() == eiButton)
+    		return false;
+    	else
+    		return false;
     }
 }

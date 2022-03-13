@@ -50,6 +50,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			sisaankayntiSijainti = new Sijainti(2 * 128, 4 * 128), uloskayntiSijainti = new Sijainti(4 * 128, 4 * 128);
 
 	private KasinoDAO kasinoDAO = KasinoDAO.getInstanssi();
+	private boolean tietokantayhteys = false;
 
 	/**
 	 * OmaMoottori konstruktori metodi
@@ -58,6 +59,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	 */
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
 		super(kontrolleri);
+
+		testaaTietokantaYhteys();
 
 		Kasino.resetKasino();
 
@@ -138,62 +141,59 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	public void lisaaPalvelupisteita(TapahtumanTyyppi palvelupisteTyyppi, int maara) {
 
 		switch (palvelupisteTyyppi) {
-			case SISAANKAYNTI:
-				tarkistaIntLuku(maara,
-						"Valitse lisättävien sisäänkäyntien lukumääräksi nolla tai joku positiivinen int luku.");
+		case SISAANKAYNTI:
+			tarkistaIntLuku(maara,
+					"Valitse lisättävien sisäänkäyntien lukumääräksi nolla tai joku positiivinen int luku.");
 
-				for (int i = 0; i < maara; i++) {
+			for (int i = 0; i < maara; i++) {
 
-					palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)
-							.add(new Sisaankaynti(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()),
-									tapahtumalista, sisaankayntiSijainti,
-									new Uniform(3, TapahtumanTyyppi.values().length, Kasino.getSeed())));
-				}
-				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.sisaankaynninHinta * maara));
-				break;
+				palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)
+						.add(new Sisaankaynti(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()),
+								tapahtumalista, sisaankayntiSijainti,
+								new Uniform(3, TapahtumanTyyppi.values().length, Kasino.getSeed())));
+			}
+			Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.sisaankaynninHinta * maara));
+			break;
 
-			case ULOSKAYNTI:
-				tarkistaIntLuku(maara,
-						"Valitse lisättävien uloskäyntien lukumääräksi nolla tai joku positiivinen int luku.");
+		case ULOSKAYNTI:
+			tarkistaIntLuku(maara,
+					"Valitse lisättävien uloskäyntien lukumääräksi nolla tai joku positiivinen int luku.");
 
-				for (int i = 0; i < maara; i++) {
+			for (int i = 0; i < maara; i++) {
 
-					palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI)
-							.add(new Uloskaynti(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()),
-									tapahtumalista,
-									uloskayntiSijainti, new Uniform(1, 2, Kasino.getSeed())));
-				}
-				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.uloskaynninHinta * maara));
-				break;
+				palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI)
+						.add(new Uloskaynti(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()), tapahtumalista,
+								uloskayntiSijainti, new Uniform(1, 2, Kasino.getSeed())));
+			}
+			Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.uloskaynninHinta * maara));
+			break;
 
-			case BAARI:
-				tarkistaIntLuku(maara,
-						"Valitse lisättävien baarien lukumääräksi nolla tai joku positiivinen int luku.");
+		case BAARI:
+			tarkistaIntLuku(maara, "Valitse lisättävien baarien lukumääräksi nolla tai joku positiivinen int luku.");
 
-				for (int i = 0; i < maara; i++) {
-					palvelupisteet.get(TapahtumanTyyppi.BAARI)
-							.add(new Baari(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()), tapahtumalista,
-									baariSijainti, new Uniform(2, TapahtumanTyyppi.values().length, Kasino.getSeed())));
-				}
-				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.baarinHinta * maara));
-				break;
+			for (int i = 0; i < maara; i++) {
+				palvelupisteet.get(TapahtumanTyyppi.BAARI)
+						.add(new Baari(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()), tapahtumalista,
+								baariSijainti, new Uniform(2, TapahtumanTyyppi.values().length, Kasino.getSeed())));
+			}
+			Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.baarinHinta * maara));
+			break;
 
-			case PELI:
-				tarkistaIntLuku(maara,
-						"Valitse lisättävien blackjack pöytien lukumääräksi nolla tai joku positiivinen int luku.");
+		case PELI:
+			tarkistaIntLuku(maara,
+					"Valitse lisättävien blackjack pöytien lukumääräksi nolla tai joku positiivinen int luku.");
 
-				for (int i = 0; i < maara; i++) {
-					palvelupisteet.get(TapahtumanTyyppi.PELI)
-							.add(new Peli(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()), tapahtumalista,
-									blackjackSijainti,
-									new Uniform(2, TapahtumanTyyppi.values().length, Kasino.getSeed())));
-				}
-				Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.pelipoydanHinta * maara));
-				break;
+			for (int i = 0; i < maara; i++) {
+				palvelupisteet.get(TapahtumanTyyppi.PELI)
+						.add(new Peli(new Negexp(Kasino.getKeskimPalveluaika(), Kasino.getSeed()), tapahtumalista,
+								blackjackSijainti, new Uniform(2, TapahtumanTyyppi.values().length, Kasino.getSeed())));
+			}
+			Kasino.setYllapitohinta(Kasino.getYllapitohinta() + (Kasino.pelipoydanHinta * maara));
+			break;
 
-			default:
-				System.err.println("Palvelupiste tyyppiä ei löytynyt.");
-				break;
+		default:
+			System.err.println("Palvelupiste tyyppiä ei löytynyt.");
+			break;
 		}
 	}
 
@@ -343,32 +343,32 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 			for (Palvelupiste piste : pisteet.getValue()) {
 				switch (pisteet.getKey()) {
-					case SISAANKAYNTI:
-						Sisaankaynti sisaankaynti = (Sisaankaynti) piste;
-						sisaankayntiJono += sisaankaynti.jono.size();
-						sisaankayntiPalveltavat += sisaankaynti.onVarattu() ? 1 : 0;
-						break;
+				case SISAANKAYNTI:
+					Sisaankaynti sisaankaynti = (Sisaankaynti) piste;
+					sisaankayntiJono += sisaankaynti.jono.size();
+					sisaankayntiPalveltavat += sisaankaynti.onVarattu() ? 1 : 0;
+					break;
 
-					case ULOSKAYNTI:
-						Uloskaynti uloskaynti = (Uloskaynti) piste;
-						uloskayntiJono += uloskaynti.jono.size();
-						uloskayntiPalveltavat += uloskaynti.onVarattu() ? 1 : 0;
-						break;
+				case ULOSKAYNTI:
+					Uloskaynti uloskaynti = (Uloskaynti) piste;
+					uloskayntiJono += uloskaynti.jono.size();
+					uloskayntiPalveltavat += uloskaynti.onVarattu() ? 1 : 0;
+					break;
 
-					case BAARI:
-						Baari baari = (Baari) piste;
-						baariJono += baari.jono.size();
-						baariPalveltavat += baari.onVarattu() ? 1 : 0;
-						break;
+				case BAARI:
+					Baari baari = (Baari) piste;
+					baariJono += baari.jono.size();
+					baariPalveltavat += baari.onVarattu() ? 1 : 0;
+					break;
 
-					case PELI:
-						Peli peli = (Peli) piste;
-						blackjackJono += peli.getJononpituus();
-						blackjackPalveltavat += peli.getPelaajatPoydassa();
-						break;
+				case PELI:
+					Peli peli = (Peli) piste;
+					blackjackJono += peli.getJononpituus();
+					blackjackPalveltavat += peli.getPelaajatPoydassa();
+					break;
 
-					default:
-						break;
+				default:
+					break;
 				}
 			}
 			if (kontrolleri != null) {
@@ -410,6 +410,32 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	}
 
 	/**
+	 * Testaa tietokantayhteyden. Jos tietokantaan ei pystytä muodostamaan yhteyttä,
+	 * niin metodi kysyy käyttäjältä halutaanko uusi tietokanta luoda.
+	 */
+	private void testaaTietokantaYhteys() {
+		if(!kasinoDAO.yhteysOnnistuu()) {
+			boolean yritetaanLuodaanTietokanta = kontrolleri.kyllaTaiEiDialogi(
+				"Tietokantaan yhdistäminen epäonnistui. " +
+				"Syynä voi olla, ettei tietokantaa ole. " +
+				"Yritetäänkö luoda uusi tietokanta?"
+			);
+			
+			if(yritetaanLuodaanTietokanta) {
+				if(kasinoDAO.yritaLuodaTietokanta()) {
+					kontrolleri.ilmoitusDialogi("Tietokannan luonti onnistui!");
+					tietokantayhteys = true;
+				} else
+					kontrolleri.virheilmoitusDialogi("Tietokannan luonti epäonnistui.");
+			}
+		} else
+			tietokantayhteys = true;
+		
+		if(!tietokantayhteys)
+			kontrolleri.ilmoitusDialogi("Tietokanta yhteyttä ei luotu joten simulaation ajoja ei tallenneta tietokantaan.");
+	}
+
+	/**
 	 * Kutsuu kontrollerin visualisointi säikeen lopettavaa metodia ja välittää
 	 * kontrolleriin "Simulaatio päättyi" viestin.
 	 */
@@ -446,29 +472,33 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 				getTulokset()[IOmaMoottori.TULOS_KESKIM_VARAKKUUS],
 				getTulokset()[IOmaMoottori.TULOS_KESKIMAARAINEN_LAPIMENOAIKA]);
 
-		if (kasinoDAO.lisaaTulokset(uudetTulokset)) {
-			// Haetaan kaikki mitatut tulokset tietokannasta
-			KasinoTulokset[] kaikkiTulokset = kasinoDAO.haeTulokset();
+		// DAO:n kanssa toimiminen
+		if (tietokantayhteys) {
+			if (kasinoDAO.lisaaTulokset(uudetTulokset)) {
+				// Haetaan kaikki mitatut tulokset tietokannasta
+				KasinoTulokset[] kaikkiTulokset = kasinoDAO.haeTulokset();
 
-			if (kaikkiTulokset == null) {
-				if (kontrolleri != null) {
-					kontrolleri.virheilmoitusDialogi("Tulosten hakeminen tietokannasta epäonnistui.");
+				if (kaikkiTulokset == null) {
+					if (kontrolleri != null)
+						kontrolleri.virheilmoitusDialogi("Tulosten hakeminen tietokannasta epäonnistui.");
+				} else {
+					// Infotasolla tulostetaan kaikki tulokset konsoliin
+					int i = 1;
+					for (KasinoTulokset t : kaikkiTulokset)
+						Trace.out(Trace.Level.INFO, "Ajo (" + i++ + ")\n" + t + "\n");
+
+					// Avataan uusimmat tulokset ikkunassa
+					if (kontrolleri != null)
+						kontrolleri.naytaTulokset(kaikkiTulokset);
 				}
 			} else {
-				// Infotasolla tulostetaan kaikki tulokset konsoliin
-				int i = 1;
-				for (KasinoTulokset t : kaikkiTulokset)
-					Trace.out(Trace.Level.INFO, "Ajo (" + i++ + ")\n" + t + "\n");
-
-				// Avataan uusimmat tulokset ikkunassa
-				if (kontrolleri != null) {
-					kontrolleri.naytaTulokset(kaikkiTulokset);
-				}
+				if (kontrolleri != null)
+					kontrolleri.virheilmoitusDialogi("Tulosten lisäys tietokantaan epäonnistui.");
 			}
 		} else {
-			if (kontrolleri != null) {
-				kontrolleri.virheilmoitusDialogi("Tulosten lisäys tietokantaan epäonnistui.");
-			}
+			KasinoTulokset[] uudetTuloksetTaulukossa = new KasinoTulokset[] { uudetTulokset };
+			if (kontrolleri != null)
+				kontrolleri.naytaTulokset(uudetTuloksetTaulukossa);
 		}
 	}
 
@@ -562,21 +592,21 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	@Override
 	public LinkedList<Palvelupiste> getPalvelupisteet(int palvelu) {
 		switch (palvelu) {
-			case IOmaMoottori.PALVELUTYYPPI_SISAANKAYNTI:
-				LinkedList<Palvelupiste> sisaankaynnit = palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI);
-				return sisaankaynnit;
-			case IOmaMoottori.PALVELUTYYPPI_ULOSKAYNTI:
-				LinkedList<Palvelupiste> uloskaynnit = palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI);
-				return uloskaynnit;
-			case IOmaMoottori.PALVELUTYYPPI_BAARI:
-				LinkedList<Palvelupiste> baarit = palvelupisteet.get(TapahtumanTyyppi.BAARI);
-				return baarit;
-			case IOmaMoottori.PALVELUTYYPPI_PELI:
-				LinkedList<Palvelupiste> pelit = palvelupisteet.get(TapahtumanTyyppi.PELI);
-				return pelit;
-			default:
-				Trace.out(Level.ERR, "getPalvelupisteet() - Tuntematon palvelutyyppi.");
-				return null;
+		case IOmaMoottori.PALVELUTYYPPI_SISAANKAYNTI:
+			LinkedList<Palvelupiste> sisaankaynnit = palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI);
+			return sisaankaynnit;
+		case IOmaMoottori.PALVELUTYYPPI_ULOSKAYNTI:
+			LinkedList<Palvelupiste> uloskaynnit = palvelupisteet.get(TapahtumanTyyppi.ULOSKAYNTI);
+			return uloskaynnit;
+		case IOmaMoottori.PALVELUTYYPPI_BAARI:
+			LinkedList<Palvelupiste> baarit = palvelupisteet.get(TapahtumanTyyppi.BAARI);
+			return baarit;
+		case IOmaMoottori.PALVELUTYYPPI_PELI:
+			LinkedList<Palvelupiste> pelit = palvelupisteet.get(TapahtumanTyyppi.PELI);
+			return pelit;
+		default:
+			Trace.out(Level.ERR, "getPalvelupisteet() - Tuntematon palvelutyyppi.");
+			return null;
 		}
 	}
 

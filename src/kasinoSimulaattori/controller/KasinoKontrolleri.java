@@ -184,6 +184,15 @@ public class KasinoKontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV {
 		Platform.runLater(() -> ui.virheilmoitusDialogi(viesti));
 	}
 	
+	@Override
+	public void ilmoitusDialogi(String viesti) {
+		Platform.runLater(() -> ui.ilmoitusDialogi(viesti));
+	}
+	
+	@Override
+	public boolean kyllaTaiEiDialogi(String viesti) {
+		return ui.kyllaTaiEiDialogi(viesti);
+	}
 	// IKontrolleriVtoM:
 
 	@Override
