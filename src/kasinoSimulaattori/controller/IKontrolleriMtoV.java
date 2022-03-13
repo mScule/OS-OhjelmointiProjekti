@@ -195,4 +195,18 @@ public interface IKontrolleriMtoV {
 	 * @param viesti Virheilmoitus
 	 */
 	public void virheilmoitusDialogi(String viesti);
+	
+	/**
+	 * Näyttää neutraalin ilmoituksen ikkunassa.
+	 * @param viesti Ilmoitus
+	 */
+	public void ilmoitusDialogi(String viesti);
+	
+	/**
+	 * Näyttää kysymyksen ikkunassa,
+	 * johon käyttäjä voi vastata kyllä tai ei.
+	 * @param viesti Viesti joka näytetään käyttäjälle.
+	 * @return true Jos käyttäjä valitsi kyllä. false Jos käyttäjä valitsi ei.
+	 */
+	public boolean kyllaTaiEiDialogi(String viesti);
 }

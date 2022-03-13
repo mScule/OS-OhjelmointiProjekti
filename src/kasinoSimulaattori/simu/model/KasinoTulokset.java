@@ -85,6 +85,7 @@ public class KasinoTulokset {
 		this.aika              = aika;
 		this.mainostus         = mainostus;
 		this.maksimiPanos      = maksimiPanos;
+		this.minimiPanos      = minimiPanos;
 		this.yllapito          = yllapito;
 		this.tasapeliProsentti = tasapeliProsentti;
 		this.voittoProsentti   = voittoProsentti;

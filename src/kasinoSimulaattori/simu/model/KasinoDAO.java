@@ -9,6 +9,15 @@ import java.util.ArrayList;
  */
 public class KasinoDAO {
 	
+	// Tietokannan yhteys tietoja
+	private final String
+		TIETOKANNAN_NIMI = "testi",
+		URL = "jdbc:mariadb://localhost";
+	
+	private String
+		kayttaja = "root",
+		salasana = "41115dc5-b149-4753-9894-e7b08764ed2b";
+	
 	// Luokka on singleton
 	
 	private static KasinoDAO instanssi;
@@ -21,26 +30,102 @@ public class KasinoDAO {
 		
 		return instanssi;
 	}
+	
+	public void setKayttaja(String kayttaja) {
+		this.kayttaja = kayttaja;
+	}
+	
+	public void setSalasana(String salasana) {
+		this.salasana = salasana;
+	}
 
 	/**
 	 * Yrittää luoda yhteyden kasinon tuloksia ylläpitävään relaatiotietokantaan.
 	 * @return Palauttaa tietokantaan yhteyden luoneen yhteysolion jos yhteys onnistuu.
 	 *         Yhteyden luonnin epäonnistuessa palautuu null pointteri.
 	 */
-	private Connection luoYhteys() throws SQLException {
+	private Connection luoYhteys(String tietokanta) throws SQLException {
 		
 		Connection yhteys;
 		
-		final String
-			URL      = "jdbc:mariadb://localhost/kasino",
-			KAYTTAJA = "root",
-			SALASANA = "41115dc5-b149-4753-9894-e7b08764ed2b";
+		if (!tietokanta.equals(""))
+			tietokanta = "/" + tietokanta;
+		
+		final String KOOTTU_URL = URL + tietokanta;
 
 		yhteys = DriverManager.getConnection(
-			URL + "?user=" + KAYTTAJA + "&password=" + SALASANA
+			KOOTTU_URL + "?user=" + kayttaja + "&password=" + salasana
 		);
 
 		return yhteys;
+	}
+	
+	/**
+	 * Kokeileee luoda yhteyden tietokantaan.
+	 */
+	public boolean yhteysOnnistuu() {
+		try (Connection yhteys = luoYhteys(TIETOKANNAN_NIMI)) {
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * Yrittää luoda tietokannan, ja lisätä sinne taulukon "tulokset"
+	 */
+	public boolean yritaLuodaTietokanta() {
+		try (
+			Connection luotavaTietokanta = luoYhteys("");
+			Statement  tietokannanLuonti = luotavaTietokanta.createStatement();
+		) {
+			tietokannanLuonti.executeUpdate("CREATE DATABASE " + TIETOKANNAN_NIMI);
+			
+			tietokannanLuonti.close();
+			luotavaTietokanta.close();
+			
+			try (
+				Connection luotuTietokanta   = luoYhteys(TIETOKANNAN_NIMI);
+				Statement  taulukoidenLuonti = luotuTietokanta.createStatement();
+			){
+				taulukoidenLuonti.executeUpdate(
+					"CREATE TABLE tulokset ( "                 +
+					"	TulosID int NOT NULL AUTO_INCREMENT, " +
+
+					"	Aika              REAL, " +
+
+					"	Mainostus         REAL, " +
+					"	MaksimiPanos      REAL, " +
+					"	MinimiPanos       REAL, " + 
+					"	Yllapito          REAL, " +
+					"	Tasapeliprosentti REAL, " +
+					"	Voittoprosentti   REAL, " +
+
+					"	BlackjackPoydat INT, " +
+					"	Baarit          INT, " +
+					"	Sisaankaynnit   INT, " +
+					"	Uloskaynnit     INT, " +
+
+					"	Rahat  REAL, " +
+					"	Voitot REAL, " +
+
+					"	SaapuneetAsiakkaat INT, "         +
+					"	PalvellutAsiakkaat INT, "         +
+					"	KeskimaarainenJonotusaika REAL, " +
+					"	Kokonaisoleskeluaika REAL, "      +
+
+					"	KeskimaarainenOnnellisuus REAL, "  +
+					"	KeskimaarainenPaihtymys REAL, "    +
+					"	KeskimaarainenVarallisuus REAL, "  +
+					"	KeskimaarainenLapimenoaika REAL, " +
+
+					"	PRIMARY KEY (TulosID) " +
+					"); "
+				);
+			} catch (SQLException e) { return false; }
+		} catch (SQLException e)     { return false; }
+		
+		return true;
 	}
 	
 	/**
@@ -50,7 +135,7 @@ public class KasinoDAO {
 	 */
 	public boolean lisaaTulokset(KasinoTulokset tulokset) {
 		try(
-			Connection connection = luoYhteys();
+			Connection connection = luoYhteys(TIETOKANNAN_NIMI);
 			Statement  statement  = connection.createStatement();
 		) {
 			statement.executeUpdate(
@@ -127,7 +212,7 @@ public class KasinoDAO {
 		ArrayList<KasinoTulokset> haetut = new ArrayList<KasinoTulokset>();
 		
 		try(
-			Connection connection = luoYhteys();
+			Connection connection = luoYhteys(TIETOKANNAN_NIMI);
 			Statement  statement  = connection.createStatement();
 			ResultSet  resultSet  = statement.executeQuery("SELECT * FROM tulokset");
 		) {

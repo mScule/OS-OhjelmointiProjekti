@@ -25,8 +25,6 @@ public class TuloksetGUIController {
 	@FXML
 	private Label keskLapimenoaika;
 	@FXML
-	private Label keskOleskeluaika;
-	@FXML
 	private Label keskOnnellisuus;
 	@FXML
 	private Label keskPaihtymys;
