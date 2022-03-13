@@ -9,8 +9,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -76,23 +74,15 @@ public class MainApp extends Application implements ISimulaattorinUI {
     public IKontrolleriVtoM getController() {
     	return kontrolleri;
     }
-    
-    /**
-     * Initializes the root layout and tries to load the last opened
-     * person file.
-     */
+
     private void initMainLayout() {
         try {
-            // Load root layout from fxml file.
+            
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/MainLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-
-            // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
-
-            // Give the controller access to the main app.
             gui = loader.getController();
             gui.setMainApp(this);
             
@@ -104,15 +94,10 @@ public class MainApp extends Application implements ISimulaattorinUI {
     
     private void showAlapaneelit() {
         try {
-            // Load layout.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/Layout.fxml"));
             AnchorPane alapaneelit = (AnchorPane) loader.load();
-            
-            // Set layout into the center of root layout.
             rootLayout.setCenter(alapaneelit);
-
-            // Give the controller access to the main app.
             gui = loader.getController();
             gui.setMainApp(this);
             
@@ -166,12 +151,9 @@ public class MainApp extends Application implements ISimulaattorinUI {
 	public void naytaTulokset(KasinoTulokset[] tulokset) {
 		try {
 	        FXMLLoader loader = new FXMLLoader();
-	        
 	        loader.setLocation(MainApp.class.getResource("view/TuloksetGUI.fxml"));
 			Scene scene = new Scene(loader.load());
-			
 			TuloksetGUIController tuloksetKontrolleri = loader.getController();
-	        
 	        Stage tuloksetStage = new Stage();
 	        tuloksetStage.setScene(scene);
 	        tuloksetStage.setResizable(false);
