@@ -112,9 +112,6 @@ public final class Kasino {
         // Palauta tämä luokka oletusarvoihinsa
 
         kasinonRahat = kasinonLahtoRahat;
-        asiakkaidenKeskimMieliala = 0;
-        asiakkaidenKeskimPaihtyneisyys = 0;
-        asiakkaidenKeskimVarakkuus = 0;
         yllapitohinta = minimiYllapitohinta;
         mainoskulut = 0;
         seed = 1337;
