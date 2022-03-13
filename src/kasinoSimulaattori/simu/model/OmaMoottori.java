@@ -416,7 +416,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 		if(!kasinoDAO.yhteysOnnistuu()) {
 			boolean yritetaanLuodaanTietokanta = kontrolleri.kyllaTaiEiDialogi(
 				"Tietokantaan yhdistäminen epäonnistui. " +
-				"Syynä voi olla, ettei tietokantaa ole. " +
+				"Syynä voi olla, ettei tietokantaa ole tai kirjautuminen tietokantaan annetuilla kirjautumistiedoilla ei onnistunut. " +
 				"Yritetäänkö luoda uusi tietokanta?"
 			);
 			
@@ -425,7 +425,7 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 					kontrolleri.ilmoitusDialogi("Tietokannan luonti onnistui!");
 					tietokantayhteys = true;
 				} else
-					kontrolleri.virheilmoitusDialogi("Tietokannan luonti epäonnistui.");
+					kontrolleri.virheilmoitusDialogi("Tietokannan luonti epäonnistui. Tarkista annetut tietokannan kirjautumistiedot.");
 			}
 		} else
 			tietokantayhteys = true;
