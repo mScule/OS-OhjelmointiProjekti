@@ -23,7 +23,7 @@ import javafx.application.Platform;
 /**
  * Moottori, joka pyörittää simulaatiota kolmivaiheisesti.
  * 
- * @author Jonathan Methuen
+ * @author Jonathan Methuen, Vilhelm Niemi
  */
 public class OmaMoottori extends Moottori implements IOmaMoottori {
 
@@ -31,13 +31,11 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 	private Saapumisprosessi saapumisprosessi;
 
-	private int saapuneidenAsiakkaidenMaara = 0, poistuneidenAsiakkaidenMaara = 0;
-
-	private double poistumisajatSummattuna = 0.0;
-
 	private List<Asiakas> asiakkaatKasinolla = Collections.synchronizedList(new LinkedList<Asiakas>());
 
 	private double[] tulokset = new double[IOmaMoottori.TULOSTEN_MAARA];
+
+	private int saapuneidenAsiakkaidenMaara = 0, poistuneidenAsiakkaidenMaara = 0;
 
 	private double poistuneidenAsiakKokMielentila;
 	private double poistuneidenAsiakKokVarakkuus;
@@ -45,6 +43,8 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 	private double poistuneidenAsiakKokPaihtyneisyys;
 
 	private double ajanjaksoltaKulutMaksettu = 0;
+
+	private double poistumisajatSummattuna = 0.0;
 
 	private Sijainti baariSijainti = new Sijainti(1 * 128, 1 * 128), blackjackSijainti = new Sijainti(5 * 128, 1 * 128),
 			sisaankayntiSijainti = new Sijainti(2 * 128, 4 * 128), uloskayntiSijainti = new Sijainti(4 * 128, 4 * 128);
@@ -300,7 +300,6 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 			}
 
 			nykysijainti = palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI).get(0).getSijainti();
-			// palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI)[0].lisaaJonoon(uusiA);
 
 			// Laita asiakas sisäänkäyntiin, jossa on pienin jono
 			LinkedList<Palvelupiste> pisteet = palvelupisteet.get(TapahtumanTyyppi.SISAANKAYNTI);
@@ -557,15 +556,11 @@ public class OmaMoottori extends Moottori implements IOmaMoottori {
 
 		// Asiakkaiden keskimääräiset ominaisuudet
 
-		// double keskimMieliala = 0;
-		// double keskimVarakkuus = 0;
-		// double keskimUhkarohkeus = 0;
-		// double keskimPaihtymys = 0;
-
 		double kokonaisMieliala = 0;
 		double kokonaisVarakkuus = 0;
 		double kokonaisUhkarohkeus = 0;
 		double kokonaisPaihtymys = 0;
+
 		synchronized (asiakkaatKasinolla) {
 			if (asiakkaatKasinolla != null && asiakkaatKasinolla.size() != 0) {
 				for (Asiakas asiakas : asiakkaatKasinolla) {

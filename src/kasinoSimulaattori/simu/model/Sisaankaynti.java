@@ -1,6 +1,5 @@
 package kasinoSimulaattori.simu.model;
 
-import kasinoSimulaattori.eduni.distributions.ContinuousGenerator;
 import kasinoSimulaattori.eduni.distributions.Negexp;
 import kasinoSimulaattori.eduni.distributions.Uniform;
 import kasinoSimulaattori.simu.framework.Kello;
@@ -8,11 +7,27 @@ import kasinoSimulaattori.simu.framework.Tapahtuma;
 import kasinoSimulaattori.simu.framework.Tapahtumalista;
 import kasinoSimulaattori.util.Sijainti;
 
+/**
+ * Kasinon sisäänkäynti luokka. Asiakkaita palvellaan ensimmäisenä tässä
+ * luokassa, kun he saapuvat kasinolle.
+ * 
+ * @author Jonathan Methuen, Vilhelm Niemi
+ */
 public class Sisaankaynti extends Palvelupiste {
 
-	public Sisaankaynti(Negexp generator, Tapahtumalista tapahtumalista, Sijainti sijainti, Uniform nextTapahtumaUniform) {
-		super(generator, tapahtumalista, sijainti, nextTapahtumaUniform);
-		// nextTapahtumaUniform = new Uniform(3, TapahtumanTyyppi.values().length, Kasino.getSeed());
+	/**
+	 * Palvelupisteen konstruktori
+	 * 
+	 * @param negexpGenerator      Palvelupisteen palveluaikojen arvontaan käytetty
+	 *                             Negexp jakauma
+	 * @param tapahtumalista       Viittaus simulaation tapahtumalistaan
+	 * @param sijainti             Palvelupisteen sijainti x- ja y-akselilla
+	 * @param nextTapahtumaUniform Seuraavan tapahtuman arvontaan käytetty Uniform
+	 *                             jakauma
+	 */
+	public Sisaankaynti(Negexp negexpGenerator, Tapahtumalista tapahtumalista, Sijainti sijainti,
+			Uniform nextTapahtumaUniform) {
+		super(negexpGenerator, tapahtumalista, sijainti, nextTapahtumaUniform);
 	}
 
 	@Override

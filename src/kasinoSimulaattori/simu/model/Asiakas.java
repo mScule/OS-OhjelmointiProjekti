@@ -7,7 +7,7 @@ import kasinoSimulaattori.simu.framework.Trace;
 /**
  * Kasinon asiakasluokka.
  * 
- * @author Jonathan Methuen
+ * @author Jonathan Methuen, Vilhelm Niemi
  */
 public class Asiakas implements IAsiakas {
 
@@ -82,7 +82,7 @@ public class Asiakas implements IAsiakas {
 	 * Asettaa asiakkaan tietyn ominaisuuden arvon.
 	 * 
 	 * @param ominaisuus asiakkaan ominaisuus, jonka arvo asetetaan
-	 * @param arvo asetettava arvo
+	 * @param arvo       asetettava arvo
 	 */
 	public void setOminaisuus(Ominaisuus ominaisuus, Double arvo) {
 		ominaisuudet[ominaisuus.ordinal()] = arvo;

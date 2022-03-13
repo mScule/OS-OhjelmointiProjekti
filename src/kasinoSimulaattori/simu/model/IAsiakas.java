@@ -1,13 +1,13 @@
 package kasinoSimulaattori.simu.model;
 
 /**
- * Asiakas.java luokan rajapinta. Käytetään asiakkaan datan hakemiseen.
+ * Asiakas luokan rajapinta. Käytetään asiakkaan datan hakemiseen.
  * 
  * @author Jonathan Methuen
  */
 public interface IAsiakas {
     /**
-     * Taulukossa asiakkaan tietyn tyyppisen datan indeksiä vastaava muuttumaton
+     * Taulukossa asiakkaan tietyntyyppisen datan indeksiä vastaava muuttumaton
      * kokonaisluku
      */
     public static final int ID = 0,

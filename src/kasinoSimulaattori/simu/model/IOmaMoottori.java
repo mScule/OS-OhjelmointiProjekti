@@ -4,15 +4,15 @@ import java.util.LinkedList;
 import kasinoSimulaattori.simu.framework.IMoottori;
 
 /**
- * OmaMoottori.java luokan rajapinta. Perii IMoottori rajapinnan. Käytetään
+ * OmaMoottori luokan rajapinta. Perii IMoottori rajapinnan. Käytetään
  * datan hakemiseen OmaMoottori luokasta.
  * 
- * @author Jonathan Methuen
+ * @author Jonathan Methuen, Vilhelm Niemi
  */
 public interface IOmaMoottori extends IMoottori {
 
 	/**
-	 * Taulukossa kasinon tietyn tyyppisen tuloksen indeksiä vastaava muuttumaton
+	 * Taulukossa kasinon tietyntyyppisen tuloksen indeksiä vastaava muuttumaton
 	 * kokonaisluku
 	 */
 	public static final int TULOS_AIKA = 0,
@@ -47,7 +47,7 @@ public interface IOmaMoottori extends IMoottori {
 	public double[] getTulokset();
 
 	/**
-	 * Hakee ja palauttaa kaikki olemassa olevat tietyn tyyppisen palvelupisteen
+	 * Hakee ja palauttaa kaikki olemassa olevat tietyntyyppisen palvelupisteen
 	 * oliot.
 	 * 
 	 * @param palvelu palvelupistetyypin enumin numeerinen arvo

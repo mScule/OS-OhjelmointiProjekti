@@ -2,7 +2,7 @@ package kasinoSimulaattori.simu.framework;
 
 import kasinoSimulaattori.simu.model.TapahtumanTyyppi;
 
-public interface IMoottori { // UUSI
+public interface IMoottori {
 		
 	// Kontrolleri käyttää tätä rajapintaa
 	
